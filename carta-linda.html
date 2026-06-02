@@ -855,6 +855,11 @@
       background: linear-gradient(135deg, rgba(41, 121, 184, 0.22), rgba(200, 216, 240, 0.08));
     }
 
+    .accion-reset {
+      border-color: rgba(255, 255, 255, 0.16);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(125, 143, 166, 0.08));
+    }
+
     .contador-row {
       display: flex;
       flex-wrap: wrap;
@@ -991,6 +996,11 @@
     .notificacion-viaje.azul {
       background: rgba(94, 170, 224, 0.16);
       border-color: rgba(94, 170, 224, 0.28);
+    }
+
+    .notificacion-viaje.clara {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.22);
     }
 
     @keyframes subir-notificacion {
@@ -1291,7 +1301,10 @@
             <span class="contador-chip" id="wishCounterChip">Deseos lanzados: 0/10</span>
             <span class="contador-chip" id="wishRestantesChip">Tiradas desbloqueadas: 0</span>
           </div>
-          <button type="button" class="accion-viaje-btn accion-azul" id="deseoBtn" disabled>Necesitas una conchita primero</button>
+          <div class="mood-row">
+            <button type="button" class="accion-viaje-btn accion-azul" id="deseoBtn" disabled>Necesitas una conchita primero</button>
+            <button type="button" class="accion-viaje-btn accion-reset" id="resetViajeBtn">Empezar de nuevo</button>
+          </div>
           <div class="notificaciones-viaje" id="deseoFx" aria-hidden="true"></div>
           <div class="deseo-burbuja" id="deseoBurbuja" aria-live="polite"></div>
           <div class="burbuja-palabras" id="burbujaPalabras" aria-hidden="true"></div>
@@ -1514,6 +1527,7 @@
   const wishCounterChip = document.getElementById('wishCounterChip');
   const wishRestantesChip = document.getElementById('wishRestantesChip');
   const deseoBtn = document.getElementById('deseoBtn');
+  const resetViajeBtn = document.getElementById('resetViajeBtn');
   const deseoFx = document.getElementById('deseoFx');
   const deseoBurbuja = document.getElementById('deseoBurbuja');
   const burbujaPalabras = document.getElementById('burbujaPalabras');
@@ -1644,6 +1658,23 @@
     }
   }
 
+  function resetearViaje() {
+    estadoViaje.mood = 'orilla';
+    estadoViaje.conchas = 0;
+    estadoViaje.motivoIndex = 0;
+    estadoViaje.deseosUsados = 0;
+    burbujaPalabras.innerHTML = '';
+    conchaFx.innerHTML = '';
+    deseoFx.innerHTML = '';
+
+    activarMood(estadoViaje.mood);
+    renderConchas();
+    renderMotivo();
+    renderDeseo();
+    animarExito(resetViajeBtn);
+    soltarNotificacion(deseoFx, 'Empezamos otra vez', 'clara');
+  }
+
   moodBtns.forEach(btn => {
     btn.addEventListener('click', () => activarMood(btn.dataset.mood));
   });
@@ -1689,6 +1720,8 @@
     );
     celebrarPalabras(estadoViaje.deseosUsados === MAX_DESEOS ? 8 : 5);
   });
+
+  resetViajeBtn.addEventListener('click', resetearViaje);
 
   activarMood(estadoViaje.mood);
   renderConchas();
