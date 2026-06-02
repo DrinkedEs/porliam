@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Para Linda — de Alexis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --sol: #F5A623;
+      --sol-suave: #FFD580;
+      --sol-brillante: #FFF3C4;
+      --luna: #C8D8F0;
+      --luna-oscura: #2B3A5C;
+      --luna-media: #4A6490;
+      --noche: #0D1B35;
+      --noche-media: #162447;
+      --aurora: #1A2E52;
+      --texto-claro: #F0E8D8;
+      --texto-dorado: #E8C97A;
+      --acento: #F5A623;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--noche);
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--texto-claro);
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* CIELO ANIMADO */
+    .cielo {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(ellipse at 20% 30%, #1A2E52 0%, #0D1B35 60%, #050C1A 100%);
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    /* ESTRELLAS */
+    .estrellas {
+      position: absolute;
+      width: 100%; height: 100%;
+    }
+
+    .estrella {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      animation: titilar var(--dur, 3s) ease-in-out infinite alternate;
+    }
+
+    @keyframes titilar {
+      from { opacity: 0.2; transform: scale(1); }
+      to   { opacity: 1;   transform: scale(1.4); }
+    }
+
+    /* LUNA */
+    .luna-contenedor {
+      position: absolute;
+      top: 8%; left: 8%;
+      animation: flotar-luna 8s ease-in-out infinite;
+    }
+
+    @keyframes flotar-luna {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50%       { transform: translateY(-18px) rotate(3deg); }
+    }
+
+    .luna {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #E8F0FF, #C8D8F0 50%, #8AAAD4);
+      box-shadow:
+        0 0 30px rgba(200, 216, 240, 0.5),
+        0 0 60px rgba(200, 216, 240, 0.2),
+        inset -12px -8px 0 rgba(100, 140, 200, 0.3);
+      position: relative;
+    }
+
+    .luna::after {
+      content: '🌙';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 48px;
+      filter: drop-shadow(0 0 12px rgba(200, 216, 240, 0.9));
+    }
+
+    .luna-label {
+      text-align: center;
+      margin-top: 8px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 16px;
+      color: var(--luna);
+      letter-spacing: 1px;
+    }
+
+    /* SOL */
+    .sol-contenedor {
+      position: absolute;
+      top: 8%; right: 8%;
+      animation: flotar-sol 7s ease-in-out infinite;
+    }
+
+    @keyframes flotar-sol {
+      0%, 100% { transform: translateY(0) rotate(5deg); }
+      50%       { transform: translateY(-14px) rotate(-3deg); }
+    }
+
+    .sol {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 35%, #FFF9C4, #F5A623 50%, #E88B00);
+      box-shadow:
+        0 0 35px rgba(245, 166, 35, 0.7),
+        0 0 70px rgba(245, 166, 35, 0.3),
+        0 0 120px rgba(245, 166, 35, 0.1);
+      position: relative;
+    }
+
+    .sol::after {
+      content: '☀️';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 48px;
+      filter: drop-shadow(0 0 12px rgba(255, 200, 50, 0.9));
+      animation: girar-sol 20s linear infinite;
+    }
+
+    @keyframes girar-sol {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to   { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .sol-label {
+      text-align: center;
+      margin-top: 8px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 16px;
+      color: var(--sol-suave);
+      letter-spacing: 1px;
+    }
+
+    /* AURORA / HORIZONTE */
+    .aurora {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%; height: 40%;
+      background: linear-gradient(to top,
+        rgba(26, 46, 82, 0.0) 0%,
+        transparent 100%);
+      pointer-events: none;
+    }
+
+    /* CONTENIDO PRINCIPAL */
+    .contenido {
+      position: relative;
+      z-index: 10;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 200px 30px 80px;
+    }
+
+    /* ENCABEZADO */
+    .encabezado {
+      text-align: center;
+      margin-bottom: 60px;
+      animation: aparecer 1.5s ease both;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .para-ti {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(14px, 3vw, 18px);
+      color: var(--luna);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      opacity: 0.8;
+    }
+
+    .nombre-linda {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 10vw, 72px);
+      font-weight: 700;
+      font-style: italic;
+      background: linear-gradient(135deg, var(--sol-suave), var(--sol), #E88B00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+      text-shadow: none;
+      margin-bottom: 8px;
+    }
+
+    .separador-estrella {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      justify-content: center;
+      margin: 24px 0;
+      color: var(--sol-suave);
+      font-size: 20px;
+      opacity: 0.7;
+    }
+
+    .linea-sep {
+      height: 1px;
+      width: 80px;
+      background: linear-gradient(to right, transparent, var(--sol-suave), transparent);
+    }
+
+    .de-alexis {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--luna);
+      letter-spacing: 2px;
+      opacity: 0.7;
+    }
+
+    /* TARJETA DE LA CARTA */
+    .carta {
+      background: linear-gradient(160deg,
+        rgba(26, 46, 82, 0.85) 0%,
+        rgba(13, 27, 53, 0.92) 50%,
+        rgba(21, 37, 68, 0.88) 100%);
+      border: 1px solid rgba(200, 216, 240, 0.15);
+      border-radius: 4px;
+      padding: clamp(30px, 6vw, 60px);
+      position: relative;
+      backdrop-filter: blur(12px);
+      box-shadow:
+        0 0 80px rgba(13, 27, 53, 0.8),
+        inset 0 1px 0 rgba(200, 216, 240, 0.1),
+        inset 0 -1px 0 rgba(245, 166, 35, 0.1);
+      animation: aparecer 1.8s ease 0.3s both;
+    }
+
+    /* esquinas decorativas */
+    .carta::before, .carta::after {
+      content: '';
+      position: absolute;
+      width: 40px; height: 40px;
+      border-color: var(--sol-suave);
+      border-style: solid;
+      opacity: 0.4;
+    }
+    .carta::before {
+      top: 16px; left: 16px;
+      border-width: 1px 0 0 1px;
+    }
+    .carta::after {
+      bottom: 16px; right: 16px;
+      border-width: 0 1px 1px 0;
+    }
+
+    .saludo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(20px, 4vw, 26px);
+      font-style: italic;
+      color: var(--sol-suave);
+      margin-bottom: 32px;
+      display: block;
+    }
+
+    .parrafo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(16px, 2.5vw, 19px);
+      line-height: 2;
+      color: rgba(240, 232, 216, 0.9);
+      margin-bottom: 24px;
+      text-align: justify;
+      font-weight: 300;
+    }
+
+    .parrafo em {
+      color: var(--sol-suave);
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .parrafo strong {
+      color: var(--luna);
+      font-weight: 400;
+    }
+
+    .firma-contenedor {
+      margin-top: 50px;
+      text-align: right;
+      position: relative;
+    }
+
+    .firma-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      color: var(--luna);
+      opacity: 0.6;
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .firma {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(30px, 6vw, 46px);
+      background: linear-gradient(135deg, var(--luna), #8AAAD4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+
+    /* CONTADOR */
+    .contador-seccion {
+      margin-top: 60px;
+      text-align: center;
+      animation: aparecer 2s ease 0.6s both;
+    }
+
+    .contador-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(14px, 3vw, 17px);
+      color: var(--luna);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+
+    .contador-subtitulo {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(20px, 4vw, 26px);
+      color: var(--sol-suave);
+      margin-bottom: 36px;
+    }
+
+    .contador-grid {
+      display: flex;
+      justify-content: center;
+      gap: clamp(12px, 3vw, 28px);
+      flex-wrap: wrap;
+    }
+
+    .unidad {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .numero-caja {
+      background: linear-gradient(160deg,
+        rgba(200, 216, 240, 0.08),
+        rgba(26, 46, 82, 0.6));
+      border: 1px solid rgba(200, 216, 240, 0.2);
+      border-radius: 4px;
+      width: clamp(70px, 15vw, 100px);
+      height: clamp(70px, 15vw, 100px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .numero-caja::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 50%;
+      background: rgba(200, 216, 240, 0.04);
+      border-bottom: 1px solid rgba(200, 216, 240, 0.1);
+    }
+
+    .numero {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 6vw, 42px);
+      font-weight: 700;
+      background: linear-gradient(180deg, var(--sol-suave), var(--sol));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.2s ease;
+    }
+
+    .numero.cambiando {
+      transform: scale(1.15);
+    }
+
+    .etiqueta {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(11px, 2vw, 13px);
+      color: var(--luna);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    /* puntos separadores */
+    .dos-puntos {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 6vw, 42px);
+      color: var(--sol-suave);
+      opacity: 0.5;
+      align-self: center;
+      margin-top: -16px;
+      animation: parpadeo 1s step-start infinite;
+    }
+
+    @keyframes parpadeo {
+      0%, 100% { opacity: 0.5; }
+      50%       { opacity: 0.1; }
+    }
+
+    .fecha-meta {
+      margin-top: 20px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      color: var(--luna);
+      opacity: 0.5;
+      letter-spacing: 2px;
+    }
+
+    /* decoracion inferior */
+    .decoracion-final {
+      text-align: center;
+      margin-top: 70px;
+      padding-bottom: 60px;
+      animation: aparecer 2s ease 1s both;
+    }
+
+    .icono-corazon {
+      font-size: 28px;
+      animation: latir 1.4s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    @keyframes latir {
+      0%, 100% { transform: scale(1); }
+      15%       { transform: scale(1.3); }
+      30%       { transform: scale(1); }
+      45%       { transform: scale(1.15); }
+    }
+
+    .frase-final {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      color: var(--luna);
+      opacity: 0.5;
+      letter-spacing: 3px;
+      margin-top: 12px;
+      text-transform: uppercase;
+    }
+
+    /* partículas flotantes */
+    .particula {
+      position: fixed;
+      pointer-events: none;
+      font-size: 14px;
+      animation: flotar-particula var(--dur-p, 12s) linear infinite;
+      opacity: 0;
+      z-index: 5;
+    }
+
+    @keyframes flotar-particula {
+      0%   { transform: translateY(110vh) rotate(0deg);   opacity: 0; }
+      10%  { opacity: 0.6; }
+      90%  { opacity: 0.4; }
+      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    }
+
+    @media (max-width: 500px) {
+      .contenido { padding-top: 160px; }
+      .carta { padding: 24px 20px; }
+    }
+
+    /* BLOQUE ASTROS SOL / LUNA */
+    .bloque-astros {
+      margin: 50px 0 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .astro-lado {
+      padding: 36px 32px;
+      position: relative;
+      border-radius: 4px;
+    }
+
+    .sol-lado {
+      background: linear-gradient(135deg,
+        rgba(245, 166, 35, 0.10) 0%,
+        rgba(255, 213, 128, 0.05) 100%);
+      border: 1px solid rgba(245, 166, 35, 0.25);
+      border-bottom: none;
+      border-radius: 4px 4px 0 0;
+    }
+
+    .luna-lado {
+      background: linear-gradient(135deg,
+        rgba(74, 100, 144, 0.12) 0%,
+        rgba(200, 216, 240, 0.05) 100%);
+      border: 1px solid rgba(200, 216, 240, 0.20);
+      border-top: 1px dashed rgba(200, 216, 240, 0.15);
+      border-radius: 0 0 4px 4px;
+    }
+
+    .divisor-astros {
+      text-align: center;
+      color: var(--sol-suave);
+      opacity: 0.4;
+      font-size: 18px;
+      padding: 10px 0;
+      background: linear-gradient(90deg,
+        rgba(245,166,35,0.08),
+        rgba(200,216,240,0.08));
+      border-left: 1px solid rgba(200,216,240,0.15);
+      border-right: 1px solid rgba(200,216,240,0.15);
+    }
+
+    .astro-emoji-grande {
+      font-size: 36px;
+      display: block;
+      margin-bottom: 12px;
+      filter: drop-shadow(0 0 10px rgba(255,200,50,0.5));
+    }
+
+    .luna-lado .astro-emoji-grande {
+      filter: drop-shadow(0 0 10px rgba(200,216,240,0.5));
+    }
+
+    .astro-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 3.5vw, 22px);
+      font-weight: 700;
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+
+    .sol-titulo {
+      background: linear-gradient(135deg, var(--sol-suave), var(--sol));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .luna-titulo {
+      background: linear-gradient(135deg, #E8F0FF, var(--luna));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .astro-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(16px, 2.5vw, 18px);
+      line-height: 2;
+      color: rgba(240, 232, 216, 0.88);
+      font-weight: 300;
+    }
+
+    .astro-desc em { color: var(--sol-suave); font-style: italic; font-weight: 400; }
+    .luna-lado .astro-desc em { color: var(--luna); }
+    .astro-desc strong { font-weight: 400; color: rgba(240, 232, 216, 1); }
+
+    /* SPOILER */
+    .spoiler-contenedor {
+      margin: 40px 0 10px;
+    }
+
+    .spoiler-btn {
+      width: 100%;
+      background: linear-gradient(135deg,
+        rgba(245, 166, 35, 0.08),
+        rgba(200, 216, 240, 0.06));
+      border: 1px dashed rgba(245, 166, 35, 0.35);
+      border-radius: 4px;
+      padding: 20px 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--texto-claro);
+      transition: all 0.3s ease;
+      text-align: left;
+    }
+
+    .spoiler-btn:hover {
+      background: linear-gradient(135deg,
+        rgba(245, 166, 35, 0.14),
+        rgba(200, 216, 240, 0.10));
+      border-color: rgba(245, 166, 35, 0.6);
+    }
+
+    .spoiler-candado {
+      font-size: 22px;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .spoiler-btn:hover .spoiler-candado {
+      transform: rotate(-15deg) scale(1.2);
+    }
+
+    .spoiler-texto-btn {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--sol-suave);
+      flex: 1;
+    }
+
+    .spoiler-hint {
+      font-size: 11px;
+      color: var(--luna);
+      opacity: 0.5;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .spoiler-contenido {
+      display: none;
+      background: linear-gradient(135deg,
+        rgba(245, 166, 35, 0.06),
+        rgba(200, 216, 240, 0.04));
+      border: 1px solid rgba(245, 166, 35, 0.2);
+      border-top: none;
+      border-radius: 0 0 4px 4px;
+      padding: 28px 28px 24px;
+      animation: aparecer 0.6s ease;
+    }
+
+    .spoiler-mensaje {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(16px, 2.5vw, 18px);
+      line-height: 2;
+      color: rgba(240, 232, 216, 0.85);
+      font-weight: 300;
+    }
+
+    .spoiler-cierre {
+      display: block;
+      margin-top: 18px;
+      font-family: 'Dancing Script', cursive;
+      font-size: 17px;
+      color: var(--sol-suave);
+      opacity: 0.75;
+    }
+  </style>
+</head>
+<body>
+
+<!-- FONDO CIELO -->
+<div class="cielo">
+  <div class="estrellas" id="estrellas"></div>
+
+  <!-- LUNA (Alexis) -->
+  <div class="luna-contenedor">
+    <div class="luna"></div>
+    <div class="luna-label">Alexis 🌙</div>
+  </div>
+
+  <!-- SOL (Linda) -->
+  <div class="sol-contenedor">
+    <div class="sol"></div>
+    <div class="sol-label">Linda ☀️</div>
+  </div>
+
+  <div class="aurora"></div>
+</div>
+
+<!-- PARTÍCULAS -->
+<div id="particulas"></div>
+
+<!-- CONTENIDO -->
+<div class="contenido">
+
+  <!-- ENCABEZADO -->
+  <div class="encabezado">
+    <p class="para-ti">Para mi amor</p>
+    <h1 class="nombre-linda">Linda Martínez</h1>
+    <div class="separador-estrella">
+      <div class="linea-sep"></div>
+      ✦
+      <div class="linea-sep"></div>
+    </div>
+    <p class="de-alexis">una carta de Alexis Valdez</p>
+  </div>
+
+  <!-- CARTA -->
+  <div class="carta">
+    <span class="saludo">Mi vida, mi amor,</span>
+
+    <p class="parrafo">
+      La neta, para hacernos novios no fue nada del otro mundo, no hubo fuegos artificiales ni un 
+      lugar todo preparado ni nada de eso. Sé que te hubiera gustado algo así, a mí también, no te 
+      voy a mentir. Yo fui bien a la antigua, así nomás, sincero. Ya casi éramos novios de todas 
+      formas, y todo empezó de la manera más inesperada, de una conversación que se abrió sola. 
+      Pero escúchame bien: <em>lo que siento por ti no tiene que ver con cómo empezó, ni con una 
+      fecha bonita.</em> Siempre te he querido un chingo, desde antes de conocerte en persona. 
+      Mi amor no es poquito, es muchísimo, y no cabe en ningún lado. Ni en un anillo, ni en una 
+      página, ni en nada de eso, ¿sabes?
+    </p>
+
+    <p class="parrafo">
+      Mi vida, <strong>quiero casarme contigo</strong>. Hay un chorro de cosas que quiero en la 
+      vida, pero la que más me afecta, la que más me mueve, la que me hace sentir cosas muy bonitas y la siento de verdad, es <em>verte cada mañana a 
+      mi lado.</em> Levantarme y que estés ahí. Desayunar juntos antes de irnos a chambear. 
+      Poderte besar cuando se me dé la gana estando en casita. Porque el amor de verdad no es 
+      solo un viaje o un detalle bonito —es la confianza, es dormirte con esa persona, hacer 
+      planes juntos, contarle todo lo que te pasó en el día. Y la verdad ni en una hora te podría 
+      contar mis 16 horas despierto. No me alcanzaría, amor.
+    </p>
+
+    <p class="parrafo">
+      <em>Perdón si a veces te mando muchos mensajes.</em> No quiero que te aburra ni que te 
+      distraiga, sé que puedo hacer eso. Pero cada mensajito que te mando lo pienso en ti, 
+      en todo lo que hemos vivido, lo bueno y lo malo, lo divertido y lo aburrido. 
+      Aunque contigo nunca me aburro, ni cuando solo estamos acostados abrazados sin hacer nada. 
+      <strong>Esa sensación no se me va a olvidar.</strong> En serio.
+    </p>
+
+    <p class="parrafo">
+      Te amo muchísimo, mi amor. Y mira, sé que hemos pasado cosas, sé que lo del Carl's Jr. a los dos nos dejó un sabor feo, y no queremos que se repita. Lo estás haciendo bien, 
+      lo estás intentando, y <em>eso vale mucho, en serio.</em> Todo tu esfuerzo lo veo, amor. 
+      No pasa desapercibido. Cada cosa que haces, cada vez que aguantas, cada vez que decides 
+      seguir —yo lo noto y me importa más de lo que crees. Yo también tengo que mejorar, 
+      <strong>y quiero hacerlo</strong>, porque no quiero ser el tipo inseguro que a veces he sido. 
+      Tú no mereces eso. Mereces a alguien que esté seguro de lo que tiene, y lo que tiene eres tú.
+    </p>
+
+    <p class="parrafo">
+      Todo lo que traes, amor —tu inteligencia, tu manera de ver las cosas, lo que puedes lograr— 
+      a veces creo que tú misma no lo ves bien. <em>Tienes un chingo de potencial.</em> En serio. 
+      Eres más lista de lo que te das crédito, y eso me gusta un montón porque me desafías, 
+      me haces pensar. Y aparte de todo eso, eres hermosa, mi vida. Ese lunar que tienes dentro del ojo me encanta, parece una estrellita. Suena raro pero es bonito, como si el cielo 
+      te hubiera marcado así nomás porque sí. <strong>Nada en ti está de más.</strong>
+    </p>
+
+    <p class="parrafo">
+      Me gusta mucho cuando me hablas. Perdón si a veces en las noches casi no hablo, es que 
+      mi familia ya está dormida y trato de no hacer ruido. Pero no es pretexto, lo sé. 
+      <strong>Me haces muy feliz.</strong> Y cuando estoy trabajando te respondo en cuanto puedo, 
+      no es que no piense en ti, al contrario. Me choca pensar que algo que hago sin querer 
+      te haga sobrepensar o te deje con ganas de hablar. Eso no está bien y lo quiero mejorar. 
+      <em>Eres mi vida, amor.</em> Te amo un chingo.
+    </p>
+
+    <!-- BLOQUE SOL / LUNA -->
+    <div class="bloque-astros">
+
+      <div class="astro-lado sol-lado">
+        <span class="astro-emoji-grande">☀️</span>
+        <h3 class="astro-titulo sol-titulo">Tú eres mi Sol</h3>
+        <p class="astro-desc">
+          El Sol no necesita esforzarse para brillar —simplemente brilla—.
+          Así eres tú. No lo haces a propósito, pero <em>le das luz a mis días
+          sin darte cuenta</em>. Cuando me levanto tengo un por qué. Cuando estoy
+          trabajando tengo un para qué. Cuando se me hace pesado el día,
+          pienso en ti y algo en mí se acomoda. Tú eres lo que hace que mis horas
+          valgan la pena. Mi motivación. Mi razón de querer mejorar cada día.
+          <strong>Sin ti, mis días no tendrían dirección.</strong>
+          Y ese lunar que tienes dentro del ojo, ese que parece una estrellita
+          —<em>hasta el sol tiene sus estrellas</em>, y la tuya eres tú misma
+          sin darte cuenta.
+        </p>
+      </div>
+
+      <div class="divisor-astros">✦</div>
+
+      <div class="astro-lado luna-lado">
+        <span class="astro-emoji-grande">🌙</span>
+        <h3 class="astro-titulo luna-titulo">Yo quiero ser tu Noche</h3>
+        <p class="astro-desc">
+          Tú eres el sol, sí. Pero el sol también tiene su luna, su espacio 
+          que lo rodea, que siempre anda por ahí. Y eso quiero ser yo para ti 
+          —<em>la luna que ronda, que está, que no se va.</em>
+          <br/><br/>
+          Quiero ser para ti lo que todos esperamos al final de un día pesado: 
+          la noche. Ese momento en que ya no tienes que estar al cien para nadie, 
+          cuando por fin puedes soltar todo y ser tú. <strong>El lugar donde 
+          llegas y ya no tienes que aguantar nada.</strong> Donde no te tienes 
+          que explicar, ni actuar, ni nada. Solo ser.
+          <br/><br/>
+          La luna no compite con el sol, no le quita su lugar. Nomás está. 
+          Lo cuida de lejos. Siempre anda ahí aunque no siempre se vea. 
+          <em>Así quiero ser yo contigo: el que siempre está aunque no haga 
+          ruido. El que te cuida cuando el mundo ya se durmió. El que conoce 
+          la versión de ti que nadie más ve.</em>
+        </p>
+      </div>
+
+    </div>
+
+    <!-- SPOILER SORPRESA -->
+    <div class="spoiler-contenedor">
+      <button class="spoiler-btn" onclick="abrirSpoiler(this)">
+        <span class="spoiler-candado">🔒</span>
+        <span class="spoiler-texto-btn">Tengo algo para ti en el viaje...</span>
+        <span class="spoiler-hint">toca para ver</span>
+      </button>
+      <div class="spoiler-contenido" id="spoilerContenido">
+        <p class="spoiler-mensaje">
+          Hay algo que llevo guardado para darte cuando estemos juntos.
+          No te voy a decir qué es todavía —pero tiene que ver con
+          <em>el día y la noche</em>, con lo que somos el uno para el otro.
+          Un recordatorio de que sin importar dónde estemos,
+          <strong>siempre vamos a estar en el mismo cielo</strong>.
+          <br/><br/>
+          Te lo doy en persona. Con mis manos. Y con todo lo que no me cabe
+          en las palabras.
+        </p>
+        <span class="spoiler-cierre">📍 Nuevo Vallarta · 30 de junio</span>
+      </div>
+    </div>
+
+    <div class="firma-contenedor">
+      <span class="firma-label">con todo mi amor,</span>
+      <span class="firma">Alexis Valdez 🌙</span>
+    </div>
+  </div>
+
+  <!-- CONTADOR -->
+  <div class="contador-seccion">
+    <p class="contador-titulo">Falta muy poco</p>
+    <p class="contador-subtitulo">para irnos de vacaciones juntos ✈️</p>
+
+    <div class="contador-grid">
+      <div class="unidad">
+        <div class="numero-caja">
+          <span class="numero" id="dias">00</span>
+        </div>
+        <span class="etiqueta">días</span>
+      </div>
+
+      <span class="dos-puntos">:</span>
+
+      <div class="unidad">
+        <div class="numero-caja">
+          <span class="numero" id="horas">00</span>
+        </div>
+        <span class="etiqueta">horas</span>
+      </div>
+
+      <span class="dos-puntos">:</span>
+
+      <div class="unidad">
+        <div class="numero-caja">
+          <span class="numero" id="minutos">00</span>
+        </div>
+        <span class="etiqueta">minutos</span>
+      </div>
+
+      <span class="dos-puntos">:</span>
+
+      <div class="unidad">
+        <div class="numero-caja">
+          <span class="numero" id="segundos">00</span>
+        </div>
+        <span class="etiqueta">segundos</span>
+      </div>
+    </div>
+
+    <p class="fecha-meta">29 · Guadalajara &nbsp;✦&nbsp; 30 · Nuevo Vallarta</p>
+  </div>
+
+  <!-- DECORACIÓN FINAL -->
+  <div class="decoracion-final">
+    <span class="icono-corazon">🌙❤️☀️</span>
+    <p class="frase-final">La noche que abraza al día · para siempre</p>
+  </div>
+
+</div>
+
+<script>
+  // ─── ESTRELLAS ────────────────────────────────────────────
+  const contenedorEstrellas = document.getElementById('estrellas');
+  for (let i = 0; i < 160; i++) {
+    const e = document.createElement('div');
+    e.className = 'estrella';
+    const tam = Math.random() * 2.5 + 0.5;
+    e.style.cssText = `
+      width:${tam}px; height:${tam}px;
+      top:${Math.random()*100}%;
+      left:${Math.random()*100}%;
+      --dur:${(Math.random()*4+2).toFixed(1)}s;
+      animation-delay:${(Math.random()*5).toFixed(1)}s;
+      opacity:${Math.random()*0.7+0.1};
+    `;
+    contenedorEstrellas.appendChild(e);
+  }
+
+  // ─── PARTÍCULAS ───────────────────────────────────────────
+  const emojis = ['✨', '⭐', '🌟', '💫', '✦', '·'];
+  const contenedorP = document.getElementById('particulas');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'particula';
+    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    p.style.cssText = `
+      left:${Math.random()*100}vw;
+      --dur-p:${(Math.random()*14+8).toFixed(1)}s;
+      animation-delay:${(Math.random()*12).toFixed(1)}s;
+      font-size:${Math.random()*10+8}px;
+    `;
+    contenedorP.appendChild(p);
+  }
+
+  // ─── CONTADOR ─────────────────────────────────────────────
+  const META = new Date('2026-06-29T00:00:00');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function flash(id) {
+    const el = document.getElementById(id);
+    el.classList.add('cambiando');
+    setTimeout(() => el.classList.remove('cambiando'), 250);
+  }
+
+  let prevVals = {};
+
+  function actualizar() {
+    const ahora = new Date();
+    const diff  = META - ahora;
+
+    if (diff <= 0) {
+      ['dias','horas','minutos','segundos'].forEach(id => {
+        document.getElementById(id).textContent = '00';
+      });
+      return;
+    }
+
+    const dias    = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const horas   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const segs    = Math.floor((diff % (1000 * 60)) / 1000);
+
+    const vals = { dias, horas, minutos, segundos: segs };
+
+    Object.entries(vals).forEach(([k, v]) => {
+      const formatted = pad(v);
+      const el = document.getElementById(k);
+      if (prevVals[k] !== formatted) {
+        el.textContent = formatted;
+        flash(k);
+        prevVals[k] = formatted;
+      }
+    });
+  }
+
+  actualizar();
+  setInterval(actualizar, 1000);
+
+  // ─── SPOILER ──────────────────────────────────────────────
+  function abrirSpoiler(btn) {
+    const contenido = document.getElementById('spoilerContenido');
+    const abierto = contenido.style.display === 'block';
+    contenido.style.display = abierto ? 'none' : 'block';
+    btn.querySelector('.spoiler-candado').textContent = abierto ? '🔒' : '🔓';
+    btn.querySelector('.spoiler-hint').textContent = abierto ? 'toca para ver' : 'toca para cerrar';
+    if (!abierto) {
+      btn.style.borderRadius = '4px 4px 0 0';
+    } else {
+      btn.style.borderRadius = '4px';
+    }
+  }
+</script>
+</body>
+</html>
