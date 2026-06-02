@@ -1250,11 +1250,11 @@
 
         <article class="experiencia-card experiencia-span-2 sistema-gacha">
           <span class="experiencia-label">banner del mar</span>
-          <h3 class="experiencia-card-titulo">Conchitas, protogemas y deseos para nosotros</h3>
+          <h3 class="experiencia-card-titulo">Conchitas y deseos para nosotros</h3>
           <p class="experiencia-copy">
-            En Genshin juntas protogemas para tirar deseos; aquí cada conchita cuenta como una
-            protogemita del viaje. <strong>Por cada conchita guardada desbloqueas una tirada</strong>,
-            y vamos a jugar nuestra multi romántica de playa: máximo 10 conchitas y máximo 10 deseos.
+            En Genshin la emocion esta en tirar deseos; aqui la vibra es esa, pero mas nuestra:
+            <strong>cada conchita guardada te gana directo un deseo</strong>, y vamos a jugar
+            nuestra multi romantica de playa: maximo 10 conchitas y maximo 10 deseos.
             Si por mí fuera pediría infinitos, porque contigo quiero cualquier vida bonita: besos,
             abrazos, amaneceres nuevos, noches distintas a las del año pasado y puro tiempo de
             nosotros dos, bien cerquita.
@@ -1265,11 +1265,11 @@
           <span class="experiencia-label">farm de playa</span>
           <h3 class="experiencia-card-titulo">Junta 10 conchitas para ganar tus deseos</h3>
           <p class="experiencia-copy">
-            Cada toque recoge una conchita y la vuelve protogema. Entre más juntes, más besos,
+            Cada toque recoge una conchita y te suma un deseo. Entre más juntes, más besos,
             abrazos y recuerdos nos desbloquea esta mini historia contigo.
           </p>
           <div class="contador-row">
-            <span class="contador-chip" id="protoContador">Protogemas guardadas: 0/10</span>
+            <span class="contador-chip" id="conchasContador">Conchitas guardadas: 0/10</span>
             <span class="contador-chip" id="wishDisponibleChip">Deseos listos: 0</span>
           </div>
           <button type="button" class="accion-viaje-btn accion-dorada" id="sumarConchaBtn">Guardar una conchita</button>
@@ -1283,8 +1283,8 @@
           <span class="experiencia-label">multi de nosotros</span>
           <h3 class="experiencia-card-titulo">Tira tus 10 deseos del viaje</h3>
           <p class="experiencia-copy">
-            Esta parte va seguida: primero juntas conchitas, luego gastas esas protogemas en
-            deseos bonitos. Si no has farmeado una conchita, no se puede tirar. Así cada click
+            Esta parte va seguida: primero juntas conchitas, luego lanzas esos deseos bonitos.
+            Si no has farmeado una conchita, no se puede tirar. Así cada click
             se gana y cada deseo pesa más.
           </p>
           <div class="contador-row">
@@ -1470,7 +1470,7 @@
   ];
 
   const mensajesConchas = [
-    '1 de 10: la primera protogema es para ese abrazo largo apenas te vea, de esos que dicen ya estamos aqui tu y yo.',
+    '1 de 10: la primera conchita te gana un deseo para ese abrazo largo apenas te vea, de esos que dicen ya estamos aqui tu y yo.',
     '2 de 10: esta segunda conchita huele a bloqueador, risitas y a tus besitos salados en la orilla.',
     '3 de 10: ya vamos juntando para una noche distinta, de puras miraditas bonitas y abrazos apretados.',
     '4 de 10: esta va para nuestras manitas juntas mientras caminamos sin apuro, nomas disfrutandonos.',
@@ -1478,7 +1478,7 @@
     '6 de 10: esta protogemita se siente como quedarnos un ratito mas abrazados viendo el mar moverse.',
     '7 de 10: ya casi, mi amor. Esta trae ganas de amaneceres nuevos, cachetitos besados y mucha paz contigo.',
     '8 de 10: otra concha para una noche rica, calladita y nuestra, de esas donde el mundo se queda lejos.',
-    '9 de 10: penultima protogema, cargada de besos en la frente, abrazos dormidos y puras ganas de cuidarte.',
+    '9 de 10: penultima conchita, cargada de besos en la frente, abrazos dormidos y puras ganas de cuidarte.',
     '10 de 10: multi lista. Ya brillan las 10 conchitas del mar y cada una trae un pedacito de la vida bonita que quiero contigo.'
   ];
 
@@ -1525,7 +1525,7 @@
   const moodBtns = document.querySelectorAll('.mood-btn');
   const momentoEtiqueta = document.getElementById('momentoEtiqueta');
   const momentoTexto = document.getElementById('momentoTexto');
-  const protoContador = document.getElementById('protoContador');
+  const conchasContador = document.getElementById('conchasContador');
   const wishDisponibleChip = document.getElementById('wishDisponibleChip');
   const sumarConchaBtn = document.getElementById('sumarConchaBtn');
   const conchaFx = document.getElementById('conchaFx');
@@ -1598,7 +1598,7 @@
       coleccionVisual.appendChild(token);
     }
 
-    protoContador.textContent = `Protogemas guardadas: ${actual}/${MAX_CONCHAS}`;
+    conchasContador.textContent = `Conchitas guardadas: ${actual}/${MAX_CONCHAS}`;
     wishDisponibleChip.textContent = `Deseos listos: ${disponibles}`;
     barraCarino.style.width = `${(actual / MAX_CONCHAS) * 100}%`;
     coleccionTexto.textContent = actual === 0
@@ -1623,13 +1623,13 @@
     deseoBurbuja.classList.toggle('legendaria', usados === MAX_DESEOS);
 
     if (usados === 0 && estadoViaje.conchas === 0) {
-      deseoBurbuja.innerHTML = 'Primero junta una conchita. Aqui las conchas son protogemas y solo asi se desbloquea una tirada bonita contigo.';
+      deseoBurbuja.innerHTML = 'Primero junta una conchita. Aqui cada conchita te gana un deseo, y solo asi se desbloquea una tirada bonita contigo.';
     } else if (usados === 0 && disponibles > 0) {
       deseoBurbuja.innerHTML = `Ya tienes <span class="texto-fuerte">${disponibles}</span> tirada${disponibles === 1 ? '' : 's'} lista${disponibles === 1 ? '' : 's'}. Dale y vemos que momento hermoso nos sale a nosotros dos.`;
     } else {
       const deseoActual = deseosBonitos[usados - 1];
       const recordatorio = usados < MAX_DESEOS && disponibles === 0
-        ? '<br/><br/><span class="texto-fuerte">Para seguir tirando, recoge otra conchita/protogema.</span>'
+        ? '<br/><br/><span class="texto-fuerte">Para seguir tirando, recoge otra conchita.</span>'
         : '';
       deseoBurbuja.innerHTML = `<span class="texto-fuerte">Deseo ${usados}/${MAX_DESEOS}.</span> ${deseoActual}${recordatorio}`;
     }
@@ -1679,7 +1679,7 @@
 
   sumarConchaBtn.addEventListener('click', () => {
     if (estadoViaje.conchas >= MAX_CONCHAS) {
-      coleccionTexto.textContent = 'La multi ya esta completa, mi amor. Ahora toca gastarnos esas protogemas en puros deseos bonitos.';
+      coleccionTexto.textContent = 'La multi ya esta completa, mi amor. Ahora toca lanzarnos esos deseos bonitos juntos.';
       return;
     }
 
@@ -1688,7 +1688,7 @@
     renderConchas();
     renderDeseo();
     animarExito(sumarConchaBtn);
-    soltarNotificacion(conchaFx, '+1 protogema');
+    soltarNotificacion(conchaFx, '+1 conchita');
     setTimeout(() => soltarNotificacion(conchaFx, '+1 deseo', 'azul'), 110);
     celebrarPalabras(estadoViaje.conchas === MAX_CONCHAS ? 6 : 3);
   });
