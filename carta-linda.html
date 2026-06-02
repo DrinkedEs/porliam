@@ -1497,30 +1497,7 @@
   ];
 
   const palabrasMar = ['besitos', 'abrazos', 'tu risa', 'solcito', 'manitas', 'piel salada', 'miraditas', 'mi bebe'];
-  const KEY_VIAJE = 'linda-viaje-v3';
-
-  function cargarEstadoViaje() {
-    const base = { mood: 'orilla', conchas: 0, motivoIndex: 0, deseosUsados: 0 };
-    try {
-      const guardado = JSON.parse(localStorage.getItem(KEY_VIAJE));
-      const conchas = Math.max(0, Math.min(MAX_CONCHAS, Math.floor(Number(guardado?.conchas) || 0)));
-      const deseosUsados = Math.max(
-        0,
-        Math.min(MAX_DESEOS, conchas, Math.floor(Number(guardado?.deseosUsados) || 0))
-      );
-
-      return {
-        mood: escenasViaje[guardado?.mood] ? guardado.mood : base.mood,
-        conchas,
-        motivoIndex: Math.max(0, Math.floor(Number(guardado?.motivoIndex) || 0)),
-        deseosUsados
-      };
-    } catch (e) {
-      return base;
-    }
-  }
-
-  const estadoViaje = cargarEstadoViaje();
+  const estadoViaje = { mood: 'orilla', conchas: 0, motivoIndex: 0, deseosUsados: 0 };
   const aurora = document.querySelector('.aurora');
   const moodBtns = document.querySelectorAll('.mood-btn');
   const momentoEtiqueta = document.getElementById('momentoEtiqueta');
@@ -1541,13 +1518,7 @@
   const deseoBurbuja = document.getElementById('deseoBurbuja');
   const burbujaPalabras = document.getElementById('burbujaPalabras');
 
-  function guardarEstadoViaje() {
-    try {
-      localStorage.setItem(KEY_VIAJE, JSON.stringify(estadoViaje));
-    } catch (e) {
-      return;
-    }
-  }
+  function guardarEstadoViaje() {}
 
   function deseosDisponibles() {
     return Math.max(0, Math.min(estadoViaje.conchas, MAX_CONCHAS) - estadoViaje.deseosUsados);
