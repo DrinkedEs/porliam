@@ -712,6 +712,10 @@
       margin-top: 28px;
     }
 
+    .experiencia-span-2 {
+      grid-column: 1 / -1;
+    }
+
     .experiencia-card {
       background: linear-gradient(180deg,
         rgba(255, 255, 255, 0.05),
@@ -757,6 +761,21 @@
       color: rgba(240, 232, 216, 0.76);
     }
 
+    .experiencia-copy strong {
+      color: #fff6db;
+      font-weight: 400;
+    }
+
+    .sistema-gacha {
+      background:
+        radial-gradient(circle at top left, rgba(255, 213, 128, 0.16), transparent 28%),
+        linear-gradient(180deg, rgba(18, 41, 71, 0.82), rgba(8, 22, 43, 0.58));
+    }
+
+    .gacha-explicacion {
+      max-width: none;
+    }
+
     .mood-row {
       display: flex;
       flex-wrap: wrap;
@@ -792,6 +811,24 @@
       box-shadow: 0 10px 26px rgba(5, 16, 33, 0.28);
     }
 
+    .accion-viaje-btn[disabled] {
+      opacity: 0.58;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .accion-viaje-btn.exito {
+      animation: boton-exito 0.55s ease;
+    }
+
+    @keyframes boton-exito {
+      0%   { transform: scale(1); }
+      45%  { transform: scale(1.06); box-shadow: 0 0 24px rgba(255, 213, 128, 0.38); }
+      100% { transform: scale(1); }
+    }
+
     .mood-btn.activo {
       background: linear-gradient(135deg, rgba(255, 213, 128, 0.24), rgba(245, 166, 35, 0.18));
       border-color: rgba(255, 213, 128, 0.62);
@@ -816,6 +853,26 @@
     .accion-azul {
       border-color: rgba(94, 170, 224, 0.34);
       background: linear-gradient(135deg, rgba(41, 121, 184, 0.22), rgba(200, 216, 240, 0.08));
+    }
+
+    .contador-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .contador-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 13px;
+      letter-spacing: 1px;
+      color: rgba(240, 232, 216, 0.82);
     }
 
     .momento-preview,
@@ -848,11 +905,19 @@
       color: rgba(240, 232, 216, 0.88);
     }
 
+    .deseo-burbuja.legendaria {
+      border-color: rgba(255, 213, 128, 0.40);
+      background:
+        radial-gradient(circle at top right, rgba(255, 213, 128, 0.16), transparent 38%),
+        rgba(7, 18, 34, 0.50);
+      box-shadow: 0 0 32px rgba(245, 166, 35, 0.18);
+    }
+
     .coleccion-visual {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
-      min-height: 38px;
+      min-height: 42px;
       margin-top: 18px;
     }
 
@@ -898,6 +963,40 @@
       font-size: 16px;
       line-height: 1.7;
       color: rgba(240, 232, 216, 0.78);
+    }
+
+    .notificaciones-viaje {
+      position: absolute;
+      inset: 18px 18px auto auto;
+      width: 180px;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .notificacion-viaje {
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 213, 128, 0.16);
+      border: 1px solid rgba(255, 213, 128, 0.24);
+      color: #fff4d4;
+      font-size: 13px;
+      white-space: nowrap;
+      backdrop-filter: blur(4px);
+      animation: subir-notificacion 0.95s ease forwards;
+    }
+
+    .notificacion-viaje.azul {
+      background: rgba(94, 170, 224, 0.16);
+      border-color: rgba(94, 170, 224, 0.28);
+    }
+
+    @keyframes subir-notificacion {
+      0%   { opacity: 0; transform: translateY(10px) scale(0.88); }
+      18%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-26px) scale(1.04); }
     }
 
     .burbuja-palabras {
@@ -1139,37 +1238,61 @@
         </article>
 
         <article class="experiencia-card">
-          <span class="experiencia-label">tu huellita aqui</span>
-          <h3 class="experiencia-card-titulo">Junta conchitas conmigo</h3>
+          <span class="experiencia-label">vida contigo</span>
+          <h3 class="experiencia-card-titulo">Dame otro motivo para enamorarme más</h3>
           <p class="experiencia-copy">
-            Cada click guarda una. Se quedan en tu cel para que cuando vuelvas, siga aqui lo que
-            ya tocaste y este rinconcito se sienta mas tuyo.
+            Porque contigo la vida se siente más rica, más suave y más nuestra. Quiero días
+            nuevos contigo, noches nuevas contigo y este viaje distinto, solo tú y yo.
           </p>
+          <button type="button" class="accion-viaje-btn accion-clara" id="motivoBtn">Otro motivo bonito</button>
+          <div class="motivo-display" id="motivoDisplay" aria-live="polite"></div>
+        </article>
+
+        <article class="experiencia-card experiencia-span-2 sistema-gacha">
+          <span class="experiencia-label">banner del mar</span>
+          <h3 class="experiencia-card-titulo">Conchitas, protogemas y deseos para nosotros</h3>
+          <p class="experiencia-copy">
+            En Genshin juntas protogemas para tirar deseos; aquí cada conchita cuenta como una
+            protogemita del viaje. <strong>Por cada conchita guardada desbloqueas una tirada</strong>,
+            y vamos a jugar nuestra multi romántica de playa: máximo 10 conchitas y máximo 10 deseos.
+            Si por mí fuera pediría infinitos, porque contigo quiero cualquier vida bonita: besos,
+            abrazos, amaneceres nuevos, noches distintas a las del año pasado y puro tiempo de
+            nosotros dos, bien cerquita.
+          </p>
+        </article>
+
+        <article class="experiencia-card">
+          <span class="experiencia-label">farm de playa</span>
+          <h3 class="experiencia-card-titulo">Junta 10 conchitas para ganar tus deseos</h3>
+          <p class="experiencia-copy">
+            Cada toque recoge una conchita y la vuelve protogema. Entre más juntes, más besos,
+            abrazos y recuerdos nos desbloquea esta mini historia contigo.
+          </p>
+          <div class="contador-row">
+            <span class="contador-chip" id="protoContador">Protogemas guardadas: 0/10</span>
+            <span class="contador-chip" id="wishDisponibleChip">Deseos listos: 0</span>
+          </div>
           <button type="button" class="accion-viaje-btn accion-dorada" id="sumarConchaBtn">Guardar una conchita</button>
+          <div class="notificaciones-viaje" id="conchaFx" aria-hidden="true"></div>
           <div class="coleccion-visual" id="coleccionVisual" aria-live="polite"></div>
           <div class="barra-carino"><span id="barraCarino"></span></div>
           <p class="frase-destello" id="coleccionTexto"></p>
         </article>
 
         <article class="experiencia-card">
-          <span class="experiencia-label">vida contigo</span>
-          <h3 class="experiencia-card-titulo">Dame otro motivo para enamorarme mas</h3>
+          <span class="experiencia-label">multi de nosotros</span>
+          <h3 class="experiencia-card-titulo">Tira tus 10 deseos del viaje</h3>
           <p class="experiencia-copy">
-            Porque contigo la vida no se siente pesada. Se siente sabrosa, viva, con ganas de
-            quedarse despierto un ratito mas nomas para quererte.
+            Esta parte va seguida: primero juntas conchitas, luego gastas esas protogemas en
+            deseos bonitos. Si no has farmeado una conchita, no se puede tirar. Así cada click
+            se gana y cada deseo pesa más.
           </p>
-          <button type="button" class="accion-viaje-btn accion-clara" id="motivoBtn">Otro motivo bonito</button>
-          <div class="motivo-display" id="motivoDisplay" aria-live="polite"></div>
-        </article>
-
-        <article class="experiencia-card">
-          <span class="experiencia-label">deseos al mar</span>
-          <h3 class="experiencia-card-titulo">Lanza uno bonito para nuestro viaje</h3>
-          <p class="experiencia-copy">
-            Aqui no hay miedo ni drama. Nomás ganas de vivir cosas lindas contigo, con sal en la
-            piel, sol en la cara y tus manitas cerca de las mias.
-          </p>
-          <button type="button" class="accion-viaje-btn accion-azul" id="deseoBtn">Mandar al mar</button>
+          <div class="contador-row">
+            <span class="contador-chip" id="wishCounterChip">Deseos lanzados: 0/10</span>
+            <span class="contador-chip" id="wishRestantesChip">Tiradas desbloqueadas: 0</span>
+          </div>
+          <button type="button" class="accion-viaje-btn accion-azul" id="deseoBtn" disabled>Necesitas una conchita primero</button>
+          <div class="notificaciones-viaje" id="deseoFx" aria-hidden="true"></div>
           <div class="deseo-burbuja" id="deseoBurbuja" aria-live="polite"></div>
           <div class="burbuja-palabras" id="burbujaPalabras" aria-hidden="true"></div>
         </article>
@@ -1314,20 +1437,23 @@
   setInterval(actualizar, 1000);
 
   // ─── EXPERIENCIAS DEL VIAJE ──────────────────────────────
+  const MAX_CONCHAS = 10;
+  const MAX_DESEOS = 10;
+
   const escenasViaje = {
     amanecer: {
       etiqueta: 'Amanecer de los dos',
-      texto: 'Te imagino conmigo viendo el cielo aclararse despacito, con tu carita bonita toda suave, el mar enfrente y esa sensacion de que la vida se puso bien buena nada mas porque estas tu.',
+      texto: 'Te imagino conmigo viendo el cielo aclararse despacito, con tu carita bonita toda suave, el mar enfrente y esa sensacion de que la vida se puso bien buena nada mas porque estas tu y porque por fin ese dia es solo nuestro.',
       aurora: 'linear-gradient(to top, rgba(245, 166, 35, 0.22) 0%, rgba(255, 213, 128, 0.12) 22%, transparent 100%)'
     },
     orilla: {
       etiqueta: 'Pasitos en la arena',
-      texto: 'Te veo agarrandome de la mano, caminando por la orillita, riendonos de cualquier cosa, mojandonos los pies y sintiendo que este primer viaje es apenas el comienzo de un monton de recuerdos chulos contigo.',
+      texto: 'Te veo agarrandome de la mano, caminando por la orillita, riendonos de cualquier cosa, mojandonos los pies y sintiendo que este primer viaje es apenas el comienzo de un monton de recuerdos chulos contigo, besitos y abrazos bien nuestros.',
       aurora: 'linear-gradient(to top, rgba(83, 162, 212, 0.18) 0%, rgba(200, 216, 240, 0.10) 26%, transparent 100%)'
     },
     noche: {
       etiqueta: 'Noche tibia contigo',
-      texto: 'Y tambien te imagino en la noche, con brisita, piel salada, hablando bajito contigo y pensando que no hay lugar mas rico en el mundo que el donde estas tu pegadita a mi.',
+      texto: 'Y tambien te imagino en la noche, con brisita, piel salada, hablando bajito contigo y pensando que no hay lugar mas rico en el mundo que el donde estas tu pegadita a mi, en una noche bien distinta a las del ano pasado.',
       aurora: 'linear-gradient(to top, rgba(108, 124, 201, 0.18) 0%, rgba(200, 216, 240, 0.08) 26%, transparent 100%)'
     }
   };
@@ -1337,35 +1463,58 @@
     'Porque me encanta que seas tu, con tu inteligencia, tu carita hermosa y esa forma tan tuya de quedarte en mi cabeza todo el dia.',
     'Porque contigo no nomas quiero planes grandes: tambien quiero los ratitos simples, los abrazos largos y las risas mensas.',
     'Porque cuando pienso en una vida bonita, siempre sales tu en medio, como si fueras la parte mas calida del paisaje.',
-    'Porque me haces querer vivir bien, querer bonito y agradecer que la vida me haya cruzado contigo.'
+    'Porque me haces querer vivir bien, querer bonito y agradecer que la vida me haya cruzado contigo.',
+    'Porque este viaje va a ser solo de nosotros dos, sin ruido, sin prisa, solo tus ojos, mis besos y el mar de testigo.',
+    'Porque contigo quiero noches nuevas, mas suaves, mas ricas, mas llenas de abrazos que las del ano pasado.',
+    'Porque me fascina imaginar dias diferentes contigo: desayunitos juntos, piel con sal, manitas entrelazadas y tu risa cerquita.'
   ];
 
   const mensajesConchas = [
-    'Primera conchita: para el primer abrazo con olor a bloqueador y mar.',
-    'Dos conchitas: para las risas que se nos van a escapar solitas en la arena.',
-    'Tres conchitas: para los besos robados entre el calorcito y la brisa.',
-    'Cuatro conchitas: para las fotos que no van a ocupar filtro porque tu ya eres la vista bonita.',
-    'Cinco conchitas: para esa paz rica de saber que mi lugar favorito tambien puede ser a tu lado.',
-    'Seis conchitas: nuestra orillita ya esta llena de recuerdos tuyos y mios.'
+    '1 de 10: la primera protogema es para ese abrazo largo apenas te vea, de esos que dicen ya estamos aqui tu y yo.',
+    '2 de 10: esta segunda conchita huele a bloqueador, risitas y a tus besitos salados en la orilla.',
+    '3 de 10: ya vamos juntando para una noche distinta, de puras miraditas bonitas y abrazos apretados.',
+    '4 de 10: esta va para nuestras manitas juntas mientras caminamos sin apuro, nomas disfrutandonos.',
+    '5 de 10: media multi y medio corazon no; aqui todo va completo, porque contigo quiero todo el amor enterito.',
+    '6 de 10: esta protogemita se siente como quedarnos un ratito mas abrazados viendo el mar moverse.',
+    '7 de 10: ya casi, mi amor. Esta trae ganas de amaneceres nuevos, cachetitos besados y mucha paz contigo.',
+    '8 de 10: otra concha para una noche rica, calladita y nuestra, de esas donde el mundo se queda lejos.',
+    '9 de 10: penultima protogema, cargada de besos en la frente, abrazos dormidos y puras ganas de cuidarte.',
+    '10 de 10: multi lista. Ya brillan las 10 conchitas del mar y cada una trae un pedacito de la vida bonita que quiero contigo.'
   ];
 
-  const iconosConchas = ['🐚', '✨', '🪸', '☀️', '🌊', '🤍'];
+  const iconosConchas = ['🐚', '✨', '🌊', '☀️', '🤍', '🫧', '💋', '🌙', '🪸', '🏝️'];
   const deseosBonitos = [
-    'Que nuestro primer viaje juntos tenga muchas risas, poquita prisa y un monton de momentos para abrazarte.',
-    'Que el mar nos vea felices, ligeros y bien enamorados, como si siempre hubieramos sabido llegar el uno al otro.',
-    'Que se nos pegue la costumbre de mirar cosas bonitas y pensar: esto estaria mejor si lo vivimos juntos.',
-    'Que el tiempo contigo siga sintiendose asi: calido, emocionante y bien bonito de recordar.',
-    'Que Nuevo Vallarta nos reciba con sol, brisa rica y muchas ganas de seguir construyendo vida juntos.'
+    'Me salio un amanecer contigo, despeinados, abrazados y felices de habernos traido hasta aqui los dos.',
+    'Me salio una caminata de la mano por la arena, con tus pasitos al lado mio y un beso robado entre risas.',
+    'Me salio una tarde de puro apapacho: tu cabeza en mi hombro, mis brazos en ti y el mar haciendo musica.',
+    'Me salio una noche nueva contigo, distinta, mas nuestra, con brisita tibia y ganas de no soltarte.',
+    'Me salio una lluvia de besitos chiquitos en tu cara bonita porque ni en vacaciones me aguantaria las ganas de quererte.',
+    'Me salio un deseo de paz rica: dormirnos cerquita, despertar cerquita y seguirnos eligiendo todo el dia.',
+    'Me salio una version de nosotros riendonos un monton, tomandonos fotos feas y lindas, pero todas bien nuestras.',
+    'Me salio un deseo de abrazarte despues de cada salida, como si cada regreso al cuarto tambien fuera hogar contigo.',
+    'Me salio un futuro lleno de escapaditas, mas playas, mas noches suaves y mas vida bonita construida entre los dos.',
+    'Me salio lo mas valioso de todo: lo que en realidad ya tenia conmigo desde antes, una vida plena y feliz contigo, mi bebe Linda Martinez, llenita de amor, besos, abrazos y paz. &lt;3'
   ];
 
-  const palabrasMar = ['besitos', 'brisa', 'risas', 'solcito', 'manitas', 'mar', 'abrazos', 'piel salada'];
-  const KEY_VIAJE = 'linda-viaje-v2';
+  const palabrasMar = ['besitos', 'abrazos', 'tu risa', 'solcito', 'manitas', 'piel salada', 'miraditas', 'mi bebe'];
+  const KEY_VIAJE = 'linda-viaje-v3';
 
   function cargarEstadoViaje() {
-    const base = { mood: 'orilla', conchas: 0, motivoIndex: 0, deseos: 0 };
+    const base = { mood: 'orilla', conchas: 0, motivoIndex: 0, deseosUsados: 0 };
     try {
       const guardado = JSON.parse(localStorage.getItem(KEY_VIAJE));
-      return { ...base, ...guardado };
+      const conchas = Math.max(0, Math.min(MAX_CONCHAS, Math.floor(Number(guardado?.conchas) || 0)));
+      const deseosUsados = Math.max(
+        0,
+        Math.min(MAX_DESEOS, conchas, Math.floor(Number(guardado?.deseosUsados) || 0))
+      );
+
+      return {
+        mood: escenasViaje[guardado?.mood] ? guardado.mood : base.mood,
+        conchas,
+        motivoIndex: Math.max(0, Math.floor(Number(guardado?.motivoIndex) || 0)),
+        deseosUsados
+      };
     } catch (e) {
       return base;
     }
@@ -1376,13 +1525,19 @@
   const moodBtns = document.querySelectorAll('.mood-btn');
   const momentoEtiqueta = document.getElementById('momentoEtiqueta');
   const momentoTexto = document.getElementById('momentoTexto');
+  const protoContador = document.getElementById('protoContador');
+  const wishDisponibleChip = document.getElementById('wishDisponibleChip');
   const sumarConchaBtn = document.getElementById('sumarConchaBtn');
+  const conchaFx = document.getElementById('conchaFx');
   const coleccionVisual = document.getElementById('coleccionVisual');
   const barraCarino = document.getElementById('barraCarino');
   const coleccionTexto = document.getElementById('coleccionTexto');
   const motivoBtn = document.getElementById('motivoBtn');
   const motivoDisplay = document.getElementById('motivoDisplay');
+  const wishCounterChip = document.getElementById('wishCounterChip');
+  const wishRestantesChip = document.getElementById('wishRestantesChip');
   const deseoBtn = document.getElementById('deseoBtn');
+  const deseoFx = document.getElementById('deseoFx');
   const deseoBurbuja = document.getElementById('deseoBurbuja');
   const burbujaPalabras = document.getElementById('burbujaPalabras');
 
@@ -1392,6 +1547,10 @@
     } catch (e) {
       return;
     }
+  }
+
+  function deseosDisponibles() {
+    return Math.max(0, Math.min(estadoViaje.conchas, MAX_CONCHAS) - estadoViaje.deseosUsados);
   }
 
   function activarMood(mood) {
@@ -1406,25 +1565,49 @@
     guardarEstadoViaje();
   }
 
+  function animarExito(boton) {
+    boton.classList.remove('exito');
+    void boton.offsetWidth;
+    boton.classList.add('exito');
+
+    setTimeout(() => {
+      boton.classList.remove('exito');
+    }, 560);
+  }
+
+  function soltarNotificacion(contenedor, texto, claseExtra = '') {
+    const nota = document.createElement('span');
+    nota.className = `notificacion-viaje ${claseExtra}`.trim();
+    nota.textContent = texto;
+    contenedor.appendChild(nota);
+
+    setTimeout(() => {
+      nota.remove();
+    }, 980);
+  }
+
   function renderConchas() {
-    const total = mensajesConchas.length;
-    const actual = Math.max(0, Math.min(estadoViaje.conchas, total));
+    const actual = Math.max(0, Math.min(estadoViaje.conchas, MAX_CONCHAS));
+    const disponibles = deseosDisponibles();
     coleccionVisual.innerHTML = '';
 
     for (let i = 0; i < actual; i++) {
       const token = document.createElement('span');
       token.className = 'concha-token';
-      token.textContent = iconosConchas[i];
+      token.textContent = iconosConchas[i % iconosConchas.length];
       coleccionVisual.appendChild(token);
     }
 
-    barraCarino.style.width = `${(actual / total) * 100}%`;
+    protoContador.textContent = `Protogemas guardadas: ${actual}/${MAX_CONCHAS}`;
+    wishDisponibleChip.textContent = `Deseos listos: ${disponibles}`;
+    barraCarino.style.width = `${(actual / MAX_CONCHAS) * 100}%`;
     coleccionTexto.textContent = actual === 0
-      ? 'Todavia no guardamos ninguna, pero aqui empieza nuestra mini coleccion de playa.'
+      ? 'Farmea la primera conchita y te ganas la primera tirada bonita de nuestra multi de playa.'
       : mensajesConchas[actual - 1];
-    sumarConchaBtn.textContent = actual >= total
-      ? 'Nuestra orillita ya esta llena'
+    sumarConchaBtn.textContent = actual >= MAX_CONCHAS
+      ? 'Las 10 conchitas ya brillan'
       : 'Guardar una conchita';
+    sumarConchaBtn.disabled = actual >= MAX_CONCHAS;
   }
 
   function renderMotivo() {
@@ -1432,13 +1615,43 @@
   }
 
   function renderDeseo() {
-    if (estadoViaje.deseos <= 0) {
-      deseoBurbuja.innerHTML = 'Toca el boton y soltamos al mar un deseo bonito para nosotros.';
+    const usados = Math.max(0, Math.min(estadoViaje.deseosUsados, MAX_DESEOS));
+    const disponibles = deseosDisponibles();
+
+    wishCounterChip.textContent = `Deseos lanzados: ${usados}/${MAX_DESEOS}`;
+    wishRestantesChip.textContent = `Tiradas desbloqueadas: ${disponibles}`;
+    deseoBurbuja.classList.toggle('legendaria', usados === MAX_DESEOS);
+
+    if (usados === 0 && estadoViaje.conchas === 0) {
+      deseoBurbuja.innerHTML = 'Primero junta una conchita. Aqui las conchas son protogemas y solo asi se desbloquea una tirada bonita contigo.';
+    } else if (usados === 0 && disponibles > 0) {
+      deseoBurbuja.innerHTML = `Ya tienes <span class="texto-fuerte">${disponibles}</span> tirada${disponibles === 1 ? '' : 's'} lista${disponibles === 1 ? '' : 's'}. Dale y vemos que momento hermoso nos sale a nosotros dos.`;
+    } else {
+      const deseoActual = deseosBonitos[usados - 1];
+      const recordatorio = usados < MAX_DESEOS && disponibles === 0
+        ? '<br/><br/><span class="texto-fuerte">Para seguir tirando, recoge otra conchita/protogema.</span>'
+        : '';
+      deseoBurbuja.innerHTML = `<span class="texto-fuerte">Deseo ${usados}/${MAX_DESEOS}.</span> ${deseoActual}${recordatorio}`;
+    }
+
+    if (usados >= MAX_DESEOS) {
+      deseoBtn.disabled = true;
+      deseoBtn.textContent = 'Ya completaste la multi de nosotros';
       return;
     }
 
-    const deseoActual = deseosBonitos[(estadoViaje.deseos - 1) % deseosBonitos.length];
-    deseoBurbuja.innerHTML = `<span class="texto-fuerte">Deseo ${estadoViaje.deseos}.</span> ${deseoActual}`;
+    if (disponibles <= 0) {
+      deseoBtn.disabled = true;
+      deseoBtn.textContent = estadoViaje.conchas === 0
+        ? 'Necesitas una conchita primero'
+        : 'Junta otra conchita para seguir';
+      return;
+    }
+
+    deseoBtn.disabled = false;
+    deseoBtn.textContent = usados === 0
+      ? 'Tirar primer deseo'
+      : `Tirar deseo ${usados + 1}/${MAX_DESEOS}`;
   }
 
   function crearPalabraMar() {
@@ -1454,38 +1667,56 @@
     }, 4200);
   }
 
+  function celebrarPalabras(cantidad = 4) {
+    for (let i = 0; i < cantidad; i++) {
+      setTimeout(crearPalabraMar, i * 130);
+    }
+  }
+
   moodBtns.forEach(btn => {
     btn.addEventListener('click', () => activarMood(btn.dataset.mood));
   });
 
   sumarConchaBtn.addEventListener('click', () => {
-    if (estadoViaje.conchas < mensajesConchas.length) {
-      estadoViaje.conchas += 1;
-      guardarEstadoViaje();
-      renderConchas();
+    if (estadoViaje.conchas >= MAX_CONCHAS) {
+      coleccionTexto.textContent = 'La multi ya esta completa, mi amor. Ahora toca gastarnos esas protogemas en puros deseos bonitos.';
       return;
     }
 
-    coleccionTexto.textContent = 'Ya llenaste este cachito de arena de nosotros, mi amor bonito.';
-    for (let i = 0; i < 3; i++) {
-      setTimeout(crearPalabraMar, i * 120);
-    }
+    estadoViaje.conchas += 1;
+    guardarEstadoViaje();
+    renderConchas();
+    renderDeseo();
+    animarExito(sumarConchaBtn);
+    soltarNotificacion(conchaFx, '+1 protogema');
+    setTimeout(() => soltarNotificacion(conchaFx, '+1 deseo', 'azul'), 110);
+    celebrarPalabras(estadoViaje.conchas === MAX_CONCHAS ? 6 : 3);
   });
 
   motivoBtn.addEventListener('click', () => {
     estadoViaje.motivoIndex = (estadoViaje.motivoIndex + 1) % motivosBonitos.length;
     guardarEstadoViaje();
     renderMotivo();
+    animarExito(motivoBtn);
   });
 
   deseoBtn.addEventListener('click', () => {
-    estadoViaje.deseos += 1;
-    guardarEstadoViaje();
-    renderDeseo();
-
-    for (let i = 0; i < 4; i++) {
-      setTimeout(crearPalabraMar, i * 140);
+    if (deseosDisponibles() <= 0 || estadoViaje.deseosUsados >= MAX_DESEOS) {
+      renderDeseo();
+      return;
     }
+
+    estadoViaje.deseosUsados += 1;
+    guardarEstadoViaje();
+    renderConchas();
+    renderDeseo();
+    animarExito(deseoBtn);
+    soltarNotificacion(
+      deseoFx,
+      estadoViaje.deseosUsados === MAX_DESEOS ? '5★ Vida contigo' : `Deseo ${estadoViaje.deseosUsados}/${MAX_DESEOS}`,
+      'azul'
+    );
+    celebrarPalabras(estadoViaje.deseosUsados === MAX_DESEOS ? 8 : 5);
   });
 
   activarMood(estadoViaje.mood);
