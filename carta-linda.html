@@ -158,6 +158,7 @@
       background: linear-gradient(to top,
         rgba(26, 46, 82, 0.0) 0%,
         transparent 100%);
+      transition: background 0.8s ease, opacity 0.8s ease;
       pointer-events: none;
     }
 
@@ -663,6 +664,284 @@
       color: var(--sol-suave);
       opacity: 0.75;
     }
+
+    /* EXPERIENCIAS DEL VIAJE */
+    .experiencias-viaje {
+      margin-top: 46px;
+      padding: 34px 28px;
+      border-radius: 4px;
+      background:
+        radial-gradient(circle at top right, rgba(255, 213, 128, 0.14), transparent 34%),
+        linear-gradient(160deg, rgba(10, 32, 61, 0.78), rgba(17, 44, 74, 0.72));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 18px 42px rgba(4, 12, 28, 0.28);
+    }
+
+    .experiencias-kicker {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--luna);
+      opacity: 0.7;
+      margin-bottom: 8px;
+    }
+
+    .experiencias-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 5vw, 34px);
+      font-style: italic;
+      color: var(--sol-suave);
+      margin-bottom: 12px;
+    }
+
+    .experiencias-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(16px, 2.4vw, 18px);
+      line-height: 1.9;
+      color: rgba(240, 232, 216, 0.82);
+      max-width: 640px;
+    }
+
+    .experiencias-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .experiencia-card {
+      background: linear-gradient(180deg,
+        rgba(255, 255, 255, 0.05),
+        rgba(9, 23, 43, 0.28));
+      border: 1px solid rgba(200, 216, 240, 0.10);
+      border-radius: 18px;
+      padding: 22px 20px;
+      min-height: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .experiencia-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.04), transparent 45%);
+      pointer-events: none;
+    }
+
+    .experiencia-label {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--sol-suave);
+      opacity: 0.72;
+      margin-bottom: 10px;
+    }
+
+    .experiencia-card-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 3vw, 24px);
+      color: var(--texto-claro);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .experiencia-copy {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(240, 232, 216, 0.76);
+    }
+
+    .mood-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .mood-btn,
+    .accion-viaje-btn {
+      appearance: none;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      padding: 11px 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--texto-claro);
+      cursor: pointer;
+      transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease,
+        background 0.22s ease;
+    }
+
+    .mood-btn {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .mood-btn:hover,
+    .accion-viaje-btn:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 213, 128, 0.45);
+      box-shadow: 0 10px 26px rgba(5, 16, 33, 0.28);
+    }
+
+    .mood-btn.activo {
+      background: linear-gradient(135deg, rgba(255, 213, 128, 0.24), rgba(245, 166, 35, 0.18));
+      border-color: rgba(255, 213, 128, 0.62);
+      color: #fff7de;
+    }
+
+    .accion-viaje-btn {
+      margin-top: 16px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));
+    }
+
+    .accion-dorada {
+      border-color: rgba(245, 166, 35, 0.34);
+      background: linear-gradient(135deg, rgba(245, 166, 35, 0.18), rgba(255, 213, 128, 0.10));
+    }
+
+    .accion-clara {
+      border-color: rgba(200, 216, 240, 0.28);
+      background: linear-gradient(135deg, rgba(200, 216, 240, 0.16), rgba(74, 100, 144, 0.10));
+    }
+
+    .accion-azul {
+      border-color: rgba(94, 170, 224, 0.34);
+      background: linear-gradient(135deg, rgba(41, 121, 184, 0.22), rgba(200, 216, 240, 0.08));
+    }
+
+    .momento-preview,
+    .motivo-display,
+    .deseo-burbuja {
+      margin-top: 18px;
+      border-radius: 16px;
+      padding: 16px 18px;
+      background: rgba(7, 18, 34, 0.42);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      min-height: 110px;
+    }
+
+    .momento-preview small {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--sol-suave);
+      opacity: 0.72;
+      margin-bottom: 10px;
+    }
+
+    .momento-preview p,
+    .motivo-display,
+    .deseo-burbuja {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      line-height: 1.85;
+      color: rgba(240, 232, 216, 0.88);
+    }
+
+    .coleccion-visual {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      min-height: 38px;
+      margin-top: 18px;
+    }
+
+    .concha-token {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255, 213, 128, 0.18), rgba(200, 216, 240, 0.16));
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      font-size: 18px;
+      animation: subir-concha 0.45s ease;
+    }
+
+    @keyframes subir-concha {
+      from { opacity: 0; transform: translateY(10px) scale(0.82); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .barra-carino {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+      margin-top: 16px;
+    }
+
+    .barra-carino span {
+      display: block;
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--sol), var(--sol-suave), #fff2c0);
+      box-shadow: 0 0 16px rgba(245, 166, 35, 0.35);
+      transition: width 0.35s ease;
+    }
+
+    .frase-destello {
+      margin-top: 14px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(240, 232, 216, 0.78);
+    }
+
+    .burbuja-palabras {
+      position: relative;
+      min-height: 80px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+
+    .burbuja-palabra {
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(200, 216, 240, 0.12);
+      border: 1px solid rgba(200, 216, 240, 0.12);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(4px);
+      animation: flotar-burbuja 3.8s ease forwards;
+      white-space: nowrap;
+    }
+
+    @keyframes flotar-burbuja {
+      0%   { opacity: 0; transform: translateY(8px) scale(0.85); }
+      15%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-72px) scale(1.08); }
+    }
+
+    .texto-fuerte {
+      color: #fff6db;
+      font-weight: 400;
+    }
+
+    @media (max-width: 720px) {
+      .experiencias-viaje {
+        padding: 26px 18px;
+      }
+
+      .experiencias-grid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -831,6 +1110,72 @@
       </div>
     </div>
 
+    <!-- EXPERIENCIAS DEL VIAJE -->
+    <section class="experiencias-viaje" aria-label="Interacciones romanticas del viaje">
+      <p class="experiencias-kicker">mas vida para nosotros</p>
+      <h2 class="experiencias-titulo">Quiero que esta parte tambien la toques tu</h2>
+      <p class="experiencias-intro">
+        Todo esto es desde lo bonito: el mar, la risa, el tiempo contigo, la vida rica cuando
+        se comparte con alguien tan especial como tu. Cada boton deja una huellita de nosotros aqui.
+      </p>
+
+      <div class="experiencias-grid">
+        <article class="experiencia-card">
+          <span class="experiencia-label">nuestro mood</span>
+          <h3 class="experiencia-card-titulo">Elige como nos ves llegando a la playa</h3>
+          <p class="experiencia-copy">
+            No para adivinar el futuro, sino para imaginar juntos el tipo de momento bonito que
+            ya se siente cerquita.
+          </p>
+          <div class="mood-row">
+            <button type="button" class="mood-btn" data-mood="amanecer">Amanecer</button>
+            <button type="button" class="mood-btn" data-mood="orilla">Orillita</button>
+            <button type="button" class="mood-btn" data-mood="noche">Noche tibia</button>
+          </div>
+          <div class="momento-preview">
+            <small id="momentoEtiqueta">nuestro momento</small>
+            <p id="momentoTexto"></p>
+          </div>
+        </article>
+
+        <article class="experiencia-card">
+          <span class="experiencia-label">tu huellita aqui</span>
+          <h3 class="experiencia-card-titulo">Junta conchitas conmigo</h3>
+          <p class="experiencia-copy">
+            Cada click guarda una. Se quedan en tu cel para que cuando vuelvas, siga aqui lo que
+            ya tocaste y este rinconcito se sienta mas tuyo.
+          </p>
+          <button type="button" class="accion-viaje-btn accion-dorada" id="sumarConchaBtn">Guardar una conchita</button>
+          <div class="coleccion-visual" id="coleccionVisual" aria-live="polite"></div>
+          <div class="barra-carino"><span id="barraCarino"></span></div>
+          <p class="frase-destello" id="coleccionTexto"></p>
+        </article>
+
+        <article class="experiencia-card">
+          <span class="experiencia-label">vida contigo</span>
+          <h3 class="experiencia-card-titulo">Dame otro motivo para enamorarme mas</h3>
+          <p class="experiencia-copy">
+            Porque contigo la vida no se siente pesada. Se siente sabrosa, viva, con ganas de
+            quedarse despierto un ratito mas nomas para quererte.
+          </p>
+          <button type="button" class="accion-viaje-btn accion-clara" id="motivoBtn">Otro motivo bonito</button>
+          <div class="motivo-display" id="motivoDisplay" aria-live="polite"></div>
+        </article>
+
+        <article class="experiencia-card">
+          <span class="experiencia-label">deseos al mar</span>
+          <h3 class="experiencia-card-titulo">Lanza uno bonito para nuestro viaje</h3>
+          <p class="experiencia-copy">
+            Aqui no hay miedo ni drama. Nomás ganas de vivir cosas lindas contigo, con sal en la
+            piel, sol en la cara y tus manitas cerca de las mias.
+          </p>
+          <button type="button" class="accion-viaje-btn accion-azul" id="deseoBtn">Mandar al mar</button>
+          <div class="deseo-burbuja" id="deseoBurbuja" aria-live="polite"></div>
+          <div class="burbuja-palabras" id="burbujaPalabras" aria-hidden="true"></div>
+        </article>
+      </div>
+    </section>
+
     <div class="firma-contenedor">
       <span class="firma-label">con todo mi amor,</span>
       <span class="firma">Alexis Valdez 🌙</span>
@@ -967,6 +1312,186 @@
 
   actualizar();
   setInterval(actualizar, 1000);
+
+  // ─── EXPERIENCIAS DEL VIAJE ──────────────────────────────
+  const escenasViaje = {
+    amanecer: {
+      etiqueta: 'Amanecer de los dos',
+      texto: 'Te imagino conmigo viendo el cielo aclararse despacito, con tu carita bonita toda suave, el mar enfrente y esa sensacion de que la vida se puso bien buena nada mas porque estas tu.',
+      aurora: 'linear-gradient(to top, rgba(245, 166, 35, 0.22) 0%, rgba(255, 213, 128, 0.12) 22%, transparent 100%)'
+    },
+    orilla: {
+      etiqueta: 'Pasitos en la arena',
+      texto: 'Te veo agarrandome de la mano, caminando por la orillita, riendonos de cualquier cosa, mojandonos los pies y sintiendo que este primer viaje es apenas el comienzo de un monton de recuerdos chulos contigo.',
+      aurora: 'linear-gradient(to top, rgba(83, 162, 212, 0.18) 0%, rgba(200, 216, 240, 0.10) 26%, transparent 100%)'
+    },
+    noche: {
+      etiqueta: 'Noche tibia contigo',
+      texto: 'Y tambien te imagino en la noche, con brisita, piel salada, hablando bajito contigo y pensando que no hay lugar mas rico en el mundo que el donde estas tu pegadita a mi.',
+      aurora: 'linear-gradient(to top, rgba(108, 124, 201, 0.18) 0%, rgba(200, 216, 240, 0.08) 26%, transparent 100%)'
+    }
+  };
+
+  const motivosBonitos = [
+    'Porque contigo hasta lo cotidiano agarra brillo: comer, caminar, esperar, todo sabe mejor si estas tu.',
+    'Porque me encanta que seas tu, con tu inteligencia, tu carita hermosa y esa forma tan tuya de quedarte en mi cabeza todo el dia.',
+    'Porque contigo no nomas quiero planes grandes: tambien quiero los ratitos simples, los abrazos largos y las risas mensas.',
+    'Porque cuando pienso en una vida bonita, siempre sales tu en medio, como si fueras la parte mas calida del paisaje.',
+    'Porque me haces querer vivir bien, querer bonito y agradecer que la vida me haya cruzado contigo.'
+  ];
+
+  const mensajesConchas = [
+    'Primera conchita: para el primer abrazo con olor a bloqueador y mar.',
+    'Dos conchitas: para las risas que se nos van a escapar solitas en la arena.',
+    'Tres conchitas: para los besos robados entre el calorcito y la brisa.',
+    'Cuatro conchitas: para las fotos que no van a ocupar filtro porque tu ya eres la vista bonita.',
+    'Cinco conchitas: para esa paz rica de saber que mi lugar favorito tambien puede ser a tu lado.',
+    'Seis conchitas: nuestra orillita ya esta llena de recuerdos tuyos y mios.'
+  ];
+
+  const iconosConchas = ['🐚', '✨', '🪸', '☀️', '🌊', '🤍'];
+  const deseosBonitos = [
+    'Que nuestro primer viaje juntos tenga muchas risas, poquita prisa y un monton de momentos para abrazarte.',
+    'Que el mar nos vea felices, ligeros y bien enamorados, como si siempre hubieramos sabido llegar el uno al otro.',
+    'Que se nos pegue la costumbre de mirar cosas bonitas y pensar: esto estaria mejor si lo vivimos juntos.',
+    'Que el tiempo contigo siga sintiendose asi: calido, emocionante y bien bonito de recordar.',
+    'Que Nuevo Vallarta nos reciba con sol, brisa rica y muchas ganas de seguir construyendo vida juntos.'
+  ];
+
+  const palabrasMar = ['besitos', 'brisa', 'risas', 'solcito', 'manitas', 'mar', 'abrazos', 'piel salada'];
+  const KEY_VIAJE = 'linda-viaje-v2';
+
+  function cargarEstadoViaje() {
+    const base = { mood: 'orilla', conchas: 0, motivoIndex: 0, deseos: 0 };
+    try {
+      const guardado = JSON.parse(localStorage.getItem(KEY_VIAJE));
+      return { ...base, ...guardado };
+    } catch (e) {
+      return base;
+    }
+  }
+
+  const estadoViaje = cargarEstadoViaje();
+  const aurora = document.querySelector('.aurora');
+  const moodBtns = document.querySelectorAll('.mood-btn');
+  const momentoEtiqueta = document.getElementById('momentoEtiqueta');
+  const momentoTexto = document.getElementById('momentoTexto');
+  const sumarConchaBtn = document.getElementById('sumarConchaBtn');
+  const coleccionVisual = document.getElementById('coleccionVisual');
+  const barraCarino = document.getElementById('barraCarino');
+  const coleccionTexto = document.getElementById('coleccionTexto');
+  const motivoBtn = document.getElementById('motivoBtn');
+  const motivoDisplay = document.getElementById('motivoDisplay');
+  const deseoBtn = document.getElementById('deseoBtn');
+  const deseoBurbuja = document.getElementById('deseoBurbuja');
+  const burbujaPalabras = document.getElementById('burbujaPalabras');
+
+  function guardarEstadoViaje() {
+    try {
+      localStorage.setItem(KEY_VIAJE, JSON.stringify(estadoViaje));
+    } catch (e) {
+      return;
+    }
+  }
+
+  function activarMood(mood) {
+    const escena = escenasViaje[mood] || escenasViaje.orilla;
+    estadoViaje.mood = escenasViaje[mood] ? mood : 'orilla';
+    moodBtns.forEach(btn => {
+      btn.classList.toggle('activo', btn.dataset.mood === estadoViaje.mood);
+    });
+    momentoEtiqueta.textContent = escena.etiqueta;
+    momentoTexto.textContent = escena.texto;
+    aurora.style.background = escena.aurora;
+    guardarEstadoViaje();
+  }
+
+  function renderConchas() {
+    const total = mensajesConchas.length;
+    const actual = Math.max(0, Math.min(estadoViaje.conchas, total));
+    coleccionVisual.innerHTML = '';
+
+    for (let i = 0; i < actual; i++) {
+      const token = document.createElement('span');
+      token.className = 'concha-token';
+      token.textContent = iconosConchas[i];
+      coleccionVisual.appendChild(token);
+    }
+
+    barraCarino.style.width = `${(actual / total) * 100}%`;
+    coleccionTexto.textContent = actual === 0
+      ? 'Todavia no guardamos ninguna, pero aqui empieza nuestra mini coleccion de playa.'
+      : mensajesConchas[actual - 1];
+    sumarConchaBtn.textContent = actual >= total
+      ? 'Nuestra orillita ya esta llena'
+      : 'Guardar una conchita';
+  }
+
+  function renderMotivo() {
+    motivoDisplay.textContent = motivosBonitos[estadoViaje.motivoIndex % motivosBonitos.length];
+  }
+
+  function renderDeseo() {
+    if (estadoViaje.deseos <= 0) {
+      deseoBurbuja.innerHTML = 'Toca el boton y soltamos al mar un deseo bonito para nosotros.';
+      return;
+    }
+
+    const deseoActual = deseosBonitos[(estadoViaje.deseos - 1) % deseosBonitos.length];
+    deseoBurbuja.innerHTML = `<span class="texto-fuerte">Deseo ${estadoViaje.deseos}.</span> ${deseoActual}`;
+  }
+
+  function crearPalabraMar() {
+    const globo = document.createElement('span');
+    globo.className = 'burbuja-palabra';
+    globo.textContent = palabrasMar[Math.floor(Math.random() * palabrasMar.length)];
+    globo.style.left = `${Math.random() * 72}%`;
+    globo.style.animationDuration = `${(Math.random() * 1.4 + 3).toFixed(1)}s`;
+    burbujaPalabras.appendChild(globo);
+
+    setTimeout(() => {
+      globo.remove();
+    }, 4200);
+  }
+
+  moodBtns.forEach(btn => {
+    btn.addEventListener('click', () => activarMood(btn.dataset.mood));
+  });
+
+  sumarConchaBtn.addEventListener('click', () => {
+    if (estadoViaje.conchas < mensajesConchas.length) {
+      estadoViaje.conchas += 1;
+      guardarEstadoViaje();
+      renderConchas();
+      return;
+    }
+
+    coleccionTexto.textContent = 'Ya llenaste este cachito de arena de nosotros, mi amor bonito.';
+    for (let i = 0; i < 3; i++) {
+      setTimeout(crearPalabraMar, i * 120);
+    }
+  });
+
+  motivoBtn.addEventListener('click', () => {
+    estadoViaje.motivoIndex = (estadoViaje.motivoIndex + 1) % motivosBonitos.length;
+    guardarEstadoViaje();
+    renderMotivo();
+  });
+
+  deseoBtn.addEventListener('click', () => {
+    estadoViaje.deseos += 1;
+    guardarEstadoViaje();
+    renderDeseo();
+
+    for (let i = 0; i < 4; i++) {
+      setTimeout(crearPalabraMar, i * 140);
+    }
+  });
+
+  activarMood(estadoViaje.mood);
+  renderConchas();
+  renderMotivo();
+  renderDeseo();
 
   // ─── SPOILER ──────────────────────────────────────────────
   function abrirSpoiler(btn) {
