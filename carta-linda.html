@@ -1600,6 +1600,83 @@
         margin-top: 108px;
       }
     }
+
+    /* ── DESTELLOS DEL DESEO ────────────────────────────────── */
+    .wish-destello {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 4;
+      animation: wish-scatter var(--dur-d, 0.85s) cubic-bezier(0.15, 0, 0.35, 1) var(--delay-d, 0s) forwards;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    .wish-destello-txt {
+      position: absolute;
+      pointer-events: none;
+      z-index: 4;
+      font-size: var(--fs-d, 12px);
+      color: var(--color-d, rgba(215, 193, 255, 0.9));
+      line-height: 1;
+      animation: wish-scatter var(--dur-d, 0.85s) cubic-bezier(0.15, 0, 0.35, 1) var(--delay-d, 0s) forwards;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    @keyframes wish-scatter {
+      0%   { opacity: 1;   transform: translate(0, 0) scale(1); }
+      55%  { opacity: 0.8; }
+      100% { opacity: 0;   transform: translate(var(--dx), var(--dy)) scale(0.08); }
+    }
+
+    .wish-anillo {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      will-change: transform, opacity;
+      animation: wish-ring var(--dur-r, 1s) cubic-bezier(0.15, 0.6, 0.35, 1) var(--delay-r, 0s) forwards;
+    }
+
+    @keyframes wish-ring {
+      0%   { transform: scale(0); opacity: var(--op-r, 0.85); }
+      40%  { opacity: calc(var(--op-r, 0.85) * 0.6); }
+      100% { transform: scale(var(--escala-r, 5)); opacity: 0; }
+    }
+
+    @keyframes wish-flash {
+      0%   { box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 32px rgba(5,16,33,0.22), 0 0 30px rgba(123,69,218,0.10); }
+      10%  { box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 0 0 rgba(0,0,0,0), 0 0 90px rgba(184,132,255,0.90), 0 0 140px rgba(123,69,218,0.60); }
+      100% { box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), 0 16px 32px rgba(5,16,33,0.22), 0 0 36px rgba(184,132,255,0.24); }
+    }
+
+    .wish-cinematica.lanzando {
+      animation: wish-flash 1.1s ease-out;
+    }
+
+    @keyframes wish-reveal-kicker {
+      from { opacity: 0; transform: translateY(-6px) scale(0.95); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes wish-reveal-texto {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .wish-cine-copy.revelando-kicker small {
+      animation: wish-reveal-kicker 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .wish-cine-copy.revelando-kicker p {
+      animation: wish-reveal-texto 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.18s forwards;
+      opacity: 0;
+    }
+
+    .deseo-burbuja.revelando {
+      animation: wish-reveal-texto 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
   </style>
 </head>
 <body>
@@ -2753,6 +2830,83 @@
     aplicarEstadoCinematica(deseo, true);
   }
 
+  function crearDestellosDeseo(contenedor, tier) {
+    contenedor.querySelectorAll('.wish-destello, .wish-destello-txt, .wish-anillo').forEach(el => el.remove());
+
+    const colores = [
+      'rgba(184,132,255,0.95)',
+      'rgba(233,220,255,0.95)',
+      'rgba(255,255,255,0.90)',
+      'rgba(215,170,255,0.92)',
+      'rgba(150,90,255,0.88)',
+      'rgba(242,210,255,0.92)',
+    ];
+
+    const cuenta = tier === 'legendario' ? 28 : tier === 'epico' ? 22 : 16;
+
+    for (let i = 0; i < cuenta; i++) {
+      const el = document.createElement('div');
+      el.className = 'wish-destello';
+      const angle = (i / cuenta) * Math.PI * 2 + (Math.random() - 0.5) * 0.7;
+      const dist = 30 + Math.random() * 72;
+      const dx = (Math.cos(angle) * dist).toFixed(1);
+      const dy = (Math.sin(angle) * dist - 10).toFixed(1);
+      const size = (2 + Math.random() * 5).toFixed(1);
+      const color = colores[Math.floor(Math.random() * colores.length)];
+      const dur = (0.55 + Math.random() * 0.55).toFixed(2);
+      const delay = (Math.random() * 0.18).toFixed(2);
+      el.style.cssText = `width:${size}px;height:${size}px;left:calc(50% - ${(size/2).toFixed(1)}px);top:48px;background:${color};--dx:${dx}px;--dy:${dy}px;--dur-d:${dur}s;--delay-d:${delay}s;`;
+      contenedor.appendChild(el);
+    }
+
+    const simbolos = ['✦', '✧', '·', '⋆', '✦', '✧'];
+    const countTxt = tier === 'legendario' ? 8 : tier === 'epico' ? 6 : 4;
+    for (let i = 0; i < countTxt; i++) {
+      const el = document.createElement('span');
+      el.className = 'wish-destello-txt';
+      const angle = (i / countTxt) * Math.PI * 2 + 0.3 + (Math.random() - 0.5) * 0.5;
+      const dist = 44 + Math.random() * 56;
+      const dx = (Math.cos(angle) * dist).toFixed(1);
+      const dy = (Math.sin(angle) * dist - 16).toFixed(1);
+      const fs = (9 + Math.random() * 8).toFixed(0);
+      const dur = (0.7 + Math.random() * 0.5).toFixed(2);
+      const delay = (0.04 + Math.random() * 0.16).toFixed(2);
+      const color = colores[Math.floor(Math.random() * colores.length)];
+      el.textContent = simbolos[i % simbolos.length];
+      el.style.cssText = `left:calc(50% - ${(fs/2).toFixed(0)}px);top:48px;--fs-d:${fs}px;--color-d:${color};--dx:${dx}px;--dy:${dy}px;--dur-d:${dur}s;--delay-d:${delay}s;`;
+      contenedor.appendChild(el);
+    }
+
+    const anillosConfig = tier === 'legendario'
+      ? [
+          { size: 36, dur: 0.75, delay: 0,    escala: 5.5, op: 0.90, color: 'rgba(233,220,255,0.85)' },
+          { size: 28, dur: 0.95, delay: 0.14, escala: 6.5, op: 0.75, color: 'rgba(184,132,255,0.80)' },
+          { size: 20, dur: 1.15, delay: 0.28, escala: 8.0, op: 0.60, color: 'rgba(255,238,180,0.70)' },
+          { size: 14, dur: 1.35, delay: 0.42, escala: 9.5, op: 0.45, color: 'rgba(215,170,255,0.65)' },
+        ]
+      : tier === 'epico'
+      ? [
+          { size: 32, dur: 0.78, delay: 0,    escala: 5.0, op: 0.85, color: 'rgba(184,132,255,0.85)' },
+          { size: 22, dur: 0.98, delay: 0.16, escala: 6.5, op: 0.70, color: 'rgba(166,122,255,0.75)' },
+          { size: 14, dur: 1.18, delay: 0.32, escala: 8.0, op: 0.55, color: 'rgba(233,220,255,0.65)' },
+        ]
+      : [
+          { size: 30, dur: 0.80, delay: 0,    escala: 4.5, op: 0.80, color: 'rgba(184,132,255,0.80)' },
+          { size: 18, dur: 1.00, delay: 0.18, escala: 6.0, op: 0.60, color: 'rgba(215,193,255,0.65)' },
+        ];
+
+    anillosConfig.forEach(({ size, dur, delay, escala, op, color }) => {
+      const ring = document.createElement('div');
+      ring.className = 'wish-anillo';
+      ring.style.cssText = `width:${size}px;height:${size}px;left:calc(50% - ${size/2}px);top:${48 - size/2}px;border:1.5px solid ${color};--dur-r:${dur}s;--delay-r:${delay}s;--escala-r:${escala};--op-r:${op};`;
+      contenedor.appendChild(ring);
+    });
+
+    setTimeout(() => {
+      contenedor.querySelectorAll('.wish-destello, .wish-destello-txt, .wish-anillo').forEach(el => el.remove());
+    }, 2200);
+  }
+
   function resetearViaje() {
     if (!window.confirm('Se van a reiniciar las conchitas, los deseos y las animaciones. Quieres empezar otra vez?')) {
       return;
@@ -2810,7 +2964,10 @@
     animarExito(motivoBtn);
   });
 
+  let _deseoAnimando = false;
+
   deseoBtn.addEventListener('click', () => {
+    if (_deseoAnimando) return;
     sincronizarFechaActual();
 
     if (deseosDisponibles() <= 0 || estadoViaje.deseosUsados >= MAX_DESEOS) {
@@ -2818,18 +2975,53 @@
       return;
     }
 
+    _deseoAnimando = true;
+    deseoBtn.disabled = true;
+    deseoBtn.textContent = '✦ lanzando...';
+
     const deseoActual = deseosProgramados[estadoViaje.deseosUsados];
+    const tierActual = obtenerInfoFecha(deseoActual.fecha).tier;
     estadoViaje.deseosUsados += 1;
     guardarEstadoViaje();
     renderCalendarioEspecial();
     renderFechaActual();
     renderHistorialDeseos();
     renderConchas();
-    renderDeseo();
-    animarExito(deseoBtn);
+
+    wishCounterChip.textContent = `Deseos lanzados: ${estadoViaje.deseosUsados}/${MAX_DESEOS}`;
+    wishRestantesChip.textContent = `Tiradas listas: ${deseosDisponibles()}`;
+    wishFechaChip.textContent = `Desbloqueados: ${obtenerTotalDesbloqueadoActual()}/${MAX_DESEOS}`;
+
+    const wishCopy = wishCinematica.querySelector('.wish-cine-copy');
+    wishCopy.style.opacity = '0';
+    wishCopy.classList.remove('revelando-kicker');
+    deseoBurbuja.style.opacity = '0';
+    deseoBurbuja.classList.remove('revelando');
+
     lanzarCinematicaDeseo(deseoActual);
+    crearDestellosDeseo(wishCinematica, tierActual);
     soltarNotificacion(deseoFx, `Deseo ${padNumero(deseoActual.numero)}`, 'morada');
     celebrarPalabras(intensidadCelebracion(obtenerInfoFecha(deseoActual.fecha)));
+
+    setTimeout(() => {
+      wishCopy.style.opacity = '';
+      wishCopy.classList.add('revelando-kicker');
+    }, 1320);
+
+    setTimeout(() => {
+      deseoBurbuja.classList.toggle('legendaria', estadoViaje.deseosUsados === MAX_DESEOS);
+      deseoBurbuja.innerHTML = `<strong>Deseo ${padNumero(deseoActual.numero)} · ${deseoActual.palabra}.</strong> ${deseoActual.texto}`;
+      deseoBurbuja.style.opacity = '';
+      void deseoBurbuja.offsetWidth;
+      deseoBurbuja.classList.add('revelando');
+    }, 1680);
+
+    setTimeout(() => {
+      _deseoAnimando = false;
+      wishCopy.classList.remove('revelando-kicker');
+      renderDeseo();
+      animarExito(deseoBtn);
+    }, 2300);
   });
 
   resetViajeBtn.addEventListener('click', resetearViaje);
