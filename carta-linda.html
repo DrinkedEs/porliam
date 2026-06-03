@@ -2156,6 +2156,78 @@
       100% { opacity: 0; transform: translate(var(--dx),var(--dy)) scale(0.08); }
     }
 
+    /* ── HOME SCREEN ─────────────────────────────────────── */
+    .home-overlay {
+      position: fixed; inset: 0; z-index: 1500;
+      background: radial-gradient(ellipse at 50% 55%, #12032a 0%, #040010 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 24px 20px;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.40s ease;
+    }
+    .home-overlay.visible { opacity: 1; pointer-events: all; }
+
+    .home-titulo {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(22px, 5vw, 32px);
+      color: var(--sol-suave); margin-bottom: 6px; text-align: center;
+    }
+    .home-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--luna); opacity: 0.55; margin-bottom: 28px; text-align: center;
+    }
+    .home-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px; width: 100%; max-width: 460px;
+    }
+    .home-card {
+      background: rgba(215,193,255,0.05);
+      border: 1px solid rgba(215,193,255,0.12);
+      border-radius: 16px; padding: 20px 16px;
+      cursor: pointer; text-align: center;
+      transition: background 0.20s, border-color 0.20s, transform 0.16s;
+      will-change: transform;
+    }
+    .home-card:hover {
+      background: rgba(184,132,255,0.14);
+      border-color: rgba(184,132,255,0.40);
+      transform: translateY(-3px) scale(1.02);
+    }
+    .home-card.activa {
+      background: linear-gradient(135deg, rgba(184,132,255,0.22), rgba(123,69,218,0.14));
+      border-color: rgba(184,132,255,0.60);
+      box-shadow: 0 0 20px rgba(184,132,255,0.22);
+    }
+    .home-card-full { grid-column: 1 / -1; }
+    .home-card-ico { font-size: 32px; display: block; margin-bottom: 10px; }
+    .home-card-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(14px, 2.8vw, 17px); font-style: italic;
+      color: var(--texto-claro); margin-bottom: 4px;
+    }
+    .home-card-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px; letter-spacing: 1px; color: var(--luna);
+      opacity: 0.55; text-transform: uppercase;
+    }
+
+    /* BOTÓN FLOTANTE HOME */
+    .home-fab {
+      position: fixed; bottom: 22px; right: 20px; z-index: 400;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(123,69,218,0.50);
+      border: 1px solid rgba(184,132,255,0.45);
+      color: var(--sol-suave); font-size: 18px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.40);
+      transition: background 0.18s, transform 0.15s;
+      will-change: transform;
+    }
+    .home-fab:hover { background: rgba(184,132,255,0.55); transform: scale(1.10); }
+
     /* DIENTE CONFIG */
     .diente-btn {
       background: none; border: none; cursor: pointer;
@@ -2623,7 +2695,7 @@
   </div>
 
   <!-- CARTA -->
-  <div class="carta">
+  <div class="carta" id="sec-carta">
     <span class="saludo">Mi vida, mi amor,</span>
 
     <p class="parrafo">
@@ -2750,7 +2822,7 @@
     </div>
 
     <!-- EXPERIENCIAS DEL VIAJE -->
-    <section class="experiencias-viaje" aria-label="Interacciones romanticas del viaje">
+    <section class="experiencias-viaje" id="sec-experiencias" aria-label="Interacciones romanticas del viaje">
       <p class="experiencias-kicker">mas vida para nosotros</p>
       <h2 class="experiencias-titulo">Quiero que esta parte tambien la toques tu</h2>
       <p class="experiencias-intro">
@@ -2812,7 +2884,7 @@
           </p>
         </article>
 
-        <article class="experiencia-card experiencia-span-2 calendario-card">
+        <article class="experiencia-card experiencia-span-2 calendario-card" id="sec-calendario">
           <span class="experiencia-label">junio y julio</span>
           <h3 class="experiencia-card-titulo">Calendario de nuestros dias especiales</h3>
           <p class="experiencia-copy">
@@ -2836,7 +2908,7 @@
           </button>
         </article>
 
-        <article class="experiencia-card experiencia-span-2">
+        <article class="experiencia-card experiencia-span-2" id="sec-juego">
           <span class="experiencia-label">farm de playa</span>
           <h3 class="experiencia-card-titulo">2048 de conchitas ✦</h3>
           <p class="experiencia-copy">
@@ -2891,7 +2963,7 @@
           </div>
         </article>
 
-        <article class="experiencia-card">
+        <article class="experiencia-card" id="sec-deseos">
           <span class="experiencia-label">multi de nosotros</span>
           <h3 class="experiencia-card-titulo">Tira los deseos que ya desbloqueaste</h3>
           <p class="experiencia-copy">
@@ -3006,6 +3078,41 @@
   </div>
 
 </div>
+
+<!-- HOME SCREEN -->
+<div id="homeOverlay" class="home-overlay" aria-hidden="true">
+  <p class="home-titulo">¿Qué quieres hacer hoy?</p>
+  <p class="home-sub">elige y te llevo directo</p>
+  <div class="home-grid">
+    <div class="home-card" onclick="irSeccion('carta')">
+      <span class="home-card-ico">💌</span>
+      <p class="home-card-titulo">La carta</p>
+      <p class="home-card-desc">Todo lo que siento</p>
+    </div>
+    <div class="home-card" onclick="irSeccion('juego')">
+      <span class="home-card-ico">🎮</span>
+      <p class="home-card-titulo">2048</p>
+      <p class="home-card-desc">Junta conchitas</p>
+    </div>
+    <div class="home-card" onclick="irSeccion('deseos')">
+      <span class="home-card-ico">🐚</span>
+      <p class="home-card-titulo">Deseos</p>
+      <p class="home-card-desc">Tira los desbloqueados</p>
+    </div>
+    <div class="home-card" onclick="irSeccion('calendario')">
+      <span class="home-card-ico">📅</span>
+      <p class="home-card-titulo">Calendario</p>
+      <p class="home-card-desc">Nuestros días</p>
+    </div>
+    <div class="home-card home-card-full" onclick="irSeccion('libro')">
+      <span class="home-card-ico">📖</span>
+      <p class="home-card-titulo">El libro de mis sentimientos</p>
+      <p class="home-card-desc">80 deseos escritos para ti</p>
+    </div>
+  </div>
+</div>
+
+<button class="home-fab" id="homeFab" onclick="mostrarHome()" title="Inicio">🌙</button>
 
 <!-- INTRO -->
 <div id="introOverlay" class="intro-overlay">
@@ -4097,14 +4204,60 @@
   renderMotivo();
   renderDeseo();
 
+  // ─── HOME + NAVEGACIÓN ────────────────────────────────────
+  const HOME_KEY = 'carta-linda-seccion-v1';
+  const SEC_MAP = {
+    carta:      { id: 'sec-carta',      offset: -80 },
+    juego:      { id: 'sec-juego',      offset: -80 },
+    deseos:     { id: 'sec-deseos',     offset: -80 },
+    calendario: { id: 'sec-calendario', offset: -80 },
+    libro:      { id: null,             offset: 0    },
+  };
+
+  function mostrarHome() {
+    const ov = document.getElementById('homeOverlay');
+    if (!ov) return;
+    ov.setAttribute('aria-hidden','false');
+    ov.classList.add('visible');
+    // marcar la card activa
+    const secGuardada = localStorage.getItem(HOME_KEY);
+    ov.querySelectorAll('.home-card').forEach(c => {
+      c.classList.toggle('activa', c.getAttribute('onclick')?.includes(`'${secGuardada}'`));
+    });
+  }
+
+  function ocultarHome() {
+    const ov = document.getElementById('homeOverlay');
+    if (ov) { ov.classList.remove('visible'); ov.setAttribute('aria-hidden','true'); }
+  }
+
+  function irSeccion(sec) {
+    localStorage.setItem(HOME_KEY, sec);
+    ocultarHome();
+    if (sec === 'libro') { abrirLibro(); return; }
+    const cfg = SEC_MAP[sec];
+    if (!cfg) return;
+    const el = document.getElementById(cfg.id);
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY + cfg.offset;
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+  }
+
   // ─── INTRO ────────────────────────────────────────────────
   function cerrarIntro() {
     const el = document.getElementById('introOverlay');
     if (!el) return;
     el.classList.add('saliendo');
-    setTimeout(() => el.remove(), 1000);
+    setTimeout(() => { el.remove(); mostrarHome(); }, 1000);
   }
   setTimeout(cerrarIntro, 13000);
+
+  // Si ya visitó antes, saltar intro y mostrar home directamente
+  if (localStorage.getItem(HOME_KEY)) {
+    const io = document.getElementById('introOverlay');
+    if (io) io.remove();
+    mostrarHome();
+  }
 
   // ─── 2048 ─────────────────────────────────────────────────
   const G = 4;
