@@ -1743,6 +1743,235 @@
 
     .deseo-burbuja { display: none !important; }
 
+    /* ── LIBRO DE DESEOS (MODAL) ──────────────────────────── */
+    .libro-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 0, 12, 0.88);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .libro-overlay.abierto {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .libro-modal {
+      background: linear-gradient(160deg, rgba(28, 8, 54, 0.98) 0%, rgba(10, 3, 22, 0.99) 60%, rgba(22, 7, 44, 0.98) 100%);
+      border: 1px solid rgba(215, 193, 255, 0.18);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 640px;
+      max-height: 88vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 80px rgba(123, 69, 218, 0.28), 0 32px 64px rgba(4, 0, 12, 0.72);
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .libro-overlay.abierto .libro-modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .libro-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 26px 18px;
+      border-bottom: 1px solid rgba(215, 193, 255, 0.10);
+      flex-shrink: 0;
+    }
+
+    .libro-titulo-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .libro-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(18px, 4vw, 22px);
+      font-style: italic;
+      color: var(--sol-suave);
+    }
+
+    .libro-subtitulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--luna);
+      opacity: 0.6;
+    }
+
+    .libro-cerrar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(215, 193, 255, 0.20);
+      background: rgba(215, 193, 255, 0.06);
+      color: var(--luna);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .libro-cerrar:hover {
+      background: rgba(215, 193, 255, 0.14);
+      border-color: rgba(215, 193, 255, 0.40);
+    }
+
+    .libro-contenido {
+      overflow-y: auto;
+      padding: 20px 26px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .libro-contenido::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .libro-contenido::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .libro-contenido::-webkit-scrollbar-thumb {
+      background: rgba(184, 132, 255, 0.28);
+      border-radius: 99px;
+    }
+
+    .libro-entrada {
+      border-radius: 14px;
+      padding: 16px 18px;
+      border: 1px solid rgba(215, 193, 255, 0.10);
+      position: relative;
+    }
+
+    .libro-entrada.desbloqueada {
+      background: linear-gradient(160deg, rgba(184, 132, 255, 0.08), rgba(10, 3, 22, 0.40));
+      border-color: rgba(215, 193, 255, 0.14);
+    }
+
+    .libro-entrada.bloqueada {
+      background: rgba(255, 255, 255, 0.02);
+      border-color: rgba(255, 255, 255, 0.05);
+      opacity: 0.52;
+    }
+
+    .libro-entrada-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .libro-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--sol-suave);
+      opacity: 0.80;
+    }
+
+    .libro-entrada.bloqueada .libro-num {
+      color: var(--luna);
+      opacity: 0.50;
+    }
+
+    .libro-palabra {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(15px, 3vw, 17px);
+      font-style: italic;
+      color: var(--texto-claro);
+    }
+
+    .libro-entrada.bloqueada .libro-palabra {
+      color: rgba(240, 232, 216, 0.50);
+    }
+
+    .libro-fecha-badge {
+      margin-left: auto;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: var(--luna);
+      opacity: 0.50;
+    }
+
+    .libro-texto {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(15px, 2.5vw, 16px);
+      line-height: 1.85;
+      color: rgba(240, 232, 216, 0.86);
+      font-weight: 300;
+      margin: 0;
+    }
+
+    .libro-texto-bloqueado {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      line-height: 1.7;
+      color: rgba(240, 232, 216, 0.40);
+      font-style: italic;
+      margin: 0;
+    }
+
+    .libro-btn-abrir {
+      width: 100%;
+      background: linear-gradient(135deg, rgba(184, 132, 255, 0.10), rgba(215, 193, 255, 0.06));
+      border: 1px solid rgba(184, 132, 255, 0.28);
+      border-radius: 10px;
+      padding: 14px 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--texto-claro);
+      transition: background 0.22s, border-color 0.22s;
+      text-align: left;
+      margin-top: 14px;
+    }
+
+    .libro-btn-abrir:hover {
+      background: linear-gradient(135deg, rgba(184, 132, 255, 0.18), rgba(215, 193, 255, 0.10));
+      border-color: rgba(184, 132, 255, 0.52);
+    }
+
+    .libro-btn-icono { font-size: 20px; }
+
+    .libro-btn-texto {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px;
+      font-style: italic;
+      color: var(--sol-suave);
+      flex: 1;
+    }
+
+    .libro-btn-badge {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      color: var(--luna);
+      opacity: 0.60;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
     /* SOL DEL ENCABEZADO */
     .sol-encabezado {
       position: relative;
@@ -2040,7 +2269,11 @@
             <small id="calendarioEtiqueta">hoy</small>
             <p id="calendarioTexto"></p>
           </div>
-          <div class="historial-deseos" id="historialDeseos" aria-live="polite"></div>
+          <button type="button" class="libro-btn-abrir" id="abrirLibroBtn" onclick="abrirLibro()">
+            <span class="libro-btn-icono">📖</span>
+            <span class="libro-btn-texto">Leer todos mis sentimientos por ti</span>
+            <span class="libro-btn-badge" id="libroBadge">0 / 80</span>
+          </button>
         </article>
 
         <article class="experiencia-card">
@@ -2162,6 +2395,20 @@
     <p class="frase-final">La noche que abraza al día · para siempre</p>
   </div>
 
+</div>
+
+<!-- LIBRO MODAL -->
+<div id="libroOverlay" class="libro-overlay" aria-hidden="true" onclick="cerrarLibroPorFondo(event)">
+  <div class="libro-modal" role="dialog" aria-modal="true" aria-labelledby="libroTituloId">
+    <div class="libro-header">
+      <div class="libro-titulo-wrap">
+        <span class="libro-titulo" id="libroTituloId">Mis sentimientos por ti</span>
+        <span class="libro-subtitulo">Deseos del 1 al 80</span>
+      </div>
+      <button class="libro-cerrar" onclick="cerrarLibro()" aria-label="Cerrar">✕</button>
+    </div>
+    <div class="libro-contenido" id="libroContenido"></div>
+  </div>
 </div>
 
 <script>
@@ -2422,7 +2669,6 @@
   const calendarioEtiqueta = document.getElementById('calendarioEtiqueta');
   const calendarioTexto = document.getElementById('calendarioTexto');
   const calendarioNota = calendarioTexto.closest('.calendario-nota');
-  const historialDeseos = document.getElementById('historialDeseos');
   const wishCinematica = document.getElementById('wishCinematica');
   const wishKicker = document.getElementById('wishKicker');
   const wishDiaCopy = document.getElementById('wishDiaCopy');
@@ -2718,35 +2964,62 @@
   }
 
   function renderHistorialDeseos() {
-    const deseosSalidos = obtenerDeseosSalidos();
+    const usados = estadoViaje.deseosUsados;
+    const badge = document.getElementById('libroBadge');
+    if (badge) badge.textContent = `${usados} / ${MAX_DESEOS}`;
+  }
 
-    if (deseosSalidos.length === 0) {
-      historialDeseos.innerHTML = '<div class="historial-vacio">Aqui se van a ir quedando solamente los deseos que ya hayan salido, numerados y acomodados por su fecha.</div>';
-      return;
-    }
-
-    const grupos = fechasConDeseos
-      .map(fecha => ({
-        fecha,
-        deseos: deseosSalidos.filter(deseo => deseo.fecha === fecha)
-      }))
-      .filter(grupo => grupo.deseos.length > 0);
-
-    historialDeseos.innerHTML = grupos.map(({ fecha, deseos }) => {
-      const items = deseos.map(deseo => `
-        <div class="historial-item">
-          <strong>Deseo ${padNumero(deseo.numero)} · ${deseo.palabra}.</strong> ${deseo.texto}
-        </div>
-      `).join('');
-
+  function renderLibro() {
+    const usados = estadoViaje.deseosUsados;
+    const contenido = document.getElementById('libroContenido');
+    contenido.innerHTML = deseosProgramados.map((deseo, i) => {
+      const desbloqueado = i < usados;
+      const fechaBonita = formatearFechaBonita(deseo.fecha);
+      if (desbloqueado) {
+        return `
+          <div class="libro-entrada desbloqueada">
+            <div class="libro-entrada-header">
+              <span class="libro-num">Deseo ${padNumero(deseo.numero)}</span>
+              <span class="libro-palabra">${deseo.palabra}</span>
+              <span class="libro-fecha-badge">${fechaBonita}</span>
+            </div>
+            <p class="libro-texto">${deseo.texto}</p>
+          </div>`;
+      }
       return `
-        <section class="historial-dia">
-          <h4>${formatearFechaBonita(fecha)}</h4>
-          <div class="historial-lista">${items}</div>
-        </section>
-      `;
+        <div class="libro-entrada bloqueada">
+          <div class="libro-entrada-header">
+            <span class="libro-num">🔒 Deseo ${padNumero(deseo.numero)}</span>
+            <span class="libro-palabra">${deseo.palabra}</span>
+            <span class="libro-fecha-badge">${fechaBonita}</span>
+          </div>
+          <p class="libro-texto-bloqueado">Lanza tus deseos para leer lo que siento por ti en este momento.</p>
+        </div>`;
     }).join('');
   }
+
+  function abrirLibro() {
+    renderLibro();
+    const overlay = document.getElementById('libroOverlay');
+    overlay.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('abierto');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function cerrarLibro() {
+    const overlay = document.getElementById('libroOverlay');
+    overlay.classList.remove('abierto');
+    overlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function cerrarLibroPorFondo(e) {
+    if (e.target === document.getElementById('libroOverlay')) cerrarLibro();
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') cerrarLibro();
+  });
 
   function activarMood(mood) {
     const escena = escenasViaje[mood] || escenasViaje.orilla;
