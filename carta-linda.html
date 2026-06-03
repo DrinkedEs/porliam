@@ -1540,7 +1540,7 @@
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    .barra-carino {
+    .barra-cariño {
       height: 8px;
       border-radius: 999px;
       background: rgba(233, 220, 255, 0.08);
@@ -1548,7 +1548,7 @@
       margin-top: 16px;
     }
 
-    .barra-carino span {
+    .barra-cariño span {
       display: block;
       height: 100%;
       width: 0;
@@ -3035,7 +3035,7 @@
           </div>
           <div class="notificaciones-viaje" id="conchaFx" aria-hidden="true"></div>
           <div class="coleccion-visual" id="coleccionVisual" aria-live="polite"></div>
-          <div class="barra-carino"><span id="barraCarino"></span></div>
+          <div class="barra-cariño"><span id="barracariño"></span></div>
           <p class="frase-destello" id="coleccionTexto"></p>
           <div class="admin-panel" id="adminPanel">
             <p class="admin-panel-titulo">⚙ dar conchitas manualmente</p>
@@ -3353,85 +3353,85 @@
   const iconosConchas = ['🐚', '✦', '🌌', '💜', '🤍', '🫧', '💋', '🌙', '🔮', '☄️'];
   const deseosProgramados = [
     { numero: 1, fecha: '2026-06-01', palabra: 'Confianza', texto: 'Yo quiero que esta primera concha te recuerde lo bonito que se sintio empezar a hablar contigo, porque desde el inicio senti una calma muy tuya, como si contigo pudiera bajar el corazon y sentirme en un lugar seguro.' },
-    { numero: 2, fecha: '2026-06-01', palabra: 'Mensaje', texto: 'Yo quiero que este deseo te regrese a ese primer mensajito que me marcaste para siempre: "me pasas tu id de Genshin?", porque de algo tan simple y tan tuyo empezo algo enorme dentro de mi, algo que hoy te ama con todo el corazon.' },
+    { numero: 2, fecha: '2026-06-01', palabra: 'Mensaje', texto: 'Yo quiero que este deseo te regrese a ese primer mensajito que nos marco para siempre: "me pasas tu id de Genshin?", porque de algo tan simple empezo algo enorme dentro de los 2, algo que hoy te ama con todo el corazon.' },
     { numero: 3, fecha: '2026-06-02', palabra: 'Ojito', texto: 'Yo quiero que esta concha se quede con tu lunar en el ojito, porque a mi siempre me ha parecido una estrellita chiquita que te hace todavia mas inolvidable y todavia mas linda para mis ojos.' },
-    { numero: 4, fecha: '2026-06-02', palabra: 'Libro', texto: 'Yo quiero que este deseo se sienta como un libro de romance de los bonitos, pero de esos que si valen la pena porque no son perfectos ni de mentira, sino reales, calidos y llenos de detalles que solo tu y yo entendemos.' },
-    { numero: 5, fecha: '2026-06-03', palabra: 'Calma', texto: 'Yo quiero que esta concha te recuerde que contigo pude hablar sin prisa, sin pose y sin sentir que tenia que fingir algo, porque contigo desde temprano me nacio ser yo de verdad.' },
-    { numero: 6, fecha: '2026-06-03', palabra: 'Voz', texto: 'Yo quiero que este deseo guarde lo bonito que me pego tu voz, porque contigo una voz no solo suena, tambien abraza, acompana y se queda viviendo en mi cabeza con muchisimo carino.' },
+    { numero: 4, fecha: '2026-06-02', palabra: 'Libro', texto: 'Yo quiero que este deseo se sienta como un libro de romance de los bonitos, pero de esos que si valen la pena porque no son perfectos ni de mentira, sino reales, calidos y llenos de detalles que solo tu y yo entendemos y te amo.' },
+    { numero: 5, fecha: '2026-06-03', palabra: 'Calma', texto: 'Yo quiero que esta concha te recuerde que contigo pude hablar sin prisa, sin pose y sin sentir que tenia que fingir algo, porque contigo desde temprano me nacio ser yo de verdad siempre amor.' },
+    { numero: 6, fecha: '2026-06-03', palabra: 'Voz', texto: 'Yo quiero que este deseo guarde lo bonito que me pego tu voz desde la primera vez, porque contigo una voz no solo suena, tambien abraza, acompaña y se queda viviendo en mi cabeza con muchisimo cariño siempre antes de dormir.' },
     { numero: 7, fecha: '2026-06-04', palabra: 'Casita', texto: 'Yo quiero que esta concha abra esa palabra tan nuestra, "casita", porque desde que empezo a existir entre nosotros, yo senti que contigo podia inventar hogar hasta en las cosas mas simples.' },
-    { numero: 8, fecha: '2026-06-04', palabra: 'Mimir', texto: 'Yo quiero que este deseo se sienta como una cobijita para ti, porque hasta dormir se me hace mas bonito cuando se que estas conmigo, en llamada o al otro lado de la noche, pero conmigo.' },
-    { numero: 9, fecha: '2026-06-05', palabra: 'Bonita', texto: 'Yo quiero que esta concha se te quede pegadita a la carita para recordarte que para mi te ves bonita casi en automatico, sin esfuerzo y en cualquier version tuya que me toque ver.' },
+    { numero: 8, fecha: '2026-06-04', palabra: 'Mimir', texto: 'Yo quiero que este deseo se sienta como una cobijita para ti, porque hasta dormir se me hace mas bonito cuando se que estas conmigo, en llamada o juntos fisicamente pero conmigo.' },
+    { numero: 9, fecha: '2026-06-05', palabra: 'Bonita', texto: 'Yo quiero que esta concha se te quede pegadita a la carita para recordarte que para mi te ves bonita en automatico, sin esfuerzo y en cualquier version tuya que me toque ver.' },
     { numero: 10, fecha: '2026-06-05', palabra: 'Quedarte', texto: 'Yo quiero que este deseo te deje esa sensacion rica de querer quedarte un ratito mas conmigo, porque cuando estoy contigo nunca quiero que el momento se acabe tan rapido.' },
-    { numero: 11, fecha: '2026-06-06', palabra: 'Mesaniversario', texto: 'Feliz mesaniversario, mi amor. Yo quiero vivir contigo otro mes, otro dia, otra manana y otra noche, porque solo con saber que sigo a tu lado, mi mundo ya se siente mas bonito.' },
+    { numero: 11, fecha: '2026-06-06', palabra: 'Mesaniversario', texto: 'Feliz mesaniversario, mi amor. Yo quiero vivir contigo otro mes, otro dia, otra mañana y otra noche, porque solo con saber que sigo a tu lado, mi mundo ya se siente mas bonito.' },
     { numero: 12, fecha: '2026-06-06', palabra: 'Unico', texto: 'Yo quiero que esta concha te recuerde algo que siento de verdad: solo hay un 6 de junio de 2026 en todo el universo y en todo el tiempo, y mi vida quiso vivirlo justo contigo, mi amor.' },
-    { numero: 13, fecha: '2026-06-06', palabra: 'Contigo', texto: 'Yo quiero que este deseo abrace lo mas bonito de este dia, que es seguir sumando contigo meses nuevos, mananas nuevas y noches nuevas, porque te amo y a tu lado hasta el tiempo se me hace especial.' },
+    { numero: 13, fecha: '2026-06-06', palabra: 'Contigo', texto: 'Yo quiero que este deseo abrace lo mas bonito de este dia, que es seguir sumando contigo meses nuevos, mañanas nuevas y noches nuevas, porque te amo y a tu lado hasta el tiempo se me hace especial.' },
     { numero: 14, fecha: '2026-06-07', palabra: 'Discord', texto: 'Yo quiero que esta concha te recuerde todas esas noches en las que, aunque no estabamos en la misma casita, terminabamos encontrandonos en Discord porque de algun modo siempre queremos seguir juntitos.' },
     { numero: 15, fecha: '2026-06-07', palabra: 'Desvelo', texto: 'Yo quiero que este deseo sepa a esas veces en las que ni tu ni yo dormimos del todo si el otro no esta ya en casita, porque hasta el descanso se siente incompleto cuando nos falta el otro.' },
     { numero: 16, fecha: '2026-06-08', palabra: 'Primera', texto: 'Yo quiero que esta concha se quede con esa forma tan tuya de amar bonito, esa que me hace sentir que quieres algo verdadero conmigo, algo cuidado, algo serio y algo lleno de amor de verdad.' },
-    { numero: 17, fecha: '2026-06-08', palabra: 'Abracito', texto: 'Yo quiero que este deseo te diga que para mi un abrazo tuyo no se siente como cualquier abrazo, se siente como el lugarcito exacto donde mi cuerpo, mi mente y mi corazon por fin descansan.' },
-    { numero: 18, fecha: '2026-06-09', palabra: 'Risa', texto: 'Yo quiero que esta concha guarde tus risitas mensas, porque a mi me vuelven precioso hasta el momento mas simple y hacen especial cualquier dia nada mas por venir de ti.' },
+    { numero: 17, fecha: '2026-06-08', palabra: 'Abracito', texto: 'Yo quiero que este deseo te diga que para mi un abrazo tuyo no se siente como cualquier abrazo, se siente como el lugarcito exacto donde mi cuerpo, mi mente y mi corazon por fin descansan y quiero permanecer.' },
+    { numero: 18, fecha: '2026-06-09', palabra: 'Risa', texto: 'Yo quiero que esta concha guarde tus risas tu forma de ser que tanto me encanta, porque a mi me vuelven precioso hasta el momento mas simple y hacen especial cualquier dia nada mas por venir de ti.' },
     { numero: 19, fecha: '2026-06-09', palabra: 'Complices', texto: 'Yo quiero que este deseo te recuerde que contigo hasta las cosas mas chiquitas se vuelven lenguaje privado, bromita interna y complicidad de esa que solo existe entre tu y yo.' },
-    { numero: 20, fecha: '2026-06-10', palabra: 'Chocorroles', texto: 'Yo quiero que esta concha te sepa a chocorroles, porque contigo hasta un antojito termina volviendose detalle, risa y recuerdo bonito que se me queda bien guardado.' },
-    { numero: 21, fecha: '2026-06-10', palabra: 'Platano', texto: 'Yo quiero que este deseo se quede con la ternura de ese platano que termino teniendo historia propia, porque entre nosotros hasta lo mas sencillo agarra carino y significado.' },
+    { numero: 20, fecha: '2026-06-10', palabra: 'Chocorroles', texto: 'Yo quiero que esta concha te sepa a chocorroles a cheesecake a todo, porque contigo hasta un antojito termina volviendose detalle, risa y recuerdo bonito que se me queda bien guardado.' },
+    { numero: 21, fecha: '2026-06-10', palabra: 'Platano', texto: 'Yo quiero que este deseo se quede con la ternura de ese platano que termino teniendo historia propia, porque entre nosotros hasta lo mas sencillo agarra cariño y significado.' },
     { numero: 22, fecha: '2026-06-11', palabra: 'Guayaba', texto: 'Yo quiero que esta concha huela a jugo de guayaba y a la forma tan linda en la que me cuidas con cositas que parecen pequenas, pero a mi se me quedan gigantes en el corazon.' },
-    { numero: 23, fecha: '2026-06-11', palabra: 'HelloKitty', texto: 'Yo quiero que este deseo guarde ese mood de regalitos tiernos, rositas y suaves, porque contigo hasta los detalles mas delicados se sienten llenos de amor y de tu esencia bonita.' },
+    { numero: 23, fecha: '2026-06-11', palabra: 'HelloKitty', texto: 'Yo quiero que este deseo guarde ese mood de regalitos tiernos, rositas y suaves, porque contigo los detalles me nacen siempre para que se se sienten llenos de amor y de tu esencia bonita.' },
     { numero: 24, fecha: '2026-06-12', palabra: 'Mercado', texto: 'Yo quiero que esta concha abra la imagen del mercado del centro, de caminar contigo y de volver especial un plan que para otros seria normal, pero contigo a mi se me vuelve precioso.' },
-    { numero: 25, fecha: '2026-06-12', palabra: 'Tacos', texto: 'Yo quiero que este deseo me deje contigo otra vez comiendo tacos, porque a tu lado la comidita no solo llena, tambien abraza y se vuelve recuerdo rico.' },
+    { numero: 25, fecha: '2026-06-12', palabra: 'Tacos', texto: 'Yo quiero que este deseo me deje contigo otra vez comiendo tacos y todo, porque a tu lado la comidita no solo llena, tambien abraza y se vuelve recuerdo rico.' },
     { numero: 26, fecha: '2026-06-13', palabra: 'Bonis', texto: 'Yo quiero que esta concha hable como hablamos nosotros, en chiquito y bonito, porque hasta nuestra forma de nombrar las cosas ya tiene calorcito de hogar y me hace sentir bien contigo.' },
     { numero: 27, fecha: '2026-06-13', palabra: 'Nosotros', texto: 'Yo quiero que este deseo se quede con algo que valoro muchisimo de lo nuestro, que contigo siento una relacion bonita donde puedo ser yo mismo, entenderte y quererte bien bonito.' },
-    { numero: 28, fecha: '2026-06-14', palabra: 'Pulsera', texto: 'Yo quiero que esta concha se quede con tu pulsera, con esa forma discreta y preciosa de llevar algo mio cerquita incluso en los dias normales, porque a mi me derrite verte asi.' },
+    { numero: 28, fecha: '2026-06-14', palabra: 'Pulsera', texto: 'Yo quiero que esta concha se quede con tu pulsera, con esa forma discreta y preciosa de llevar algo mio cerquita incluso en los dias normales, porque a mi me derrite verte asi con cosas nuestras.' },
     { numero: 29, fecha: '2026-06-14', palabra: 'Inicial', texto: 'Yo quiero que este deseo sea para el collar con mi inicial, porque verte usarlo se siente como si trajeras una parte de mi pegadita a tu pecho de una forma bien tuya y bien bonita.' },
-    { numero: 30, fecha: '2026-06-15', palabra: 'Promesa', texto: 'Yo quiero que esta concha se refiera a nuestro anillo de promesa, no como lujo ni como adorno, sino como una senal bonita de algo que tu y yo cuidamos con el corazon.' },
+    { numero: 30, fecha: '2026-06-15', palabra: 'Promesa', texto: 'Yo quiero que esta concha se refiera a nuestro anillo de promesa, no como lujo ni como adorno, sino como una señal bonita de algo que tu y yo cuidamos con el corazon.' },
     { numero: 31, fecha: '2026-06-15', palabra: 'Accesorios', texto: 'Yo quiero que este deseo te recuerde que a mi me derrite verte usando mis regalitos, porque siento bien bonito que tambien me eliges en esos detalles que llevas contigo.' },
     { numero: 32, fecha: '2026-06-16', palabra: 'Esfuerzo', texto: 'Yo quiero que esta concha honre lo mucho que le estas echando ganas al trabajo tambien por el viaje de los dos, porque yo veo todo tu esfuerzo y lo amo muchisimo.' },
     { numero: 33, fecha: '2026-06-16', palabra: 'Equipo', texto: 'Yo quiero que este deseo te diga algo bien importante para mi, que contigo no solo se siente bonito amar, tambien se siente bonito construir, sumar y hacer equipo de verdad.' },
     { numero: 34, fecha: '2026-06-17', palabra: 'Verano', texto: 'Yo quiero que esta concha te recuerde que este verano no viene a parecerse a otro, viene a sentirse mas nuestro, mas vivo y mucho mas bonito contigo.' },
     { numero: 35, fecha: '2026-06-17', palabra: 'Mejor', texto: 'Yo quiero que este deseo deje clarito lo que siento contigo, que no quiero vivir mirando atras, quiero abrir contigo una temporada mejor, mas linda y mas nuestra.' },
-    { numero: 36, fecha: '2026-06-18', palabra: 'Recogido', texto: 'Yo quiero que esta concha se quede con la imagen de verte con el cabello recogido, porque me encantas en cualquier version y cada una de ellas me parece preciosa.' },
+    { numero: 36, fecha: '2026-06-18', palabra: 'Recogido', texto: 'Yo quiero que esta concha se quede con la imagen de verte con el cabello de cualquier forma, porque me encantas en cualquier version y cada una de ellas me parece preciosa.' },
     { numero: 37, fecha: '2026-06-18', palabra: 'Orejita', texto: 'Yo quiero que este deseo guarde ese gesto de ponerte el cabello detras de la orejita, porque hasta en esos detalles se me nota cuanto te miro y cuanto me encantas.' },
-    { numero: 38, fecha: '2026-06-19', palabra: 'Lunar', texto: 'Yo quiero que esta concha sea para tu lunar en el ojito, porque hay detalles asi de chiquitos que vuelven unica una carita entera, y la tuya a mi me encanta demasiado.' },
+    { numero: 38, fecha: '2026-06-19', palabra: 'Lunar', texto: 'Yo quiero que esta concha sea para tu lunar en el ojito, porque hay detalles asi de chiquitos que vuelven unica una carita entera, y la tuya a mi me encanta demasiado mi vida demasiado.' },
     { numero: 39, fecha: '2026-06-19', palabra: 'Estrellita', texto: 'Yo quiero que este deseo te diga que esa marquita yo siempre la he visto como una estrellita privada, puesta justo en un lugar que me encanta mirar porque eres tu.' },
     { numero: 40, fecha: '2026-06-20', palabra: 'Llegaste', texto: 'Yo quiero que esta concha recuerde cada "ya llegaste a casita", porque para mi eso no es rutina, es amor cuidando, pendiente y queriendo que el otro este bien.' },
     { numero: 41, fecha: '2026-06-20', palabra: 'Cuidado', texto: 'Yo quiero que este deseo se quede con tus mensajes de lluvia, de carretera y de "no te distraigas hasta llegar", porque me cuidas bonito incluso a distancia y eso yo lo valoro muchisimo.' },
-    { numero: 42, fecha: '2026-06-21', palabra: 'Diarias', texto: 'Yo quiero que esta concha guarde ese detalle tan nuestro de hacernos las diarias, porque hasta el juego se vuelve compania cuando lo comparto contigo.' },
+    { numero: 42, fecha: '2026-06-21', palabra: 'Diarias', texto: 'Yo quiero que esta concha guarde ese detalle tan nuestro de cuando nos haciamos las diarias, porque hasta el juego se vuelve compañia cuando lo comparto contigo.' },
     { numero: 43, fecha: '2026-06-21', palabra: 'Duo', texto: 'Yo quiero que este deseo te recuerde que contigo hasta jugar se siente en equipo, como si siempre tuviera a mi persona cubriendome la espalda y riendose conmigo.' },
     { numero: 44, fecha: '2026-06-22', palabra: 'Peli', texto: 'Yo quiero que esta concha se imagine una peli en casita, bien cerquita contigo, de esas donde lo mejor no es la trama, sino tenerte a mi lado bien abrazadita.' },
-    { numero: 45, fecha: '2026-06-22', palabra: 'Palomitas', texto: 'Yo quiero que este deseo huela a palomitas, a silloncito compartido y a esa paz simple que tu y yo sabemos convertir en algo inolvidable solo por estar juntos.' },
+    { numero: 45, fecha: '2026-06-22', palabra: 'Palomitas', texto: 'Yo quiero que este deseo huela a palomitas, a esa paz simple que tu y yo sabemos convertir en algo inolvidable solo por estar juntos.' },
     { numero: 46, fecha: '2026-06-23', palabra: 'Coca', texto: 'Yo quiero que esta concha guarde la coca y las cositas ricas de un plan en casa, porque contigo hasta lo mas simple sabe a cita bonita y a tiempo bien vivido.' },
-    { numero: 47, fecha: '2026-06-23', palabra: 'Flamins', texto: 'Yo quiero que este deseo sepa a flamins y a antojitos medio mensos pero bien nuestros, porque asi tambien se construyen recuerdos ricos, tontos y hermosos contigo.' },
-    { numero: 48, fecha: '2026-06-24', palabra: 'Mangueras', texto: 'Yo quiero que esta concha se quede con esa idea preciosa de mojarnos con las mangueras afuera, como dos ninos bonitos que todavia saben encontrar felicidad en lo simple.' },
-    { numero: 49, fecha: '2026-06-24', palabra: 'Bloqueador', texto: 'Yo quiero que este deseo huela a bloqueador y a cositas para comer, porque cuando pienso en un dia bonito contigo, siempre pienso tambien en cuidarte y en disfrutarte mucho.' },
+    { numero: 47, fecha: '2026-06-23', palabra: 'Flamins', texto: 'Yo quiero que este deseo sepa a flamings y a antojitos medio mensos pero bien nuestros, porque asi tambien se construyen recuerdos ricos, tontos y hermosos contigo.' },
+    { numero: 48, fecha: '2026-06-24', palabra: 'Mangueras', texto: 'Yo quiero que esta concha se quede con esa idea preciosa de que nos tenemos que mojarnos con las manguera como me lo habias dicho, como dos niños bonitos que todavia saben encontrar felicidad en lo simple.' },
+    { numero: 49, fecha: '2026-06-24', palabra: 'Bloqueador', texto: 'Yo quiero que este deseo huela a bloqueador y a cositas para comer en el mar, porque cuando pienso en un dia bonito contigo, siempre pienso tambien en cuidarte y en disfrutarte mucho siempre.' },
     { numero: 50, fecha: '2026-06-25', palabra: 'Pancita', texto: 'Yo quiero que esta concha guarde la ternura de que hasta mi pancita te guste, porque contigo me siento querido completo, con todo lo que soy, y eso me hace amarte mas.' },
-    { numero: 51, fecha: '2026-06-25', palabra: 'Nene', texto: 'Yo quiero que este deseo se quede con ese "nene" tuyo que me dices y que suena a carino real, de ese que nace solo porque sale directo de tu corazon.' },
+    { numero: 51, fecha: '2026-06-25', palabra: 'Nene', texto: 'Yo quiero que este deseo se quede con ese "nene" tuyo que me decias como expresion de cariño antes, pero me gusta que me digas mas amor <3 y que suena a cariño real, de ese que nace solo porque sale directo de tu corazon.' },
     { numero: 52, fecha: '2026-06-26', palabra: 'Bonito', texto: 'Yo quiero que esta concha recuerde eso tan bonito que me dijiste, que soy muy bonito, porque tus palabras tambien saben quedarse haciendome hogar por dentro.' },
-    { numero: 53, fecha: '2026-06-26', palabra: 'Inspiras', texto: 'Yo quiero que este deseo guarde eso que me dijiste, que mis palabras bonitas te inspiran a ser mejor, porque saber que te hago bien tambien me hace quererte todavia mas.' },
+    { numero: 53, fecha: '2026-06-26', palabra: 'Inspiras', texto: 'Yo quiero que este deseo guarde eso que me dijiste, que mis palabras bonitas te inspiran a ser mejor, porque saber que te hago bien tambien me hace quererte todavia mas y ser mejor.' },
     { numero: 54, fecha: '2026-06-27', palabra: 'Entendernos', texto: 'Yo quiero que esta concha se quede con lo especial de sentir que tu y yo podemos entendernos, ser nosotros mismos y cuidar lo que tenemos sin romperlo.' },
-    { numero: 55, fecha: '2026-06-27', palabra: 'Suerte', texto: 'Yo quiero que este deseo te diga algo muy simple y muy grande, que estar contigo se siente como tener buena suerte en la vida real, y yo no pienso tomar eso a la ligera.' },
+    { numero: 55, fecha: '2026-06-27', palabra: 'Suerte', texto: 'Yo quiero que este deseo te diga algo muy simple y muy grande, que estar contigo se siente como tener buena suerte en la vida real de una a infinito de posibilidades, y yo no pienso tomar eso a la ligera.' },
     { numero: 56, fecha: '2026-06-28', palabra: 'Lluvia', texto: 'Yo quiero que esta concha guarde esa ternura de cuando afuera hay lluvia, pero por dentro todo se siente mas tranquilo porque tu y yo seguimos pendientes del otro con amor.' },
     { numero: 57, fecha: '2026-06-28', palabra: 'Antesala', texto: 'Yo quiero que este deseo se sienta como esa respiracion antes de lo bonito, como cuando ya huele a viaje y mi corazon empieza a latir distinto porque se que voy a vivirlo contigo.' },
-    { numero: 58, fecha: '2026-06-29', palabra: 'Salida', texto: 'Yo quiero que esta concha marque el momento exacto en que por fin empieza nuestro viaje, cuando todo se vuelve mas real porque ahora si somos tu y yo rumbo a algo que es muy nuestro.' },
+    { numero: 58, fecha: '2026-06-29', palabra: 'Salida', texto: 'Yo quiero que esta concha marque el momento exacto en que por fin empieza nuestro viaje, cuando todo se vuelve mas real porque ahora si somos tu y yo rumbo a algo que es muy nuestro y hacer recuerdos contigo<3.' },
     { numero: 59, fecha: '2026-06-29', palabra: 'Carretera', texto: 'Yo quiero que este deseo huela a carretera, maletitas, manitas inquietas y nervios bonitos compartidos contigo, porque hasta los trayectos se me hacen felices si son a tu lado.' },
     { numero: 60, fecha: '2026-06-29', palabra: 'Comienzo', texto: 'Yo quiero que esta concha diga lo que mi corazon ya sabe, que desde aqui empieza un verano mejor, hecho para nosotros, lleno de dias nuevos, besitos nuevos y memorias que quiero vivir contigo.' },
     { numero: 61, fecha: '2026-06-30', palabra: 'Llegada', texto: 'Yo quiero que esta concha se abra con la emocion de llegar por fin, cuando hasta mi cuerpo entiende antes que mi cabeza que ya estamos viviendo eso que tanto queriamos tu y yo.' },
-    { numero: 62, fecha: '2026-06-30', palabra: 'Mar', texto: 'Yo quiero que este deseo te deje el sonido del mar pegadito a la piel, como si todo alrededor alabara lo bonito que es tenerte cerca y poder mirarte ahi conmigo.' },
+    { numero: 62, fecha: '2026-06-30', palabra: 'Mar', texto: 'Yo quiero que este deseo te deje el sonido del mar pegadito a la piel, como si todo alrededor alabara lo bonito que es tenerte cerca y poder mirarte ahi conmigo y el tiempo contigo es especial.' },
     { numero: 63, fecha: '2026-06-30', palabra: 'Brisa', texto: 'Yo quiero que esta concha huela a brisa salada, a tu cabello moviendose y a tus ojitos brillando porque por fin ya estamos ahi, juntos, viviendo algo muy nuestro.' },
-    { numero: 64, fecha: '2026-06-30', palabra: 'Vallarta', texto: 'Yo quiero que este deseo convierta Vallarta en mucho mas que un lugar, en un recuerdo con nombre propio donde mi amor por ti se sienta todavia mas vivo, mas claro y mas feliz.' },
-    { numero: 65, fecha: '2026-07-01', palabra: 'Despertar', texto: 'Yo quiero que esta concha sea para ese dia de despertarme contigo, disfrutarte despacito, abrazarte mucho y seguir viviendo este viaje bien cerquita de ti.' },
-    { numero: 66, fecha: '2026-07-01', palabra: 'Desayuno', texto: 'Yo quiero que este deseo se sienta como despertar lento contigo, desayunar juntitos y reirnos de cualquier cosa con esa carita rica de recien levantados que tanto me encanta.' },
+    { numero: 64, fecha: '2026-06-30', palabra: 'Vallarta', texto: 'Yo quiero que este deseo convierta Vallarta en mucho mas que un lugar, en un recuerdo con nombre propio donde mi amor por ti se sienta todavia mas vivo, mas claro y mas feliz cada vez que escuches Vallarta.' },
+    { numero: 65, fecha: '2026-07-01', palabra: 'Despertar', texto: 'Yo quiero que esta concha sea para ese dia de despertarme contigo, disfrutarte demasiado, abrazarte mucho y seguir viviendo este viaje bien cerquita de ti.' },
+    { numero: 66, fecha: '2026-07-01', palabra: 'Desayuno', texto: 'Yo quiero que este deseo se sienta como despertar lento contigo, desayunar juntitos y reirnos de cualquier cosa con esa carita rica de recien levantados que tanto me encanta de ti mmi vida te amo.' },
     { numero: 67, fecha: '2026-07-01', palabra: 'Cerquita', texto: 'Yo quiero que esta concha te recuerde que a veces lo mejor del viaje no es salir a todos lados, sino seguir cerquita, abrazaditos y sin ganas de despegarnos ni un poquito.' },
     { numero: 68, fecha: '2026-07-02', palabra: 'Anillo', texto: 'Yo quiero que esta concha se refiera a nuestro anillo de promesa, como una forma chiquita y preciosa de acordarnos que lo nuestro si pesa bonito y si vive de verdad en mi corazon.' },
-    { numero: 69, fecha: '2026-07-02', palabra: 'Collar', texto: 'Yo quiero que este deseo sea para ese collar con mi inicial que usas, porque me encanta pensar que una partecita mia te acompana pegadita al pecho durante el dia.' },
-    { numero: 70, fecha: '2026-07-02', palabra: 'Regalitos', texto: 'Yo quiero que esta concha te recuerde que no son solo regalitos, son huellitas de mi carino que tu decides seguir usando en tu version diaria, y eso a mi me hace sentir muy amado.' },
+    { numero: 69, fecha: '2026-07-02', palabra: 'Collar', texto: 'Yo quiero que este deseo sea para ese collar con mi inicial que usas, porque me encanta pensar que una partecita mia te acompaña pegadita al pecho durante el dia.' },
+    { numero: 70, fecha: '2026-07-02', palabra: 'Regalitos', texto: 'Yo quiero que esta concha te recuerde que no son solo regalitos, son huellitas de mi cariño que tu decides seguir usando en tu version diaria, y eso a mi me hace sentir muy amado.' },
     { numero: 71, fecha: '2026-07-02', palabra: 'Trabajo', texto: 'Yo quiero que este deseo honre lo mucho que le echaste ganas para el viaje de los dos, porque eso tambien es amor para mi: moverte, sumar, construir y demostrarme que esto tambien lo sueñas conmigo.' },
     { numero: 72, fecha: '2026-07-03', palabra: 'Besito', texto: 'Yo quiero que esta concha guarde todos los besitos ricos que nacen cuando estamos contentos, tranquilos y felices de por fin tenernos sin tanta distancia entre nosotros.' },
-    { numero: 73, fecha: '2026-07-03', palabra: 'Abrazote', texto: 'Yo quiero que este deseo sea para esos abrazos largos contigo que no quieren soltarse, de los que dicen sin hablar que ahi es, que ahi quiero quedarme contigo.' },
+    { numero: 73, fecha: '2026-07-03', palabra: 'Abrazote', texto: 'Yo quiero que este deseo sea para esos abrazos largos contigo que no quieren soltarse, de los que dicen sin hablar que ahi es, y no son palabras, son solo abrazos y expresan que ahi quiero quedarme contigo.' },
     { numero: 74, fecha: '2026-07-03', palabra: 'Pegaditos', texto: 'Yo quiero que esta concha se quede con la imagen de nosotros dos bien pegaditos, como si hasta el cuerpo entendiera que este viaje es solo tuyo y mio, solo de nosotros.' },
-    { numero: 75, fecha: '2026-07-03', palabra: 'NocheNueva', texto: 'Yo quiero que este deseo te recuerde que estas noches son distintas, mejores, mas suaves y mucho mas nuestras, con otro brillo, otra paz y otra manera de amarnos.' },
+    { numero: 75, fecha: '2026-07-03', palabra: 'NocheNueva', texto: 'Yo quiero que este deseo te recuerde que estas noches son distintas, mejores, mas suaves y mucho mas de los 2, con otro brillo, otra paz y otra manera de vivir la vida juntos <3.' },
     { numero: 76, fecha: '2026-07-04', palabra: 'Mayor', texto: 'Yo quiero que esta concha avise que ya estamos en el punto mas alto del viaje, donde todo lo vivido contigo se junta y se vuelve todavia mas valioso dentro de mi.' },
     { numero: 77, fecha: '2026-07-04', palabra: 'Hogar', texto: 'Yo quiero que este deseo te diga algo que siento muy hondo, que a veces hogar no es un lugar fijo, a veces hogar eres tu, porque contigo todo se siente mas seguro, mas tibio y mas bonito.' },
     { numero: 78, fecha: '2026-07-04', palabra: 'Elegidos', texto: 'Yo quiero que esta concha se refiera a lo mas fuerte de lo nuestro, que nos amamos y nos elegimos tambien en lo cotidiano, tambien en lo simple y tambien en lo real.' },
     { numero: 79, fecha: '2026-07-04', palabra: 'Vida', texto: 'Yo quiero que este deseo abra lo que de verdad siento contigo, las ganas reales de una vida plena a tu lado, de seguir sumando viajes, casita, dias suaves, paz, besos y abrazos contigo.' },
-    { numero: 80, fecha: '2026-07-04', palabra: 'Juntos', texto: 'Yo quiero que en este ultimo dia se abra mi deseo mayor, el mas claro y el mas vivo de todos: seguir juntos de verdad, caminar a tu lado, elegirte cada dia y hacer de este verano el principio de algo todavia mas bonito contigo, mi amor.' }
+    { numero: 80, fecha: '2026-07-04', palabra: 'Juntos', texto: 'Yo quiero que en este ultimo dia se abra mi deseo mayor, el mas claro y el mas vivo de todos: seguir juntos de verdad, caminar a tu lado, elegirte cada dia y hacer de este verano el principio de algo todavia mas bonito contigo, mi amor siempre te amare mi vida nunca lo dudes, este deseo 80 quiero que lo recuerdes como un sentimiento y mi forma de expresar mi cariño a lo largo de todo este tiempo, en verdad me encantas hermosa <3.' }
   ];
 
   const MAX_CONCHAS = deseosProgramados.length;
@@ -3472,7 +3472,7 @@
   const wishDisponibleChip = document.getElementById('wishDisponibleChip');
   const conchaFx = document.getElementById('conchaFx');
   const coleccionVisual = document.getElementById('coleccionVisual');
-  const barraCarino = document.getElementById('barraCarino');
+  const barracariño = document.getElementById('barracariño');
   const coleccionTexto = document.getElementById('coleccionTexto');
   const motivoBtn = document.getElementById('motivoBtn');
   const motivoDisplay = document.getElementById('motivoDisplay');
@@ -3961,7 +3961,7 @@
 
     conchasContador.textContent = `Conchitas guardadas: ${actual}/${topeVisible}`;
     wishDisponibleChip.textContent = `Deseos listos: ${disponibles}`;
-    barraCarino.style.width = `${(actual / MAX_CONCHAS) * 100}%`;
+    barracariño.style.width = `${(actual / MAX_CONCHAS) * 100}%`;
     coleccionTexto.textContent = construirMensajeConcha(actual, desbloqueados);
 
   }
