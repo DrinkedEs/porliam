@@ -1985,22 +1985,25 @@
     }
 
     .libro-separador-fecha {
-      padding: 18px 0 6px;
+      margin: 22px 0 4px;
+      padding: 10px 14px 8px;
+      background: linear-gradient(135deg, rgba(123, 69, 218, 0.22), rgba(184, 132, 255, 0.08));
+      border-left: 3px solid rgba(184, 132, 255, 0.70);
+      border-radius: 0 8px 8px 0;
       font-family: 'Dancing Script', cursive;
-      font-size: 15px;
+      font-size: 16px;
       color: var(--sol-suave);
-      opacity: 0.60;
       letter-spacing: 0.5px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
-    .libro-separador-fecha::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to right, rgba(184, 132, 255, 0.20), transparent);
+    .libro-separador-fecha.especial-sep {
+      background: linear-gradient(135deg, rgba(184, 132, 255, 0.30), rgba(233, 220, 255, 0.10));
+      border-left-color: var(--sol-suave);
+      color: #f4e0ff;
+    }
+
+    .libro-separador-fecha:first-child {
+      margin-top: 6px;
     }
 
     .libro-btn-abrir {
@@ -3051,7 +3054,8 @@
         fechaGrupo = deseo.fecha;
         const especial = fechasEspeciales[deseo.fecha];
         const etiqueta = especial ? `${fechaBonita} — ${especial.chip}` : fechaBonita;
-        html += `<div class="libro-separador-fecha">${etiqueta}</div>`;
+        const claseExtra = especial ? ' especial-sep' : '';
+        html += `<div class="libro-separador-fecha${claseExtra}">${etiqueta}</div>`;
       }
       if (desbloqueado) {
         html += `
