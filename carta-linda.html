@@ -1743,6 +1743,148 @@
 
     .deseo-burbuja { display: none !important; }
 
+    /* ── INTRO ───────────────────────────────────────────── */
+    .intro-overlay {
+      position: fixed; inset: 0; z-index: 2000;
+      background: radial-gradient(ellipse at 50% 60%, #12032a 0%, #040010 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      transition: opacity 0.95s ease;
+    }
+    .intro-overlay.saliendo { opacity: 0; pointer-events: none; }
+
+    .intro-astros {
+      position: relative; width: 280px; height: 110px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 28px;
+    }
+    .intro-luna-ico {
+      position: absolute; font-size: 68px;
+      filter: drop-shadow(0 0 22px rgba(184,132,255,0.90));
+      transform: translateX(-160px) scale(0.6);
+      opacity: 0;
+      animation: intro-luna 1.5s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
+      will-change: transform, opacity;
+    }
+    .intro-sol-ico {
+      position: absolute; font-size: 68px;
+      filter: drop-shadow(0 0 22px rgba(220,180,255,0.90));
+      transform: translateX(160px) scale(0.6);
+      opacity: 0;
+      animation: intro-sol 1.5s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
+      will-change: transform, opacity;
+    }
+    @keyframes intro-luna {
+      0%   { transform: translateX(-160px) scale(0.6); opacity: 0; }
+      100% { transform: translateX(-48px) scale(1);   opacity: 1; }
+    }
+    @keyframes intro-sol {
+      0%   { transform: translateX(160px) scale(0.6); opacity: 0; }
+      100% { transform: translateX(48px) scale(1);    opacity: 1; }
+    }
+    .intro-glow {
+      position: absolute; width: 160px; height: 160px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(184,132,255,0.55), rgba(123,69,218,0.22), transparent 68%);
+      opacity: 0;
+      animation: intro-glow 1s ease 1.6s forwards;
+      will-change: transform, opacity;
+    }
+    @keyframes intro-glow {
+      0%   { opacity: 0; transform: scale(0.3); }
+      45%  { opacity: 1; transform: scale(1.5); }
+      100% { opacity: 0.6; transform: scale(1); }
+    }
+    .intro-texto {
+      text-align: center; opacity: 0;
+      animation: intro-fade 1.2s ease 2.3s forwards;
+    }
+    .intro-titulo {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(34px, 9vw, 58px);
+      color: #f7eaff; line-height: 1.15; margin-bottom: 10px;
+    }
+    .intro-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(15px, 3vw, 19px);
+      color: var(--luna); opacity: 0.82; letter-spacing: 2px;
+    }
+    .intro-btn {
+      margin-top: 38px; padding: 13px 40px; border-radius: 999px;
+      border: 1px solid rgba(184,132,255,0.40);
+      background: rgba(184,132,255,0.10);
+      color: var(--sol-suave); font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; letter-spacing: 3px; text-transform: uppercase;
+      cursor: pointer; opacity: 0;
+      animation: intro-fade 0.8s ease 3.4s forwards;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .intro-btn:hover {
+      background: rgba(184,132,255,0.22);
+      border-color: rgba(184,132,255,0.72);
+    }
+    @keyframes intro-fade {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── BUSCAMINAS ──────────────────────────────────────── */
+    .bm-barra {
+      display: flex; align-items: center;
+      justify-content: space-between; margin: 10px 0 6px; gap: 8px;
+    }
+    .bm-minas-txt {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; color: var(--luna); letter-spacing: 1px;
+    }
+    .bm-nuevo {
+      font-family: 'Cormorant Garamond', serif; font-size: 13px;
+      padding: 5px 14px; border-radius: 999px;
+      border: 1px solid rgba(215,193,255,0.22);
+      background: rgba(215,193,255,0.05); color: var(--luna);
+      cursor: pointer; letter-spacing: 1px;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .bm-nuevo:hover {
+      background: rgba(184,132,255,0.18); border-color: rgba(184,132,255,0.50);
+    }
+    .bm-tablero {
+      display: grid; grid-template-columns: repeat(9,1fr);
+      gap: 3px; margin: 8px 0 12px;
+      user-select: none; touch-action: none;
+    }
+    .bm-celda {
+      aspect-ratio: 1; border-radius: 6px;
+      background: rgba(215,193,255,0.07);
+      border: 1px solid rgba(215,193,255,0.11);
+      cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      font-size: clamp(10px,1.9vw,15px); font-weight: 700;
+      transition: background 0.1s, transform 0.08s;
+      will-change: transform;
+    }
+    .bm-celda:not(.rev):not(.marc):hover {
+      background: rgba(184,132,255,0.22); transform: scale(1.08);
+    }
+    .bm-celda.rev {
+      background: rgba(255,255,255,0.03);
+      border-color: rgba(215,193,255,0.04); cursor: default;
+    }
+    .bm-celda.boom { background: rgba(200,50,50,0.28); border-color: rgba(255,100,100,0.36); }
+    .bm-celda.win  {
+      background: rgba(123,69,218,0.22); border-color: rgba(184,132,255,0.40);
+      animation: bm-win 0.4s ease var(--bd,0s) both;
+    }
+    .bm-celda.marc { background: rgba(184,132,255,0.14); }
+    @keyframes bm-win {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.14); }
+    }
+    .bm-msg {
+      text-align: center; font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; color: var(--luna); letter-spacing: 0.5px;
+      min-height: 24px; padding: 4px 0;
+    }
+
     /* ── LIBRO DE DESEOS (MODAL) ──────────────────────────── */
     .libro-overlay {
       position: fixed;
@@ -2352,16 +2494,20 @@
 
         <article class="experiencia-card">
           <span class="experiencia-label">farm de playa</span>
-          <h3 class="experiencia-card-titulo">Junta las conchitas que ya se abrieron</h3>
+          <h3 class="experiencia-card-titulo">Buscaminas de conchitas 🐚</h3>
           <p class="experiencia-copy">
-            Cada toque recoge una conchita del dia que ya esta desbloqueado. Si un dia se te pasa,
-            al siguiente puedes farmear tambien lo que se quedo pendiente.
+            Gana la partida para juntar una conchita. Click derecho (o presión larga en móvil) para marcar cangrejos 🦀. Puedes seguir jugando aunque ya hayas juntado todas las de hoy.
           </p>
           <div class="contador-row">
-            <span class="contador-chip" id="conchasContador">Conchitas guardadas: 0/0</span>
+            <span class="contador-chip" id="conchasContador">Conchitas: 0/0</span>
             <span class="contador-chip" id="wishDisponibleChip">Deseos listos: 0</span>
           </div>
-          <button type="button" class="accion-viaje-btn accion-dorada" id="sumarConchaBtn">Aun no hay conchitas desbloqueadas</button>
+          <div class="bm-barra">
+            <span class="bm-minas-txt" id="bmMinasRestantes">🦀 ×10</span>
+            <button class="bm-nuevo" onclick="bmIniciar()">Nueva partida</button>
+          </div>
+          <div class="bm-tablero" id="bmTablero"></div>
+          <p class="bm-msg" id="bmMensaje">Toca una casilla para empezar 🐚</p>
           <div class="notificaciones-viaje" id="conchaFx" aria-hidden="true"></div>
           <div class="coleccion-visual" id="coleccionVisual" aria-live="polite"></div>
           <div class="barra-carino"><span id="barraCarino"></span></div>
@@ -2469,6 +2615,20 @@
     <p class="frase-final">La noche que abraza al día · para siempre</p>
   </div>
 
+</div>
+
+<!-- INTRO -->
+<div id="introOverlay" class="intro-overlay">
+  <div class="intro-astros">
+    <div class="intro-luna-ico">🌙</div>
+    <div class="intro-glow"></div>
+    <div class="intro-sol-ico">☀️</div>
+  </div>
+  <div class="intro-texto">
+    <p class="intro-titulo">Te amo bonita</p>
+    <p class="intro-sub">espero te guste... ✦</p>
+  </div>
+  <button class="intro-btn" onclick="cerrarIntro()">Entrar ✦</button>
 </div>
 
 <!-- LIBRO MODAL -->
@@ -2722,7 +2882,6 @@
   const momentoTexto = document.getElementById('momentoTexto');
   const conchasContador = document.getElementById('conchasContador');
   const wishDisponibleChip = document.getElementById('wishDisponibleChip');
-  const sumarConchaBtn = document.getElementById('sumarConchaBtn');
   const conchaFx = document.getElementById('conchaFx');
   const coleccionVisual = document.getElementById('coleccionVisual');
   const barraCarino = document.getElementById('barraCarino');
@@ -3197,23 +3356,6 @@
     barraCarino.style.width = `${(actual / MAX_CONCHAS) * 100}%`;
     coleccionTexto.textContent = construirMensajeConcha(actual, desbloqueados);
 
-    if (desbloqueados <= 0) {
-      sumarConchaBtn.textContent = 'Aun no hay conchitas desbloqueadas';
-      sumarConchaBtn.disabled = true;
-      return;
-    }
-
-    if (actual >= desbloqueados) {
-      sumarConchaBtn.textContent = desbloqueados >= MAX_CONCHAS
-        ? 'Ya guardaste las 80 conchitas'
-        : 'Por ahora ya vas al corriente';
-      sumarConchaBtn.disabled = true;
-      return;
-    }
-
-    const siguiente = deseosProgramados[actual];
-    sumarConchaBtn.textContent = `Guardar Concha ${padNumero(siguiente.numero)}`;
-    sumarConchaBtn.disabled = false;
   }
 
   function renderMotivo() {
@@ -3460,24 +3602,6 @@
     btn.addEventListener('click', () => activarMood(btn.dataset.mood));
   });
 
-  sumarConchaBtn.addEventListener('click', () => {
-    sincronizarFechaActual();
-
-    if (conchasDisponiblesPorGuardar() <= 0) {
-      renderConchas();
-      return;
-    }
-
-    const nuevaConcha = deseosProgramados[estadoViaje.conchas];
-    estadoViaje.conchas += 1;
-    guardarEstadoViaje();
-    renderConchas();
-    renderDeseo();
-    animarExito(sumarConchaBtn);
-    soltarNotificacion(conchaFx, `Concha ${padNumero(nuevaConcha.numero)}`);
-    setTimeout(() => soltarNotificacion(conchaFx, nuevaConcha.palabra, 'azul'), 110);
-    celebrarPalabras(obtenerInfoFecha(nuevaConcha.fecha).especial ? 5 : 3);
-  });
 
   motivoBtn.addEventListener('click', () => {
     estadoViaje.motivoIndex = (estadoViaje.motivoIndex + 1) % motivosBonitos.length;
@@ -3545,6 +3669,134 @@
   renderConchas();
   renderMotivo();
   renderDeseo();
+
+  // ─── INTRO ────────────────────────────────────────────────
+  function cerrarIntro() {
+    const el = document.getElementById('introOverlay');
+    if (!el) return;
+    el.classList.add('saliendo');
+    setTimeout(() => el.remove(), 1000);
+  }
+  setTimeout(cerrarIntro, 8000);
+
+  // ─── BUSCAMINAS ───────────────────────────────────────────
+  const BM_F = 9, BM_C = 9, BM_N_MINAS = 10;
+  let bm = { t: [], estado: 'esp', rev: 0, primero: true, mRestantes: BM_N_MINAS };
+  let bmTouchFlag = false;
+
+  function bmCelda() { return { mina: false, revelada: false, marcada: false, n: 0 }; }
+
+  function bmIniciar() {
+    bm.t = Array.from({ length: BM_F }, () => Array.from({ length: BM_C }, bmCelda));
+    bm.estado = 'esp'; bm.rev = 0; bm.primero = true; bm.mRestantes = BM_N_MINAS;
+    bmRender();
+    bmMsg('Toca una casilla para empezar 🐚');
+  }
+
+  function bmPlantar(ef, ec) {
+    const skip = new Set();
+    for (let df = -1; df <= 1; df++) for (let dc = -1; dc <= 1; dc++) {
+      const f2 = ef+df, c2 = ec+dc;
+      if (f2>=0&&f2<BM_F&&c2>=0&&c2<BM_C) skip.add(f2*BM_C+c2);
+    }
+    let p = 0;
+    while (p < BM_N_MINAS) {
+      const f = Math.floor(Math.random()*BM_F), c = Math.floor(Math.random()*BM_C);
+      if (!bm.t[f][c].mina && !skip.has(f*BM_C+c)) { bm.t[f][c].mina = true; p++; }
+    }
+    for (let f = 0; f < BM_F; f++) for (let c = 0; c < BM_C; c++) {
+      if (bm.t[f][c].mina) continue;
+      let n = 0;
+      for (let df=-1;df<=1;df++) for (let dc=-1;dc<=1;dc++) {
+        const f2=f+df,c2=c+dc;
+        if (f2>=0&&f2<BM_F&&c2>=0&&c2<BM_C&&bm.t[f2][c2].mina) n++;
+      }
+      bm.t[f][c].n = n;
+    }
+  }
+
+  function bmFlood(f, c) {
+    if (f<0||f>=BM_F||c<0||c>=BM_C) return;
+    const cel = bm.t[f][c];
+    if (cel.revelada||cel.marcada||cel.mina) return;
+    cel.revelada = true; bm.rev++;
+    if (cel.n===0) for (let df=-1;df<=1;df++) for (let dc=-1;dc<=1;dc++) if(df||dc) bmFlood(f+df,c+dc);
+  }
+
+  function bmClick(f, c) {
+    if (bm.estado==='perd'||bm.estado==='gan') return;
+    const cel = bm.t[f][c];
+    if (cel.revelada||cel.marcada) return;
+    if (bm.primero) { bm.primero=false; bm.estado='jug'; bmPlantar(f,c); }
+    if (cel.mina) {
+      cel.revelada = true; bm.estado = 'perd';
+      for (let fi=0;fi<BM_F;fi++) for (let ci=0;ci<BM_C;ci++) if(bm.t[fi][ci].mina) bm.t[fi][ci].revelada=true;
+      bmRender(); bmMsg('💥 Cangrejo — vuelve a intentarlo 🦀'); return;
+    }
+    bmFlood(f, c);
+    const seg = BM_F*BM_C - BM_N_MINAS;
+    if (bm.rev >= seg) { bm.estado='gan'; bmRender(); bmGanar(); }
+    else { bmRender(); bmMsg(`🦀 ×${bm.mRestantes} · quedan ${seg-bm.rev} casillas`); }
+  }
+
+  function bmMarcar(f, c) {
+    if (bm.estado==='esp'||bm.t[f][c].revelada) return;
+    bm.t[f][c].marcada = !bm.t[f][c].marcada;
+    bm.mRestantes += bm.t[f][c].marcada ? -1 : 1;
+    bmRender();
+  }
+
+  function bmGanar() {
+    sincronizarFechaActual();
+    const disp = conchasDisponiblesPorGuardar();
+    if (disp > 0) {
+      const nc = deseosProgramados[estadoViaje.conchas];
+      estadoViaje.conchas = Math.min(estadoViaje.conchas+1, obtenerTotalDesbloqueadoActual());
+      guardarEstadoViaje(); renderConchas(); renderDeseo();
+      soltarNotificacion(conchaFx, `🐚 ${padNumero(nc.numero)} · ${nc.palabra}`, 'morada');
+      celebrarPalabras(5);
+      bmMsg(`✦ ¡Concha ${padNumero(nc.numero)} · ${nc.palabra} ganada!`);
+    } else {
+      bmMsg('🌙 ¡Ganaste! Ya tienes todas las conchitas de hoy — sigue jugando');
+    }
+  }
+
+  const BM_COL = {1:'#7eb8f5',2:'#7bd47b',3:'#f07878',4:'#a87de0',5:'#f09060',6:'#6ed8d8',7:'#e8a0e8',8:'#b0b0b8'};
+
+  function bmRender() {
+    const el = document.getElementById('bmTablero');
+    if (!el) return;
+    el.innerHTML = '';
+    for (let f=0;f<BM_F;f++) for (let c=0;c<BM_C;c++) {
+      const cel = bm.t[f][c];
+      const div = document.createElement('div');
+      div.className = 'bm-celda';
+      if (cel.revelada) {
+        div.classList.add('rev');
+        if (cel.mina) { div.classList.add('boom'); div.textContent='🦀'; }
+        else if (cel.n>0) { div.textContent=cel.n; div.style.color=BM_COL[cel.n]||'#ccc'; }
+        if (bm.estado==='gan') { div.classList.add('win'); div.style.setProperty('--bd',`${(f*BM_C+c)*0.01}s`); }
+      } else if (cel.marcada) {
+        div.classList.add('marc'); div.textContent='🚩';
+      }
+      let timer;
+      div.addEventListener('touchstart', ()=>{ timer=setTimeout(()=>{ bmTouchFlag=true; bmMarcar(f,c); },380); },{passive:true});
+      div.addEventListener('touchend', ()=>clearTimeout(timer),{passive:true});
+      div.addEventListener('touchmove',()=>clearTimeout(timer),{passive:true});
+      div.addEventListener('click', ()=>{ if(bmTouchFlag){bmTouchFlag=false;return;} bmClick(f,c); });
+      div.addEventListener('contextmenu', e=>{ e.preventDefault(); bmMarcar(f,c); });
+      el.appendChild(div);
+    }
+    const mr = document.getElementById('bmMinasRestantes');
+    if (mr) mr.textContent = `🦀 ×${bm.mRestantes}`;
+  }
+
+  function bmMsg(txt) {
+    const el = document.getElementById('bmMensaje');
+    if (el) el.textContent = txt;
+  }
+
+  bmIniciar();
 
   // ─── SPOILER ──────────────────────────────────────────────
   function abrirSpoiler(btn) {
