@@ -168,15 +168,52 @@
       50%       { transform: translateY(-14px) rotate(-3deg); }
     }
 
+    .sol-contenedor::before {
+      content: '';
+      position: absolute;
+      inset: -52px;
+      border-radius: 50%;
+      background: repeating-conic-gradient(
+        rgba(184, 132, 255, 0.11) 0deg 4deg,
+        transparent 4deg 11.25deg
+      );
+      animation: girar-rayos-sol 28s linear infinite reverse;
+      pointer-events: none;
+      z-index: 0;
+      will-change: transform;
+    }
+
     .sol {
       width: 90px; height: 90px;
       border-radius: 50%;
       background: radial-gradient(circle at 38% 34%, #fff7ff, #d9b6ff 38%, #b884ff 62%, #6d39cd 100%);
       box-shadow:
-        0 0 35px rgba(184, 132, 255, 0.72),
-        0 0 70px rgba(184, 132, 255, 0.34),
-        0 0 120px rgba(123, 69, 218, 0.16);
+        0 0 0 1px rgba(215, 193, 255, 0.14),
+        0 0 38px rgba(184, 132, 255, 0.82),
+        0 0 76px rgba(184, 132, 255, 0.48),
+        0 0 140px rgba(123, 69, 218, 0.26),
+        0 0 230px rgba(184, 132, 255, 0.13);
       position: relative;
+      z-index: 1;
+    }
+
+    .sol::before {
+      content: '';
+      position: absolute;
+      inset: -26px;
+      border-radius: 50%;
+      background: repeating-conic-gradient(
+        rgba(220, 180, 255, 0.28) 0deg 7deg,
+        transparent 7deg 22.5deg
+      );
+      animation: girar-rayos-sol 13s linear infinite;
+      z-index: -1;
+      will-change: transform;
+    }
+
+    @keyframes girar-rayos-sol {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
     }
 
     .sol::after {
@@ -186,7 +223,7 @@
       transform: translate(-50%, -50%);
       font-size: 48px;
       color: #fff1ff;
-      filter: drop-shadow(0 0 12px rgba(226, 194, 255, 0.92));
+      filter: drop-shadow(0 0 14px rgba(226, 194, 255, 0.96));
       animation: girar-sol 20s linear infinite;
     }
 
@@ -1630,6 +1667,34 @@
       100% { opacity: 0;   transform: translate(var(--dx), var(--dy)) scale(0.08); }
     }
 
+    .wish-destello-cae {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 4;
+      animation: wish-caer var(--dur-c, 1.3s) cubic-bezier(0.4, 0, 0.8, 1) var(--delay-c, 0s) forwards;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    .wish-destello-cae-txt {
+      position: absolute;
+      pointer-events: none;
+      z-index: 4;
+      font-size: var(--fs-c, 11px);
+      color: var(--color-c, rgba(215, 193, 255, 0.88));
+      line-height: 1;
+      animation: wish-caer var(--dur-c, 1.3s) cubic-bezier(0.4, 0, 0.8, 1) var(--delay-c, 0s) forwards;
+      opacity: 0;
+      will-change: transform, opacity;
+    }
+
+    @keyframes wish-caer {
+      0%   { opacity: 1;   transform: translate(var(--dx-c), -8px) scale(1); }
+      18%  { opacity: 0.9; }
+      100% { opacity: 0;   transform: translate(var(--dx-c), var(--dy-c)) scale(0.15); }
+    }
+
     .wish-anillo {
       position: absolute;
       border-radius: 50%;
@@ -2899,8 +2964,38 @@
       contenedor.appendChild(ring);
     });
 
+    const countCaer = tier === 'legendario' ? 22 : tier === 'epico' ? 16 : 11;
+    for (let i = 0; i < countCaer; i++) {
+      const el = document.createElement('div');
+      el.className = 'wish-destello-cae';
+      const dx = ((Math.random() - 0.5) * 70).toFixed(1);
+      const dy = (70 + Math.random() * 90).toFixed(1);
+      const size = (2 + Math.random() * 5.5).toFixed(1);
+      const color = colores[Math.floor(Math.random() * colores.length)];
+      const dur = (1.0 + Math.random() * 0.9).toFixed(2);
+      const delay = (0.05 + Math.random() * 0.35).toFixed(2);
+      el.style.cssText = `width:${size}px;height:${size}px;left:calc(50% - ${(size/2).toFixed(1)}px);top:48px;background:${color};--dx-c:${dx}px;--dy-c:${dy}px;--dur-c:${dur}s;--delay-c:${delay}s;`;
+      contenedor.appendChild(el);
+    }
+
+    const simbolosCaer = ['✦', '✧', '⋆', '·', '✦'];
+    const countCaerTxt = tier === 'legendario' ? 8 : tier === 'epico' ? 6 : 4;
+    for (let i = 0; i < countCaerTxt; i++) {
+      const el = document.createElement('span');
+      el.className = 'wish-destello-cae-txt';
+      const dx = ((Math.random() - 0.5) * 50).toFixed(1);
+      const dy = (80 + Math.random() * 80).toFixed(1);
+      const fs = (8 + Math.random() * 9).toFixed(0);
+      const color = colores[Math.floor(Math.random() * colores.length)];
+      const dur = (1.1 + Math.random() * 0.8).toFixed(2);
+      const delay = (0.08 + Math.random() * 0.28).toFixed(2);
+      el.textContent = simbolosCaer[i % simbolosCaer.length];
+      el.style.cssText = `left:calc(50% - ${(fs/2).toFixed(0)}px);top:48px;--fs-c:${fs}px;--color-c:${color};--dx-c:${dx}px;--dy-c:${dy}px;--dur-c:${dur}s;--delay-c:${delay}s;`;
+      contenedor.appendChild(el);
+    }
+
     setTimeout(() => {
-      contenedor.querySelectorAll('.wish-destello, .wish-destello-txt, .wish-anillo').forEach(el => el.remove());
+      contenedor.querySelectorAll('.wish-destello, .wish-destello-txt, .wish-anillo, .wish-destello-cae, .wish-destello-cae-txt').forEach(el => el.remove());
     }, 3200);
   }
 
