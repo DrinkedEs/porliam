@@ -1796,35 +1796,134 @@
     }
     .intro-texto {
       text-align: center; opacity: 0;
-      animation: intro-fade 1.2s ease 2.3s forwards;
+      animation: intro-fade 1.0s ease 1.9s forwards;
     }
     .intro-titulo {
       font-family: 'Dancing Script', cursive;
       font-size: clamp(34px, 9vw, 58px);
-      color: #f7eaff; line-height: 1.15; margin-bottom: 10px;
+      color: #f7eaff; line-height: 1.15; margin-bottom: 8px;
     }
     .intro-sub {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(15px, 3vw, 19px);
       color: var(--luna); opacity: 0.82; letter-spacing: 2px;
     }
+    .intro-indice {
+      display: flex; flex-direction: column; gap: 7px;
+      margin-top: 22px; opacity: 0;
+      animation: intro-fade 0.6s ease 3.1s forwards;
+      max-width: 360px;
+    }
+    .intro-indice-item {
+      display: flex; align-items: center; gap: 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(14px,2.5vw,16px);
+      color: rgba(215,193,255,0.80); letter-spacing: 0.5px;
+      opacity: 0;
+      animation: intro-item 0.45s ease var(--di) forwards;
+    }
+    @keyframes intro-item {
+      from { opacity:0; transform:translateX(-12px); }
+      to   { opacity:1; transform:translateX(0); }
+    }
+    .intro-indice-ico { font-size: 18px; flex-shrink:0; }
     .intro-btn {
-      margin-top: 38px; padding: 13px 40px; border-radius: 999px;
+      margin-top: 28px; padding: 13px 40px; border-radius: 999px;
       border: 1px solid rgba(184,132,255,0.40);
       background: rgba(184,132,255,0.10);
       color: var(--sol-suave); font-family: 'Cormorant Garamond', serif;
       font-size: 15px; letter-spacing: 3px; text-transform: uppercase;
       cursor: pointer; opacity: 0;
-      animation: intro-fade 0.8s ease 3.4s forwards;
+      animation: intro-fade 0.8s ease 5.8s forwards;
       transition: background 0.2s, border-color 0.2s;
     }
-    .intro-btn:hover {
-      background: rgba(184,132,255,0.22);
-      border-color: rgba(184,132,255,0.72);
-    }
+    .intro-btn:hover { background: rgba(184,132,255,0.22); border-color: rgba(184,132,255,0.72); }
     @keyframes intro-fade {
       from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* MOOD CARDS */
+    .mood-cards-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 10px; margin: 14px 0 0;
+    }
+    .mood-card {
+      border: 1px solid rgba(215,193,255,0.13);
+      border-radius: 14px; padding: 16px 10px 14px;
+      cursor: pointer; text-align: center;
+      background: rgba(215,193,255,0.04);
+      transition: background 0.22s, border-color 0.22s, transform 0.18s, box-shadow 0.22s;
+      will-change: transform;
+    }
+    .mood-card:hover {
+      background: rgba(184,132,255,0.12);
+      border-color: rgba(184,132,255,0.32);
+      transform: translateY(-3px);
+    }
+    .mood-card.activo {
+      background: linear-gradient(135deg, rgba(184,132,255,0.22), rgba(123,69,218,0.14));
+      border-color: rgba(184,132,255,0.62);
+      box-shadow: 0 0 22px rgba(184,132,255,0.22);
+      transform: translateY(-4px) scale(1.02);
+    }
+    .mood-card-emoji { font-size: 34px; display:block; margin-bottom:8px; }
+    .mood-card-titulo {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(13px,2vw,15px); color: var(--texto-claro);
+      font-style: italic; line-height: 1.3;
+    }
+    .mood-preview-card {
+      margin-top: 14px; border-radius: 14px; padding: 16px 18px;
+      background: radial-gradient(circle at top right, rgba(184,132,255,0.12), transparent 50%),
+        rgba(7,18,34,0.40);
+      border: 1px solid rgba(215,193,255,0.10);
+      min-height: 72px;
+      animation: motivo-aparecer 0.5s cubic-bezier(0.22,1,0.36,1);
+    }
+    .mood-preview-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--sol-suave); opacity: 0.72; display:block; margin-bottom:8px;
+    }
+    .mood-preview-txt {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(15px,2.4vw,17px); line-height: 1.85;
+      color: rgba(240,232,216,0.88); font-weight:300; margin:0;
+    }
+
+    /* MOTIVOS */
+    .motivo-card {
+      margin-top: 14px; border-radius: 14px; padding: 18px 16px;
+      background: radial-gradient(circle at top right, rgba(184,132,255,0.12), transparent 50%),
+        rgba(7,18,34,0.40);
+      border: 1px solid rgba(215,193,255,0.10); min-height: 80px;
+    }
+    .motivo-card.nuevo { animation: motivo-aparecer 0.5s cubic-bezier(0.22,1,0.36,1); }
+    @keyframes motivo-aparecer {
+      from { opacity:0; transform:translateY(12px) scale(0.97); }
+      to   { opacity:1; transform:translateY(0) scale(1); }
+    }
+    .motivo-txt {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(15px,2.4vw,17px); line-height: 1.88;
+      color: rgba(240,232,216,0.88); font-weight:300; font-style:italic; margin:0 0 12px;
+    }
+    .motivo-pie {
+      display: flex; align-items: center; justify-content: space-between; gap:8px;
+    }
+    .motivo-guardar {
+      padding: 5px 14px; border-radius: 999px;
+      border: 1px solid rgba(215,193,255,0.20);
+      background: rgba(215,193,255,0.05); color: var(--luna);
+      font-family: 'Cormorant Garamond', serif; font-size: 14px;
+      cursor: pointer; transition: all 0.18s; letter-spacing:0.5px;
+    }
+    .motivo-guardar:hover { background: rgba(184,132,255,0.18); border-color: rgba(184,132,255,0.50); }
+    .motivo-guardar.guardado { background: rgba(184,132,255,0.20); border-color: rgba(184,132,255,0.55); color: var(--sol-suave); }
+    .motivo-fav-count {
+      font-family: 'Cormorant Garamond', serif; font-size: 12px;
+      color: var(--luna); opacity: 0.55; letter-spacing:1px;
     }
 
     /* ── 2048 ────────────────────────────────────────────── */
@@ -2566,19 +2665,27 @@
       <div class="experiencias-grid">
         <article class="experiencia-card">
           <span class="experiencia-label">nuestro mood</span>
-          <h3 class="experiencia-card-titulo">Elige como nos ves llegando a la playa</h3>
+          <h3 class="experiencia-card-titulo">¿Cómo nos imaginas llegando a la playa?</h3>
           <p class="experiencia-copy">
-            No para adivinar el futuro, sino para imaginar juntos el tipo de momento bonito que
-            ya se siente cerquita.
+            Elige el momento que más sientas tuyo — no para adivinar, sino para imaginarlo juntos.
           </p>
-          <div class="mood-row">
-            <button type="button" class="mood-btn" data-mood="amanecer">Amanecer</button>
-            <button type="button" class="mood-btn" data-mood="orilla">Orillita</button>
-            <button type="button" class="mood-btn" data-mood="noche">Noche tibia</button>
+          <div class="mood-cards-grid">
+            <button type="button" class="mood-card mood-btn" data-mood="amanecer">
+              <span class="mood-card-emoji">🌅</span>
+              <span class="mood-card-titulo">Amanecer</span>
+            </button>
+            <button type="button" class="mood-card mood-btn" data-mood="orilla">
+              <span class="mood-card-emoji">🌊</span>
+              <span class="mood-card-titulo">Orillita</span>
+            </button>
+            <button type="button" class="mood-card mood-btn" data-mood="noche">
+              <span class="mood-card-emoji">🌙</span>
+              <span class="mood-card-titulo">Noche tibia</span>
+            </button>
           </div>
-          <div class="momento-preview">
-            <small id="momentoEtiqueta">nuestro momento</small>
-            <p id="momentoTexto"></p>
+          <div class="mood-preview-card" id="moodPreviewCard">
+            <small class="mood-preview-label" id="momentoEtiqueta">nuestro momento</small>
+            <p class="mood-preview-txt" id="momentoTexto"></p>
           </div>
         </article>
 
@@ -2586,11 +2693,16 @@
           <span class="experiencia-label">vida contigo</span>
           <h3 class="experiencia-card-titulo">Dame otro motivo para enamorarme más</h3>
           <p class="experiencia-copy">
-            Porque contigo la vida se siente más rica, más suave y más nuestra. Quiero días
-            nuevos contigo, noches nuevas contigo y este viaje distinto, solo tú y yo.
+            Porque contigo la vida se siente más rica. Guarda los que más te lleguen al corazón.
           </p>
-          <button type="button" class="accion-viaje-btn accion-clara" id="motivoBtn">Otro motivo bonito</button>
-          <div class="motivo-display" id="motivoDisplay" aria-live="polite"></div>
+          <button type="button" class="accion-viaje-btn accion-clara" id="motivoBtn">Otro motivo ✦</button>
+          <div class="motivo-card" id="motivoCard" aria-live="polite">
+            <p class="motivo-txt" id="motivoTxt"></p>
+            <div class="motivo-pie">
+              <button type="button" class="motivo-guardar" id="motivoGuardarBtn" onclick="toggleMotivoFav()">❤ Guardar este</button>
+              <span class="motivo-fav-count" id="motivoFavCount"></span>
+            </div>
+          </div>
         </article>
 
         <article class="experiencia-card experiencia-span-2 sistema-gacha">
@@ -2784,6 +2896,13 @@
   <div class="intro-texto">
     <p class="intro-titulo">Te amo bonita</p>
     <p class="intro-sub">espero te guste... ✦</p>
+    <div class="intro-indice">
+      <div class="intro-indice-item" style="--di:3.3s"><span class="intro-indice-ico">💌</span>Una carta de amor escrita solo para ti</div>
+      <div class="intro-indice-item" style="--di:3.7s"><span class="intro-indice-ico">📅</span>Calendario de nuestros días especiales</div>
+      <div class="intro-indice-item" style="--di:4.1s"><span class="intro-indice-ico">🐚</span>Un 2048 para juntar conchitas del mar</div>
+      <div class="intro-indice-item" style="--di:4.5s"><span class="intro-indice-ico">💜</span>80 deseos que se abren cada día contigo</div>
+      <div class="intro-indice-item" style="--di:4.9s"><span class="intro-indice-ico">📖</span>Un libro con todos mis sentimientos por ti</div>
+    </div>
   </div>
   <button class="intro-btn" onclick="cerrarIntro()">Entrar ✦</button>
 </div>
@@ -3440,6 +3559,8 @@
     momentoEtiqueta.textContent = escena.etiqueta;
     momentoTexto.textContent = escena.texto;
     aurora.style.background = escena.aurora;
+    const card = document.getElementById('moodPreviewCard');
+    if (card) { card.style.animation='none'; void card.offsetWidth; card.style.animation=''; }
     guardarEstadoViaje();
   }
 
@@ -3515,8 +3636,35 @@
 
   }
 
+  const MOTIVOS_FAV_KEY = 'carta-linda-motivos-fav';
+  function getMotivosFav() { try { return JSON.parse(localStorage.getItem(MOTIVOS_FAV_KEY)||'[]'); } catch { return []; } }
+  function saveMotivosFav(arr) { try { localStorage.setItem(MOTIVOS_FAV_KEY, JSON.stringify(arr)); } catch {} }
+
   function renderMotivo() {
-    motivoDisplay.textContent = motivosBonitos[estadoViaje.motivoIndex % motivosBonitos.length];
+    const idx = estadoViaje.motivoIndex % motivosBonitos.length;
+    const txt = document.getElementById('motivoTxt');
+    const card = document.getElementById('motivoCard');
+    const btn = document.getElementById('motivoGuardarBtn');
+    const cnt = document.getElementById('motivoFavCount');
+    if (txt) txt.textContent = motivosBonitos[idx];
+    if (card) { card.classList.remove('nuevo'); void card.offsetWidth; card.classList.add('nuevo'); }
+    const favs = getMotivosFav();
+    if (btn) { const ya = favs.includes(idx); btn.textContent = ya ? '❤ Guardado' : '❤ Guardar este'; btn.classList.toggle('guardado', ya); }
+    if (cnt) cnt.textContent = favs.length > 0 ? `${favs.length} guardado${favs.length>1?'s':''}` : '';
+  }
+
+  function toggleMotivoFav() {
+    const idx = estadoViaje.motivoIndex % motivosBonitos.length;
+    const favs = getMotivosFav();
+    const pos = favs.indexOf(idx);
+    if (pos >= 0) favs.splice(pos, 1); else favs.push(idx);
+    saveMotivosFav(favs);
+    renderMotivo();
+    const btn = document.getElementById('motivoGuardarBtn');
+    if (btn && pos < 0) {
+      btn.classList.remove('exito'); void btn.offsetWidth; btn.classList.add('exito');
+      celebrarPalabras(2);
+    }
   }
 
   function aplicarEstadoCinematica(deseo = null, animar = false) {
@@ -3765,6 +3913,7 @@
     guardarEstadoViaje();
     renderMotivo();
     animarExito(motivoBtn);
+    celebrarPalabras(2);
   });
 
   let _deseoAnimando = false;
@@ -3834,7 +3983,7 @@
     el.classList.add('saliendo');
     setTimeout(() => el.remove(), 1000);
   }
-  setTimeout(cerrarIntro, 8000);
+  setTimeout(cerrarIntro, 13000);
 
   // ─── 2048 ─────────────────────────────────────────────────
   const G = 4;
