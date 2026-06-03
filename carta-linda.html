@@ -1159,8 +1159,36 @@
     }
 
     .calendario-dia.hoy {
-      box-shadow: 0 0 0 1px rgba(233, 220, 255, 0.20), 0 10px 24px rgba(14, 3, 30, 0.28);
-      transform: translateY(-1px);
+      border-color: rgba(215, 193, 255, 0.70) !important;
+      background: linear-gradient(180deg, rgba(184,132,255,0.18), rgba(123,69,218,0.10)) !important;
+      box-shadow:
+        0 0 0 2px rgba(215,193,255,0.35),
+        0 0 16px rgba(184,132,255,0.40),
+        0 8px 20px rgba(14,3,30,0.30);
+      transform: translateY(-2px);
+      animation: hoy-pulso 2.4s ease-in-out infinite;
+      will-change: box-shadow;
+    }
+    @keyframes hoy-pulso {
+      0%,100% { box-shadow: 0 0 0 2px rgba(215,193,255,0.30), 0 0 14px rgba(184,132,255,0.35), 0 8px 20px rgba(14,3,30,0.30); }
+      50%      { box-shadow: 0 0 0 2px rgba(215,193,255,0.55), 0 0 26px rgba(184,132,255,0.65), 0 8px 20px rgba(14,3,30,0.30); }
+    }
+    .calendario-dia.hoy .calendario-dia-num {
+      color: #fff; font-weight: 700;
+    }
+
+    .calendario-dia-restante {
+      font-size: 8px;
+      letter-spacing: 0.8px;
+      color: rgba(215,193,255,0.45);
+      margin-top: 1px;
+      font-family: 'Cormorant Garamond', serif;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+
+    .calendario-dia.pasado {
+      opacity: 0.46;
     }
 
     .calendario-dia.activo {
@@ -3657,16 +3685,33 @@
         const info = obtenerInfoFecha(clave);
         const total = obtenerTotalPorFecha(clave);
         const usados = contarDeseosSalidosPorFecha(clave);
+        const esHoy = estadoViaje.fechaActual === clave;
+        const esFuturo = clave > estadoViaje.fechaActual;
+        const esPasado = clave < estadoViaje.fechaActual;
         const clases = [
           'calendario-dia',
           info.tier,
           info.claseExtra || '',
           info.especial ? 'especial' : '',
           estadoViaje.detalleFecha === clave ? 'activo' : '',
-          estadoViaje.fechaActual === clave ? 'hoy' : ''
+          esHoy ? 'hoy' : '',
+          esPasado ? 'pasado' : ''
         ].filter(Boolean).join(' ');
         const tag = info.especial ? `<span class="calendario-dia-tag">${info.badge}</span>` : '';
         const cuenta = total > 0 ? `<span class="calendario-dia-cuenta">${usados}/${total}</span>` : '';
+
+        let restante = '';
+        if (esFuturo) {
+          const [fy,fm,fd] = clave.split('-').map(Number);
+          const [hy,hm,hd] = estadoViaje.fechaActual.split('-').map(Number);
+          const msFuturo = new Date(fy,fm-1,fd).getTime();
+          const msHoy   = new Date(hy,hm-1,hd).getTime();
+          const dias    = Math.round((msFuturo - msHoy) / 86400000);
+          restante = `<span class="calendario-dia-restante">en ${dias}d</span>`;
+        } else if (esHoy) {
+          restante = `<span class="calendario-dia-restante" style="color:rgba(215,193,255,0.75);letter-spacing:1.5px">hoy</span>`;
+        }
+
         const label = construirTooltipCalendario(clave, usados, total);
 
         return `
@@ -3674,6 +3719,7 @@
             <span class="calendario-dia-num">${day}</span>
             ${tag}
             ${cuenta}
+            ${restante}
           </span>
         `;
       }).join('');
