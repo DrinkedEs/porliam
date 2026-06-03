@@ -1645,25 +1645,81 @@
     }
 
     @media (max-width: 720px) {
-      .experiencias-viaje {
-        padding: 26px 18px;
-      }
+      .experiencias-viaje { padding: 22px 14px; }
+      .experiencias-grid { grid-template-columns: 1fr; }
+      .calendario-grid-wrap { grid-template-columns: 1fr; }
+      .wish-cinematica { min-height: 178px; }
+      .wish-cine-copy { margin-top: 108px; }
+    }
 
-      .experiencias-grid {
-        grid-template-columns: 1fr;
-      }
+    @media (max-width: 600px) {
+      /* Contenido principal */
+      .contenido { padding-left: 10px; padding-right: 10px; }
 
-      .calendario-grid-wrap {
-        grid-template-columns: 1fr;
-      }
+      /* Carta */
+      .carta { padding: 22px 16px; }
 
-      .wish-cinematica {
-        min-height: 178px;
-      }
+      /* Cards de experiencias */
+      .experiencia-card { padding: 18px 14px; border-radius: 14px; }
+      .experiencias-viaje { padding: 18px 10px; border-radius: 16px; }
 
-      .wish-cine-copy {
-        margin-top: 108px;
+      /* Calendario - celdas más grandes y legibles */
+      .calendario-dia {
+        min-height: 52px;
+        border-radius: 10px;
+        padding: 5px 2px;
+        gap: 2px;
       }
+      .calendario-dia-num { font-size: 15px; }
+      .calendario-dia-tag { font-size: 8px; letter-spacing: 0.8px; }
+      .calendario-dia-cuenta { font-size: 9px; }
+      .calendario-dia-restante { font-size: 7.5px; }
+      .calendario-semana { font-size: 9px; letter-spacing: 1px; }
+      .calendario-dias { gap: 5px; }
+      .calendario-semanas { gap: 5px; }
+
+      /* Mood cards en columna */
+      .mood-cards-grid { grid-template-columns: 1fr; gap: 8px; }
+      .mood-card { padding: 14px; display: flex; align-items: center; gap: 14px; text-align: left; }
+      .mood-card-emoji { font-size: 28px; margin: 0; flex-shrink: 0; }
+
+      /* 2048 */
+      .g2048-tablero { gap: 5px; padding: 8px; }
+      .g2048-barra { flex-wrap: wrap; gap: 8px; }
+
+      /* Contadores / chips */
+      .contador-row { gap: 6px; }
+      .contador-chip { font-size: 12px; padding: 6px 10px; }
+
+      /* Barra de acciones */
+      .mood-row { gap: 6px; }
+      .mood-btn { padding: 9px 12px; font-size: 15px; }
+      .accion-viaje-btn { padding: 10px 14px; font-size: 15px; }
+
+      /* Home screen */
+      .home-grid { max-width: 100%; gap: 10px; }
+      .home-card { padding: 16px 12px; }
+      .home-card-ico { font-size: 26px; margin-bottom: 6px; }
+      .home-card-titulo { font-size: 14px; }
+
+      /* Wish cinematica */
+      .wish-cine-copy { margin-top: 100px; }
+      .wish-cine-copy small { font-size: 10px; }
+      .wish-cine-copy p { font-size: 14px; }
+
+      /* Libro modal */
+      .libro-modal { border-radius: 4px 10px 10px 4px; }
+      .libro-col { padding: 12px 12px 20px 30px; }
+      .libro-col:first-child { padding-left: 30px; }
+      .libro-entrada { padding: 10px 0; }
+      .libro-palabra { font-size: 14px; }
+      .libro-texto { font-size: 14px; line-height: 1.75; }
+    }
+
+    @media (max-width: 400px) {
+      .contenido { padding-left: 8px; padding-right: 8px; }
+      .calendario-dia { min-height: 46px; }
+      .calendario-dia-num { font-size: 13px; }
     }
 
     /* ── DESTELLOS DEL DESEO ────────────────────────────────── */
