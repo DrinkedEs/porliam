@@ -1869,10 +1869,10 @@
 
     .libro-contenido {
       overflow-y: auto;
-      padding: 18px 28px 28px 52px;
-      columns: 2;
-      column-gap: 0;
-      column-rule: 2px solid rgba(74, 30, 140, 0.55);
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      padding: 0;
     }
 
     .libro-contenido::-webkit-scrollbar { width: 3px; }
@@ -1882,24 +1882,41 @@
       border-radius: 99px;
     }
 
+    .libro-col {
+      flex: 1;
+      min-width: 0;
+      padding: 16px 20px 28px 16px;
+    }
+
+    .libro-col:first-child {
+      padding-left: 52px;
+    }
+
+    .libro-lomo-central {
+      width: 2px;
+      background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(74, 30, 140, 0.60) 8%,
+        rgba(74, 30, 140, 0.60) 92%,
+        transparent 100%);
+      align-self: stretch;
+      flex-shrink: 0;
+      position: relative;
+    }
+
     .libro-entrada {
-      padding: 13px 18px 13px 0;
+      padding: 13px 0 13px 0;
       border-bottom: 1px solid rgba(215, 193, 255, 0.06);
       position: relative;
-      break-inside: avoid;
     }
 
     .libro-entrada:last-child { border-bottom: none; }
 
-    .libro-separador-fecha {
-      break-before: column;
-      break-inside: avoid;
-    }
-
-    .libro-separador-fecha:first-child { break-before: avoid; }
-
     @media (max-width: 600px) {
-      .libro-contenido { columns: 1; }
+      .libro-contenido { flex-direction: column; }
+      .libro-lomo-central { width: 100%; height: 2px; align-self: auto; }
+      .libro-col:first-child { padding-left: 52px; }
+      .libro-col { padding: 12px 16px 20px 16px; width: 100%; }
       .libro-modal { max-width: 100%; border-radius: 4px 10px 10px 4px; }
     }
 
@@ -3026,23 +3043,19 @@
     if (badge) badge.textContent = `${usados} / ${MAX_DESEOS}`;
   }
 
-  function renderLibro() {
-    const usados = estadoViaje.deseosUsados;
-    const contenido = document.getElementById('libroContenido');
+  function renderColumnaLibro(lista, offset) {
     let html = '';
     let fechaGrupo = null;
-
-    deseosProgramados.forEach((deseo, i) => {
-      const desbloqueado = i < usados;
+    lista.forEach((deseo, j) => {
+      const i = offset + j;
+      const desbloqueado = i < estadoViaje.deseosUsados;
       const fechaBonita = formatearFechaBonita(deseo.fecha, true);
-
       if (deseo.fecha !== fechaGrupo) {
         fechaGrupo = deseo.fecha;
         const especial = fechasEspeciales[deseo.fecha];
         const etiqueta = especial ? `${fechaBonita} — ${especial.chip}` : fechaBonita;
         html += `<div class="libro-separador-fecha">${etiqueta}</div>`;
       }
-
       if (desbloqueado) {
         html += `
           <div class="libro-entrada desbloqueada">
@@ -3063,8 +3076,19 @@
           </div>`;
       }
     });
+    return html;
+  }
 
-    contenido.innerHTML = html;
+  function renderLibro() {
+    const mitad = 40;
+    const izq = deseosProgramados.slice(0, mitad);
+    const der = deseosProgramados.slice(mitad);
+    const contenido = document.getElementById('libroContenido');
+    contenido.innerHTML = `
+      <div class="libro-col">${renderColumnaLibro(izq, 0)}</div>
+      <div class="libro-lomo-central"></div>
+      <div class="libro-col">${renderColumnaLibro(der, mitad)}</div>
+    `;
   }
 
   function abrirLibro() {
