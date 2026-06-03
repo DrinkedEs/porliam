@@ -1827,62 +1827,90 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── BUSCAMINAS ──────────────────────────────────────── */
-    .bm-barra {
+    /* ── 2048 ────────────────────────────────────────────── */
+    .g2048-barra {
       display: flex; align-items: center;
-      justify-content: space-between; margin: 10px 0 6px; gap: 8px;
+      justify-content: space-between; margin: 10px 0 8px; gap: 8px;
     }
-    .bm-minas-txt {
+    .g2048-score-wrap {
+      display: flex; gap: 12px;
+    }
+    .g2048-score-box {
+      background: rgba(184,132,255,0.12);
+      border: 1px solid rgba(184,132,255,0.22);
+      border-radius: 8px; padding: 6px 14px; text-align: center;
+    }
+    .g2048-score-label {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 15px; color: var(--luna); letter-spacing: 1px;
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--luna); opacity: 0.65; display: block;
     }
-    .bm-nuevo {
+    .g2048-score-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; color: var(--sol-suave); font-weight: 700;
+    }
+    .g2048-nuevo {
       font-family: 'Cormorant Garamond', serif; font-size: 13px;
-      padding: 5px 14px; border-radius: 999px;
+      padding: 6px 16px; border-radius: 999px;
       border: 1px solid rgba(215,193,255,0.22);
       background: rgba(215,193,255,0.05); color: var(--luna);
       cursor: pointer; letter-spacing: 1px;
       transition: background 0.18s, border-color 0.18s;
     }
-    .bm-nuevo:hover {
-      background: rgba(184,132,255,0.18); border-color: rgba(184,132,255,0.50);
-    }
-    .bm-tablero {
-      display: grid; grid-template-columns: repeat(9,1fr);
-      gap: 3px; margin: 8px 0 12px;
+    .g2048-nuevo:hover { background: rgba(184,132,255,0.18); border-color: rgba(184,132,255,0.50); }
+    .g2048-tablero {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 6px; padding: 8px;
+      background: rgba(20,5,42,0.70);
+      border-radius: 14px; border: 1px solid rgba(215,193,255,0.08);
+      margin-bottom: 10px;
       user-select: none; touch-action: none;
     }
-    .bm-celda {
-      aspect-ratio: 1; border-radius: 6px;
-      background: rgba(215,193,255,0.07);
-      border: 1px solid rgba(215,193,255,0.11);
-      cursor: pointer; display: flex;
-      align-items: center; justify-content: center;
-      font-size: clamp(10px,1.9vw,15px); font-weight: 700;
-      transition: background 0.1s, transform 0.08s;
-      will-change: transform;
+    .g2048-tile {
+      aspect-ratio: 1; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(16px,4.5vw,28px); font-weight: 700;
+      color: #f4eeff;
+      transition: background 0.1s;
     }
-    .bm-celda:not(.rev):not(.marc):hover {
-      background: rgba(184,132,255,0.22); transform: scale(1.08);
+    .g2048-tile[data-v] { animation: tile-pop 0.13s ease both; }
+    @keyframes tile-pop {
+      0%   { transform: scale(0.75); }
+      60%  { transform: scale(1.08); }
+      100% { transform: scale(1); }
     }
-    .bm-celda.rev {
-      background: rgba(255,255,255,0.03);
-      border-color: rgba(215,193,255,0.04); cursor: default;
+    .g2048-tile[data-v="2"]    { background: rgba(215,193,255,0.14); border:1px solid rgba(215,193,255,0.18); }
+    .g2048-tile[data-v="4"]    { background: rgba(184,132,255,0.22); border:1px solid rgba(184,132,255,0.28); }
+    .g2048-tile[data-v="8"]    { background: rgba(150,90,255,0.34);  border:1px solid rgba(150,90,255,0.40); }
+    .g2048-tile[data-v="16"]   { background: rgba(123,69,218,0.46);  border:1px solid rgba(123,69,218,0.55); }
+    .g2048-tile[data-v="32"]   { background: rgba(100,50,200,0.56);  border:1px solid rgba(140,90,255,0.50); }
+    .g2048-tile[data-v="64"]   { background: rgba(80,30,180,0.68);   border:1px solid rgba(160,110,255,0.55); }
+    .g2048-tile[data-v="128"]  { background: rgba(180,140,255,0.72); border:1px solid rgba(220,190,255,0.60); color:#fff; }
+    .g2048-tile[data-v="256"]  { background: rgba(200,160,255,0.82); border:1px solid rgba(230,210,255,0.70); color:#fff; }
+    .g2048-tile[data-v="512"]  { background: rgba(220,190,255,0.90); border:1px solid rgba(240,225,255,0.80); color:#2d0a5a; }
+    .g2048-tile[data-v="1024"] { background: rgba(235,210,255,0.95); border:1px solid rgba(250,240,255,0.90); color:#1a0040; font-size: clamp(11px,3vw,20px); }
+    .g2048-tile[data-v="2048"] {
+      background: linear-gradient(135deg,#e8d0ff,#c090ff,#8040e0);
+      border:2px solid #e8d0ff; color:#fff;
+      box-shadow: 0 0 24px rgba(184,132,255,0.70);
+      font-size: clamp(11px,3vw,20px);
+      animation: tile-2048 0.5s ease both;
     }
-    .bm-celda.boom { background: rgba(200,50,50,0.28); border-color: rgba(255,100,100,0.36); }
-    .bm-celda.win  {
-      background: rgba(123,69,218,0.22); border-color: rgba(184,132,255,0.40);
-      animation: bm-win 0.4s ease var(--bd,0s) both;
+    @keyframes tile-2048 {
+      0%   { transform: scale(0.8); box-shadow: 0 0 0 rgba(184,132,255,0); }
+      50%  { transform: scale(1.2); box-shadow: 0 0 40px rgba(184,132,255,0.90); }
+      100% { transform: scale(1);   box-shadow: 0 0 24px rgba(184,132,255,0.70); }
     }
-    .bm-celda.marc { background: rgba(184,132,255,0.14); }
-    @keyframes bm-win {
-      0%,100% { transform: scale(1); }
-      50%      { transform: scale(1.14); }
-    }
-    .bm-msg {
+    .g2048-msg {
       text-align: center; font-family: 'Cormorant Garamond', serif;
       font-size: 14px; color: var(--luna); letter-spacing: 0.5px;
-      min-height: 24px; padding: 4px 0;
+      min-height: 22px; padding: 2px 0 6px;
+    }
+    .g2048-hint {
+      text-align: center; font-family: 'Cormorant Garamond', serif;
+      font-size: 12px; color: var(--luna); opacity: 0.44;
+      letter-spacing: 1.5px; margin-bottom: 8px;
     }
 
     /* ── LIBRO DE DESEOS (MODAL) ──────────────────────────── */
@@ -2502,12 +2530,22 @@
             <span class="contador-chip" id="conchasContador">Conchitas: 0/0</span>
             <span class="contador-chip" id="wishDisponibleChip">Deseos listos: 0</span>
           </div>
-          <div class="bm-barra">
-            <span class="bm-minas-txt" id="bmMinasRestantes">🦀 ×10</span>
-            <button class="bm-nuevo" onclick="bmIniciar()">Nueva partida</button>
+          <div class="g2048-barra">
+            <div class="g2048-score-wrap">
+              <div class="g2048-score-box">
+                <span class="g2048-score-label">Puntos</span>
+                <span class="g2048-score-num" id="g2048Score">0</span>
+              </div>
+              <div class="g2048-score-box">
+                <span class="g2048-score-label">Mejor</span>
+                <span class="g2048-score-num" id="g2048Best">0</span>
+              </div>
+            </div>
+            <button class="g2048-nuevo" onclick="g2048Nuevo()">Nueva ↺</button>
           </div>
-          <div class="bm-tablero" id="bmTablero"></div>
-          <p class="bm-msg" id="bmMensaje">Toca una casilla para empezar 🐚</p>
+          <div class="g2048-tablero" id="g2048Tablero"></div>
+          <p class="g2048-msg" id="g2048Msg"></p>
+          <p class="g2048-hint">← → ↑ ↓ teclado · desliza en móvil · cada 300 pts = 🐚</p>
           <div class="notificaciones-viaje" id="conchaFx" aria-hidden="true"></div>
           <div class="coleccion-visual" id="coleccionVisual" aria-live="polite"></div>
           <div class="barra-carino"><span id="barraCarino"></span></div>
@@ -3679,124 +3717,127 @@
   }
   setTimeout(cerrarIntro, 8000);
 
-  // ─── BUSCAMINAS ───────────────────────────────────────────
-  const BM_F = 9, BM_C = 9, BM_N_MINAS = 10;
-  let bm = { t: [], estado: 'esp', rev: 0, primero: true, mRestantes: BM_N_MINAS };
-  let bmTouchFlag = false;
+  // ─── 2048 ─────────────────────────────────────────────────
+  const G = 4;
+  let g2048 = [], g2048Score = 0, g2048Best = 0, g2048UltimaConcha = 0, g2048Over = false;
+  const CONCHA_CADA = 300;
 
-  function bmCelda() { return { mina: false, revelada: false, marcada: false, n: 0 }; }
-
-  function bmIniciar() {
-    bm.t = Array.from({ length: BM_F }, () => Array.from({ length: BM_C }, bmCelda));
-    bm.estado = 'esp'; bm.rev = 0; bm.primero = true; bm.mRestantes = BM_N_MINAS;
-    bmRender();
-    bmMsg('Toca una casilla para empezar 🐚');
+  function g2048Nuevo() {
+    g2048 = Array.from({length:G},()=>Array(G).fill(0));
+    g2048Score = 0; g2048Over = false; g2048UltimaConcha = 0;
+    g2048AddTile(); g2048AddTile();
+    g2048Render(); g2048SetMsg('');
   }
 
-  function bmPlantar(ef, ec) {
-    const skip = new Set();
-    for (let df = -1; df <= 1; df++) for (let dc = -1; dc <= 1; dc++) {
-      const f2 = ef+df, c2 = ec+dc;
-      if (f2>=0&&f2<BM_F&&c2>=0&&c2<BM_C) skip.add(f2*BM_C+c2);
+  function g2048AddTile() {
+    const empty = [];
+    for (let r=0;r<G;r++) for (let c=0;c<G;c++) if (!g2048[r][c]) empty.push([r,c]);
+    if (!empty.length) return;
+    const [r,c] = empty[Math.floor(Math.random()*empty.length)];
+    g2048[r][c] = Math.random()<0.9 ? 2 : 4;
+  }
+
+  function g2048Slide(row) {
+    let r = row.filter(v=>v), pts = 0;
+    for (let i=0;i<r.length-1;i++) {
+      if (r[i]===r[i+1]) { r[i]*=2; pts+=r[i]; r.splice(i+1,1); }
     }
-    let p = 0;
-    while (p < BM_N_MINAS) {
-      const f = Math.floor(Math.random()*BM_F), c = Math.floor(Math.random()*BM_C);
-      if (!bm.t[f][c].mina && !skip.has(f*BM_C+c)) { bm.t[f][c].mina = true; p++; }
-    }
-    for (let f = 0; f < BM_F; f++) for (let c = 0; c < BM_C; c++) {
-      if (bm.t[f][c].mina) continue;
-      let n = 0;
-      for (let df=-1;df<=1;df++) for (let dc=-1;dc<=1;dc++) {
-        const f2=f+df,c2=c+dc;
-        if (f2>=0&&f2<BM_F&&c2>=0&&c2<BM_C&&bm.t[f2][c2].mina) n++;
-      }
-      bm.t[f][c].n = n;
-    }
+    while (r.length<G) r.push(0);
+    return {row:r, pts};
   }
 
-  function bmFlood(f, c) {
-    if (f<0||f>=BM_F||c<0||c>=BM_C) return;
-    const cel = bm.t[f][c];
-    if (cel.revelada||cel.marcada||cel.mina) return;
-    cel.revelada = true; bm.rev++;
-    if (cel.n===0) for (let df=-1;df<=1;df++) for (let dc=-1;dc<=1;dc++) if(df||dc) bmFlood(f+df,c+dc);
+  function g2048Transpose(b) { return b[0].map((_,c)=>b.map(r=>r[c])); }
+  function g2048Rev(b)       { return b.map(r=>[...r].reverse()); }
+
+  function g2048Move(dir) {
+    if (g2048Over) return;
+    let b = g2048.map(r=>[...r]);
+    const orig = JSON.stringify(b);
+    let pts = 0;
+
+    if (dir==='up')    b = g2048Transpose(b);
+    if (dir==='right') b = g2048Rev(b);
+    if (dir==='down')  b = g2048Rev(g2048Transpose(b));
+
+    b = b.map(r=>{ const s=g2048Slide(r); pts+=s.pts; return s.row; });
+
+    if (dir==='up')    b = g2048Transpose(b);
+    if (dir==='right') b = g2048Rev(b);
+    if (dir==='down')  b = g2048Transpose(g2048Rev(b));
+
+    if (JSON.stringify(b)===orig) return;
+    g2048 = b; g2048Score += pts;
+    if (g2048Score > g2048Best) g2048Best = g2048Score;
+    g2048AddTile();
+    g2048Render();
+    g2048CheckConcha(pts);
+    g2048CheckOver();
   }
 
-  function bmClick(f, c) {
-    if (bm.estado==='perd'||bm.estado==='gan') return;
-    const cel = bm.t[f][c];
-    if (cel.revelada||cel.marcada) return;
-    if (bm.primero) { bm.primero=false; bm.estado='jug'; bmPlantar(f,c); }
-    if (cel.mina) {
-      cel.revelada = true; bm.estado = 'perd';
-      for (let fi=0;fi<BM_F;fi++) for (let ci=0;ci<BM_C;ci++) if(bm.t[fi][ci].mina) bm.t[fi][ci].revelada=true;
-      bmRender(); bmMsg('💥 Cangrejo — vuelve a intentarlo 🦀'); return;
-    }
-    bmFlood(f, c);
-    const seg = BM_F*BM_C - BM_N_MINAS;
-    if (bm.rev >= seg) { bm.estado='gan'; bmRender(); bmGanar(); }
-    else { bmRender(); bmMsg(`🦀 ×${bm.mRestantes} · quedan ${seg-bm.rev} casillas`); }
-  }
-
-  function bmMarcar(f, c) {
-    if (bm.estado==='esp'||bm.t[f][c].revelada) return;
-    bm.t[f][c].marcada = !bm.t[f][c].marcada;
-    bm.mRestantes += bm.t[f][c].marcada ? -1 : 1;
-    bmRender();
-  }
-
-  function bmGanar() {
+  function g2048CheckConcha(pts) {
+    if (!pts) return;
     sincronizarFechaActual();
-    const disp = conchasDisponiblesPorGuardar();
-    if (disp > 0) {
+    while (g2048Score >= g2048UltimaConcha + CONCHA_CADA && conchasDisponiblesPorGuardar() > 0) {
+      g2048UltimaConcha += CONCHA_CADA;
       const nc = deseosProgramados[estadoViaje.conchas];
       estadoViaje.conchas = Math.min(estadoViaje.conchas+1, obtenerTotalDesbloqueadoActual());
       guardarEstadoViaje(); renderConchas(); renderDeseo();
       soltarNotificacion(conchaFx, `🐚 ${padNumero(nc.numero)} · ${nc.palabra}`, 'morada');
-      celebrarPalabras(5);
-      bmMsg(`✦ ¡Concha ${padNumero(nc.numero)} · ${nc.palabra} ganada!`);
-    } else {
-      bmMsg('🌙 ¡Ganaste! Ya tienes todas las conchitas de hoy — sigue jugando');
+      celebrarPalabras(4);
+      g2048SetMsg(`✦ Concha ${padNumero(nc.numero)} · ${nc.palabra} ganada!`);
     }
   }
 
-  const BM_COL = {1:'#7eb8f5',2:'#7bd47b',3:'#f07878',4:'#a87de0',5:'#f09060',6:'#6ed8d8',7:'#e8a0e8',8:'#b0b0b8'};
+  function g2048CheckOver() {
+    for (let r=0;r<G;r++) for (let c=0;c<G;c++) {
+      if (!g2048[r][c]) return;
+      if (c<G-1&&g2048[r][c]===g2048[r][c+1]) return;
+      if (r<G-1&&g2048[r][c]===g2048[r+1][c]) return;
+    }
+    g2048Over = true; g2048SetMsg('Sin movimientos — toca Nueva ↺');
+  }
 
-  function bmRender() {
-    const el = document.getElementById('bmTablero');
+  function g2048Render() {
+    const el = document.getElementById('g2048Tablero');
     if (!el) return;
     el.innerHTML = '';
-    for (let f=0;f<BM_F;f++) for (let c=0;c<BM_C;c++) {
-      const cel = bm.t[f][c];
+    for (let r=0;r<G;r++) for (let c=0;c<G;c++) {
+      const v = g2048[r][c];
       const div = document.createElement('div');
-      div.className = 'bm-celda';
-      if (cel.revelada) {
-        div.classList.add('rev');
-        if (cel.mina) { div.classList.add('boom'); div.textContent='🦀'; }
-        else if (cel.n>0) { div.textContent=cel.n; div.style.color=BM_COL[cel.n]||'#ccc'; }
-        if (bm.estado==='gan') { div.classList.add('win'); div.style.setProperty('--bd',`${(f*BM_C+c)*0.01}s`); }
-      } else if (cel.marcada) {
-        div.classList.add('marc'); div.textContent='🚩';
-      }
-      let timer;
-      div.addEventListener('touchstart', ()=>{ timer=setTimeout(()=>{ bmTouchFlag=true; bmMarcar(f,c); },380); },{passive:true});
-      div.addEventListener('touchend', ()=>clearTimeout(timer),{passive:true});
-      div.addEventListener('touchmove',()=>clearTimeout(timer),{passive:true});
-      div.addEventListener('click', ()=>{ if(bmTouchFlag){bmTouchFlag=false;return;} bmClick(f,c); });
-      div.addEventListener('contextmenu', e=>{ e.preventDefault(); bmMarcar(f,c); });
+      div.className = 'g2048-tile';
+      if (v) { div.textContent = v >= 1000 ? (v>=10000?v:v) : v; div.dataset.v = Math.min(v,2048); }
       el.appendChild(div);
     }
-    const mr = document.getElementById('bmMinasRestantes');
-    if (mr) mr.textContent = `🦀 ×${bm.mRestantes}`;
+    const sEl = document.getElementById('g2048Score'), bEl = document.getElementById('g2048Best');
+    if (sEl) sEl.textContent = g2048Score;
+    if (bEl) bEl.textContent = g2048Best;
   }
 
-  function bmMsg(txt) {
-    const el = document.getElementById('bmMensaje');
-    if (el) el.textContent = txt;
-  }
+  function g2048SetMsg(t) { const el=document.getElementById('g2048Msg'); if(el) el.textContent=t; }
 
-  bmIniciar();
+  // Teclado
+  document.addEventListener('keydown', e => {
+    const m = {ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down'};
+    if (!m[e.key]) return;
+    if (document.activeElement && document.activeElement.tagName==='INPUT') return;
+    e.preventDefault();
+    g2048Move(m[e.key]);
+  });
+
+  // Swipe móvil
+  (()=>{
+    const el = document.getElementById('g2048Tablero');
+    if (!el) return;
+    let sx, sy;
+    el.addEventListener('touchstart', e=>{ sx=e.touches[0].clientX; sy=e.touches[0].clientY; },{passive:true});
+    el.addEventListener('touchend', e=>{
+      const dx=e.changedTouches[0].clientX-sx, dy=e.changedTouches[0].clientY-sy;
+      if (Math.abs(dx)<12&&Math.abs(dy)<12) return;
+      g2048Move(Math.abs(dx)>Math.abs(dy) ? (dx>0?'right':'left') : (dy>0?'down':'up'));
+    },{passive:true});
+  })();
+
+  g2048Nuevo();
 
   // ─── SPOILER ──────────────────────────────────────────────
   function abrirSpoiler(btn) {
