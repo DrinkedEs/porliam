@@ -127,7 +127,7 @@ Nota:
    Deseo 01: Yo quiero que esta primera concha te recuerde lo bonito que se sintio empezar a hablar contigo, porque desde el inicio senti una calma muy tuya, como si contigo pudiera bajar el corazon y sentirme en un lugar seguro.
 
 2. Concha 02 - Palabra: `Mensaje`  
-   Deseo 02: Yo quiero que este deseo te regrese a ese primer mensajito que me marcaste para siempre: "me pasas tu id de Genshin?", porque de algo tan simple y tan tuyo empezo algo enorme dentro de mi, algo que hoy te ama con todo el corazon.
+   Deseo 02: Yo quiero que este deseo te regrese a ese primer mensajito que nos marco para siempre: "me pasas tu id de Genshin?", porque de algo tan simple empezo algo enorme dentro de los 2, algo que hoy te ama con todo el corazon.
 
 ### 2 de junio de 2026
 
