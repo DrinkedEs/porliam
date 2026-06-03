@@ -1850,19 +1850,24 @@
       font-size: 20px; color: var(--sol-suave); font-weight: 700;
     }
     .g2048-nuevo {
-      font-family: 'Cormorant Garamond', serif; font-size: 13px;
-      padding: 6px 16px; border-radius: 999px;
-      border: 1px solid rgba(215,193,255,0.22);
-      background: rgba(215,193,255,0.05); color: var(--luna);
-      cursor: pointer; letter-spacing: 1px;
-      transition: background 0.18s, border-color 0.18s;
+      font-family: 'Cormorant Garamond', serif; font-size: 15px;
+      padding: 8px 20px; border-radius: 999px;
+      border: 1px solid rgba(184,132,255,0.50);
+      background: rgba(184,132,255,0.18); color: var(--sol-suave);
+      cursor: pointer; letter-spacing: 1px; font-weight: 400;
+      transition: background 0.18s, border-color 0.18s, transform 0.12s;
     }
-    .g2048-nuevo:hover { background: rgba(184,132,255,0.18); border-color: rgba(184,132,255,0.50); }
+    .g2048-nuevo:hover {
+      background: rgba(184,132,255,0.30); border-color: rgba(184,132,255,0.80);
+      transform: scale(1.04);
+    }
     .g2048-tablero {
       display: grid; grid-template-columns: repeat(4,1fr);
-      gap: 6px; padding: 8px;
-      background: rgba(20,5,42,0.70);
-      border-radius: 14px; border: 1px solid rgba(215,193,255,0.08);
+      gap: 6px; padding: 10px;
+      background: rgba(12,2,30,0.90);
+      border-radius: 14px;
+      border: 2px solid rgba(123,69,218,0.55);
+      box-shadow: 0 0 24px rgba(123,69,218,0.20), inset 0 0 20px rgba(0,0,0,0.40);
       margin-bottom: 10px;
       user-select: none; touch-action: none;
     }
@@ -1911,6 +1916,51 @@
       text-align: center; font-family: 'Cormorant Garamond', serif;
       font-size: 12px; color: var(--luna); opacity: 0.44;
       letter-spacing: 1.5px; margin-bottom: 8px;
+    }
+    .g2048-tile:not([data-v]) {
+      background: rgba(215,193,255,0.05);
+      border: 1px solid rgba(123,69,218,0.28);
+    }
+
+    /* PANEL ADMIN */
+    .admin-panel {
+      margin-top: 14px; padding: 14px 16px;
+      background: rgba(20,5,42,0.70);
+      border: 1px solid rgba(123,69,218,0.40);
+      border-radius: 10px;
+      display: none;
+    }
+    .admin-panel.visible { display: block; }
+    .admin-panel-titulo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--luna); opacity: 0.70; margin-bottom: 10px;
+    }
+    .admin-panel-fila {
+      display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+    }
+    .admin-input {
+      flex: 1; min-width: 60px;
+      background: rgba(215,193,255,0.07);
+      border: 1px solid rgba(215,193,255,0.20);
+      border-radius: 8px; padding: 7px 12px;
+      color: var(--texto-claro); font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; text-align: center;
+    }
+    .admin-input:focus { outline: none; border-color: rgba(184,132,255,0.60); }
+    .admin-dar-btn {
+      padding: 7px 18px; border-radius: 8px;
+      border: 1px solid rgba(184,132,255,0.45);
+      background: rgba(184,132,255,0.16);
+      color: var(--sol-suave); font-family: 'Cormorant Garamond', serif;
+      font-size: 15px; cursor: pointer;
+      transition: background 0.18s;
+    }
+    .admin-dar-btn:hover { background: rgba(184,132,255,0.28); }
+    .admin-info {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px; color: var(--luna); opacity: 0.60;
+      margin-top: 8px; letter-spacing: 0.5px;
     }
 
     /* ── LIBRO DE DESEOS (MODAL) ──────────────────────────── */
@@ -2522,9 +2572,9 @@
 
         <article class="experiencia-card">
           <span class="experiencia-label">farm de playa</span>
-          <h3 class="experiencia-card-titulo">Buscaminas de conchitas 🐚</h3>
+          <h3 class="experiencia-card-titulo">2048 de conchitas ✦</h3>
           <p class="experiencia-copy">
-            Gana la partida para juntar una conchita. Click derecho (o presión larga en móvil) para marcar cangrejos 🦀. Puedes seguir jugando aunque ya hayas juntado todas las de hoy.
+            Desliza las fichas para unir los mismos números. Cada 300 puntos ganas una conchita. Puedes seguir jugando aunque ya tengas todas las de hoy.
           </p>
           <div class="contador-row">
             <span class="contador-chip" id="conchasContador">Conchitas: 0/0</span>
@@ -2550,6 +2600,14 @@
           <div class="coleccion-visual" id="coleccionVisual" aria-live="polite"></div>
           <div class="barra-carino"><span id="barraCarino"></span></div>
           <p class="frase-destello" id="coleccionTexto"></p>
+          <div class="admin-panel" id="adminPanel">
+            <p class="admin-panel-titulo">⚙ dar conchitas manualmente</p>
+            <div class="admin-panel-fila">
+              <input class="admin-input" type="number" id="adminCantidad" min="1" max="80" placeholder="# conchas">
+              <button class="admin-dar-btn" onclick="adminDarConchas()">Dar ✦</button>
+            </div>
+            <p class="admin-info" id="adminInfo">Máximo: las desbloqueadas hasta hoy menos las ya guardadas.</p>
+          </div>
         </article>
 
         <article class="experiencia-card">
@@ -3838,6 +3896,45 @@
   })();
 
   g2048Nuevo();
+
+  // ─── ADMIN ────────────────────────────────────────────────
+  let adminPass = '';
+  document.addEventListener('keypress', e => {
+    adminPass = (adminPass + e.key).slice(-10);
+    if (adminPass === 'ingConfig$') {
+      adminPass = '';
+      const panel = document.getElementById('adminPanel');
+      if (panel) {
+        panel.classList.toggle('visible');
+        if (panel.classList.contains('visible')) adminActualizarInfo();
+      }
+    }
+  });
+
+  function adminActualizarInfo() {
+    sincronizarFechaActual();
+    const max = conchasDisponiblesPorGuardar();
+    const desbloq = obtenerTotalDesbloqueadoActual();
+    const el = document.getElementById('adminInfo');
+    if (el) el.textContent = `Desbloqueadas hoy: ${desbloq} · Guardadas: ${estadoViaje.conchas} · Puedes dar hasta ${max}`;
+    const inp = document.getElementById('adminCantidad');
+    if (inp) { inp.max = max; inp.value = max > 0 ? max : ''; }
+  }
+
+  function adminDarConchas() {
+    sincronizarFechaActual();
+    const inp = document.getElementById('adminCantidad');
+    const n = parseInt(inp ? inp.value : 0, 10);
+    const max = conchasDisponiblesPorGuardar();
+    if (!n || n < 1) { document.getElementById('adminInfo').textContent = 'Ingresa una cantidad válida.'; return; }
+    const dar = Math.min(n, max);
+    if (dar <= 0) { document.getElementById('adminInfo').textContent = 'No hay conchas pendientes para dar.'; return; }
+    for (let i = 0; i < dar; i++) estadoViaje.conchas = Math.min(estadoViaje.conchas + 1, obtenerTotalDesbloqueadoActual());
+    guardarEstadoViaje(); renderConchas(); renderDeseo();
+    soltarNotificacion(conchaFx, `+${dar} conchas ✦`, 'morada');
+    celebrarPalabras(4);
+    adminActualizarInfo();
+  }
 
   // ─── SPOILER ──────────────────────────────────────────────
   function abrirSpoiler(btn) {
