@@ -1922,6 +1922,45 @@
       border: 1px solid rgba(123,69,218,0.28);
     }
 
+    /* COMENTARIOS FLOTANTES 2048 */
+    .g2048-comentario {
+      position: absolute;
+      font-family: 'Dancing Script', cursive;
+      font-size: 19px; font-weight: 700;
+      color: rgba(230, 210, 255, 0.95);
+      pointer-events: none; z-index: 600;
+      white-space: nowrap;
+      text-shadow: 0 0 12px rgba(184,132,255,0.70);
+      animation: g2048-cmt 1.5s cubic-bezier(0.22,1,0.36,1) forwards;
+      will-change: transform, opacity;
+    }
+    .g2048-comentario.combo {
+      font-size: 24px;
+      color: #f4ddff;
+      text-shadow: 0 0 18px rgba(184,132,255,0.90), 0 0 30px rgba(123,69,218,0.60);
+      animation: g2048-cmt-combo 1.7s cubic-bezier(0.22,1,0.36,1) forwards;
+    }
+    @keyframes g2048-cmt {
+      0%   { opacity: 0; transform: translateY(0) scale(0.7); }
+      12%  { opacity: 1; transform: translateY(-10px) scale(1.1); }
+      100% { opacity: 0; transform: translateY(-70px) scale(0.95); }
+    }
+    @keyframes g2048-cmt-combo {
+      0%   { opacity: 0; transform: translateY(0) scale(0.6); }
+      10%  { opacity: 1; transform: translateY(-12px) scale(1.25); }
+      100% { opacity: 0; transform: translateY(-90px) scale(1.0); }
+    }
+    .g2048-spark {
+      position: absolute; border-radius: 50%;
+      pointer-events: none; z-index: 598;
+      animation: g2048-spark 0.65s ease-out forwards;
+      will-change: transform, opacity;
+    }
+    @keyframes g2048-spark {
+      0%   { opacity: 1; transform: translate(0,0) scale(1); }
+      100% { opacity: 0; transform: translate(var(--dx),var(--dy)) scale(0.08); }
+    }
+
     /* DIENTE CONFIG */
     .diente-btn {
       background: none; border: none; cursor: pointer;
@@ -2589,7 +2628,7 @@
           </button>
         </article>
 
-        <article class="experiencia-card">
+        <article class="experiencia-card experiencia-span-2">
           <span class="experiencia-label">farm de playa</span>
           <h3 class="experiencia-card-titulo">2048 de conchitas ✦</h3>
           <p class="experiencia-copy">
@@ -3800,7 +3839,50 @@
   // ─── 2048 ─────────────────────────────────────────────────
   const G = 4;
   let g2048 = [], g2048Score = 0, g2048Best = 0, g2048UltimaConcha = 0, g2048Over = false;
-  const CONCHA_CADA = 300;
+  let g2048LastMove = 0;
+  const CONCHA_CADA = 500;
+
+  const G2048_NORMAL = [
+    'Te amo ✦', 'Mi vida 💜', 'Eres bonita 🌙', 'Te quiero mucho ✦',
+    'Mi amor 💜', 'Eres mi todo ✦', 'Qué linda eres 🌙', 'Te amo tanto 💜',
+    'Eres mía ✦', 'Hermosa 🌙',
+  ];
+  const G2048_COMBO = [
+    '¡Lo haces bien mi vida! 💜✦', '¡Qué rápida eres! 🌙💜',
+    '¡Combo bonito! 💜✦', '¡Eres increíble! ✦🌙',
+    '¡Te amo más! 💜✦', '¡Sigue así mi amor! 🌙',
+    '¡Wow, eres mía! 💜✦', '¡Eres una crack! ✦💜',
+  ];
+
+  function g2048Comentario(pts, combo) {
+    const tablero = document.getElementById('g2048Tablero');
+    if (!tablero) return;
+    const rect = tablero.getBoundingClientRect();
+    const msgs = combo ? G2048_COMBO : G2048_NORMAL;
+    const txt = msgs[Math.floor(Math.random()*msgs.length)];
+    const el = document.createElement('div');
+    el.className = 'g2048-comentario' + (combo?' combo':'');
+    el.textContent = txt;
+    el.style.left = (rect.left + rect.width*(0.08+Math.random()*0.70)) + 'px';
+    el.style.top  = (rect.top + window.scrollY + rect.height*(0.15+Math.random()*0.50)) + 'px';
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(), 1800);
+
+    const count = combo ? 10 : 5;
+    const colors = ['rgba(184,132,255,0.92)','rgba(215,193,255,0.88)','rgba(255,255,255,0.80)','rgba(150,90,255,0.90)'];
+    for (let i=0;i<count;i++) {
+      const sp = document.createElement('div');
+      sp.className = 'g2048-spark';
+      const angle = (i/count)*Math.PI*2 + Math.random()*0.8;
+      const dist = 20 + Math.random()*(combo?55:35);
+      const sx = rect.left + rect.width*(0.2+Math.random()*0.6);
+      const sy = rect.top + window.scrollY + rect.height*(0.2+Math.random()*0.6);
+      const size = 3+Math.random()*5;
+      sp.style.cssText = `width:${size}px;height:${size}px;left:${sx}px;top:${sy}px;background:${colors[i%colors.length]};--dx:${(Math.cos(angle)*dist).toFixed(1)}px;--dy:${(Math.sin(angle)*dist-15).toFixed(1)}px;`;
+      document.body.appendChild(sp);
+      setTimeout(()=>sp.remove(), 750);
+    }
+  }
 
   function g2048Nuevo() {
     g2048 = Array.from({length:G},()=>Array(G).fill(0));
@@ -3852,6 +3934,12 @@
     g2048Render();
     g2048CheckConcha(pts);
     g2048CheckOver();
+    if (pts > 0) {
+      const ahora = Date.now();
+      const combo = g2048LastMove > 0 && (ahora - g2048LastMove) < 1250;
+      g2048LastMove = ahora;
+      g2048Comentario(pts, combo);
+    }
   }
 
   function g2048CheckConcha(pts) {
