@@ -1922,6 +1922,25 @@
       border: 1px solid rgba(123,69,218,0.28);
     }
 
+    /* DIENTE CONFIG */
+    .diente-btn {
+      background: none; border: none; cursor: pointer;
+      font-size: 16px; padding: 4px; border-radius: 50%;
+      opacity: 0.18; transition: opacity 0.2s;
+      filter: hue-rotate(260deg) saturate(2);
+      will-change: transform;
+    }
+    .diente-btn:hover { opacity: 0.35; }
+    .diente-btn.morder {
+      animation: diente-morder 0.22s cubic-bezier(0.22,1,0.36,1);
+    }
+    @keyframes diente-morder {
+      0%   { transform: scale(1) rotate(0deg); }
+      30%  { transform: scale(1.5) rotate(-18deg); }
+      65%  { transform: scale(0.9) rotate(10deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
     /* PANEL ADMIN */
     .admin-panel {
       margin-top: 14px; padding: 14px 16px;
@@ -2650,6 +2669,9 @@
           </p>
           <div class="reinicio-actions">
             <button type="button" class="accion-viaje-btn accion-reset" id="resetViajeBtn">Empezar de nuevo</button>
+          </div>
+          <div style="text-align:right;margin-top:10px;">
+            <button type="button" class="diente-btn" id="dienteCfg" title=" ">🦷</button>
           </div>
         </article>
       </div>
@@ -3898,15 +3920,28 @@
   g2048Nuevo();
 
   // ─── ADMIN ────────────────────────────────────────────────
-  let adminPass = '';
-  document.addEventListener('keypress', e => {
-    adminPass = (adminPass + e.key).slice(-10);
-    if (adminPass === 'ingConfig$') {
-      adminPass = '';
-      const panel = document.getElementById('adminPanel');
-      if (panel) {
-        panel.classList.toggle('visible');
-        if (panel.classList.contains('visible')) adminActualizarInfo();
+  let _dienteClicks = 0, _dienteTimer = null;
+
+  document.getElementById('dienteCfg').addEventListener('click', () => {
+    const btn = document.getElementById('dienteCfg');
+    btn.classList.remove('morder');
+    void btn.offsetWidth;
+    btn.classList.add('morder');
+    btn.addEventListener('animationend', () => btn.classList.remove('morder'), { once: true });
+
+    _dienteClicks++;
+    clearTimeout(_dienteTimer);
+    _dienteTimer = setTimeout(() => { _dienteClicks = 0; }, 4000);
+
+    if (_dienteClicks >= 10) {
+      _dienteClicks = 0;
+      const clave = window.prompt('🔒');
+      if (clave === 'ingConfig$') {
+        const panel = document.getElementById('adminPanel');
+        if (panel) {
+          panel.classList.toggle('visible');
+          if (panel.classList.contains('visible')) adminActualizarInfo();
+        }
       }
     }
   });
