@@ -1742,6 +1742,66 @@
     }
 
     .deseo-burbuja { display: none !important; }
+
+    /* SOL DEL ENCABEZADO */
+    .sol-encabezado {
+      position: relative;
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 28px;
+    }
+
+    .sol-encabezado::before {
+      content: '';
+      position: absolute;
+      inset: -30px;
+      border-radius: 50%;
+      background: repeating-conic-gradient(
+        rgba(220, 180, 255, 0.30) 0deg 7deg,
+        transparent 7deg 22.5deg
+      );
+      animation: girar-rayos-sol 12s linear infinite;
+      will-change: transform;
+    }
+
+    .sol-encabezado::after {
+      content: '';
+      position: absolute;
+      inset: -52px;
+      border-radius: 50%;
+      background: repeating-conic-gradient(
+        rgba(184, 132, 255, 0.13) 0deg 4deg,
+        transparent 4deg 11.25deg
+      );
+      animation: girar-rayos-sol 24s linear infinite reverse;
+      will-change: transform;
+    }
+
+    .sol-encabezado-core {
+      position: relative;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 38% 34%, #fff7ff, #d9b6ff 38%, #b884ff 62%, #6d39cd 100%);
+      box-shadow:
+        0 0 0 1px rgba(215, 193, 255, 0.18),
+        0 0 32px rgba(184, 132, 255, 0.90),
+        0 0 64px rgba(184, 132, 255, 0.52),
+        0 0 120px rgba(123, 69, 218, 0.30),
+        0 0 200px rgba(184, 132, 255, 0.16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+      font-size: 36px;
+      animation: pulsar-sol-enc 3.2s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    @keyframes pulsar-sol-enc {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.08); }
+    }
   </style>
 </head>
 <body>
@@ -1773,6 +1833,9 @@
 
   <!-- ENCABEZADO -->
   <div class="encabezado">
+    <div class="sol-encabezado">
+      <div class="sol-encabezado-core">☀️</div>
+    </div>
     <p class="para-ti">Para mi amor</p>
     <h1 class="nombre-linda">Linda Martínez</h1>
     <div class="separador-estrella">
